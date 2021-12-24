@@ -1,0 +1,21 @@
+CREATE TABLE `contacts` (
+                            `id` int NOT NULL AUTO_INCREMENT,
+                            `name` varchar(25) DEFAULT NULL,
+                            `surname` varchar(25) DEFAULT NULL,
+                            `patronymic` varchar(25) DEFAULT NULL,
+                            `dateOfBirth` date DEFAULT NULL,
+                            `gender` enum('M','F') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                            `citizenShip` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                            `maritalStatus` enum('SINGLE','MARRIED') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                            `webSite` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                            `email` varchar(25) DEFAULT NULL,
+                            `placeOfWork` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                            `photoAddress` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                            `country` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                            `city` varchar(100) DEFAULT NULL,
+                            `street` varchar(100) DEFAULT NULL,
+                            `house` int DEFAULT NULL,
+                            `apartment` int DEFAULT NULL,
+                            `postcode` varchar(25) DEFAULT NULL,
+                            PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb3
