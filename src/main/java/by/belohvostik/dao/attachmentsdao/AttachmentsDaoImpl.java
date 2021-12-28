@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefAttachmentsDao implements  AttachmentsDao{
+public class AttachmentsDaoImpl implements AttachmentsDao {
 
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     static final String URL = "jdbc:mysql://localhost:3306/sys?serverTimezone=UTC";
@@ -16,20 +16,16 @@ public class DefAttachmentsDao implements  AttachmentsDao{
     static final String USER = "root";
     static final String PASSWORD = "password";
 
-    static  final String UPDATE = "update attachments set fileName = ?, commit = ? where id = ? ";
+    static final String UPDATE = "update attachments set fileName = ?, commit = ? where id = ? ";
 
-    static final  String READ = "select * from attachments ";
+    static final String READ = "select * from attachments ";
 
     static final String DELETE = "delete from attachments where id = ?";
 
     @Override
     public void update(AttachmentsDto attachmentsDto) {
 
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement st = con.prepareStatement(UPDATE)) {
@@ -46,11 +42,9 @@ public class DefAttachmentsDao implements  AttachmentsDao{
 
     @Override
     public List<AttachmentsEntity> read() {
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+
+        initDriver();
+
         ArrayList<AttachmentsEntity> list = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement st = con.prepareStatement(READ)) {
@@ -59,7 +53,7 @@ public class DefAttachmentsDao implements  AttachmentsDao{
 
             while (rs.next()) {
                 AttachmentsEntity attachmentsEntity = new AttachmentsEntity(rs.getInt("id"), rs.getString("fileName"),
-                        LocalDateTime.parse(rs.getString("dateOfDownload")) , rs.getString("commit"));
+                        LocalDateTime.parse(rs.getString("dateOfDownload")), rs.getString("commit"));
                 list.add(attachmentsEntity);
             }
 
@@ -73,18 +67,25 @@ public class DefAttachmentsDao implements  AttachmentsDao{
     @Override
     public void delete(int id) {
 
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        initDriver();
+
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement st = con.prepareStatement(DELETE)) {
 
-            st.setInt(1,id);
+            st.setInt(1, id);
             st.execute();
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void initDriver() {
+
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 

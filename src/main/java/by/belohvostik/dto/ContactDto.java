@@ -1,6 +1,8 @@
 package by.belohvostik.dto;
 
 
+import java.util.Objects;
+
 public class ContactDto {
 
     private int id;
@@ -86,6 +88,34 @@ public class ContactDto {
         return placeOfWork;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactDto that = (ContactDto) o;
+        return id == that.id && house == that.house && apartment == that.apartment && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(patronymic, that.patronymic) && Objects.equals(dateOfBirth, that.dateOfBirth) && Objects.equals(country, that.country) && Objects.equals(city, that.city) && Objects.equals(street, that.street) && Objects.equals(placeOfWork, that.placeOfWork);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, surname, patronymic, dateOfBirth, country, city, street, house, apartment, placeOfWork);
+    }
+
+    @Override
+    public String toString() {
+        return "ContactDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", house=" + house +
+                ", apartment=" + apartment +
+                ", placeOfWork='" + placeOfWork + '\'' +
+                '}';
+    }
 }
 

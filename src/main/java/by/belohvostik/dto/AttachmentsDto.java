@@ -1,5 +1,7 @@
 package by.belohvostik.dto;
 
+import java.util.Objects;
+
 public class AttachmentsDto {
 
     private String fileName;
@@ -20,5 +22,34 @@ public class AttachmentsDto {
 
     public String getCommit() {
         return commit;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public void setCommit(String commit) {
+        this.commit = commit;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AttachmentsDto that = (AttachmentsDto) o;
+        return Objects.equals(fileName, that.fileName) && Objects.equals(commit, that.commit);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fileName, commit);
+    }
+
+    @Override
+    public String toString() {
+        return "AttachmentsDto{" +
+                "fileName='" + fileName + '\'' +
+                ", commit='" + commit + '\'' +
+                '}';
     }
 }

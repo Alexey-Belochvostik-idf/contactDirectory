@@ -1,7 +1,7 @@
 package by.belohvostik.servlet;
 
 import by.belohvostik.dao.contactsdao.ContactsDao;
-import by.belohvostik.dao.contactsdao.DefContactsDao;
+import by.belohvostik.dao.contactsdao.ContactsDaoImpl;
 import by.belohvostik.entity.ContactPhotoAddress;
 
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ import java.nio.file.Files;
 @MultipartConfig(maxRequestSize = 11000000, maxFileSize = 10000000)
 public class ContactPhotoAddressServlet extends HttpServlet {
 
-    private final ContactsDao contactsDao = new DefContactsDao();
+    private final ContactsDao contactsDao = new ContactsDaoImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

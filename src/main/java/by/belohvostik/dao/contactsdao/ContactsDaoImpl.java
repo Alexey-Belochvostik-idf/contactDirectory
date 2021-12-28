@@ -1,7 +1,7 @@
 package by.belohvostik.dao.contactsdao;
 
 import by.belohvostik.dto.ContactDto;
-import by.belohvostik.entity.ContactEntity;
+import by.belohvostik.dto.ContactsCreateUpdateDto;
 import by.belohvostik.entity.ContactPhotoAddress;
 
 import java.sql.*;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DefContactsDao implements ContactsDao {
+public class ContactsDaoImpl implements ContactsDao {
 
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     static final String URL = "jdbc:mysql://localhost:3306/sys?serverTimezone=UTC";
@@ -28,38 +28,35 @@ public class DefContactsDao implements ContactsDao {
 
     static final String READ_ID = "select * from contacts where id = ?";
 
-    static  final String READ = "select * from contacts ";
+    static final String READ = "select * from contacts ";
 
     @Override
-    public void create(ContactEntity contactEntity) {
+    public void create(ContactsCreateUpdateDto contactsCreateUpdateDto) {
 
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement st = con.prepareStatement(CREATE)) {
+             PreparedStatement st = con.prepareStatement(CREATE,PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-            st.setString(1, contactEntity.getName());
-            st.setString(2, contactEntity.getSurname());
-            st.setString(3, contactEntity.getPatronymic());
-            st.setDate(4, new Date(contactEntity.getDateOfBirth().getTime()));
-            st.setString(5, String.valueOf(contactEntity.getGender()));
-            st.setString(6, contactEntity.getCitizenShip());
-            st.setString(7, String.valueOf(contactEntity.getMaritalStatus()));
-            st.setString(8, contactEntity.getWebSite());
-            st.setString(9, contactEntity.getEmail());
-            st.setString(10, contactEntity.getPlaceOfWork());
-            st.setString(11, contactEntity.getPhotoAddress());
-            st.setString(12, contactEntity.getCountry());
-            st.setString(13, contactEntity.getCity());
-            st.setString(14, contactEntity.getStreet());
-            st.setInt(15, contactEntity.getHouse());
-            st.setInt(16, contactEntity.getApartment());
-            st.setString(17, contactEntity.getPostcode());
+            st.setString(1, contactsCreateUpdateDto.getName());
+            st.setString(2, contactsCreateUpdateDto.getSurname());
+            st.setString(3, contactsCreateUpdateDto.getPatronymic());
+            st.setDate(4, new Date(contactsCreateUpdateDto.getDateOfBirth().getTime()));
+            st.setString(5, String.valueOf(contactsCreateUpdateDto.getGender()));
+            st.setString(6, contactsCreateUpdateDto.getCitizenShip());
+            st.setString(7, String.valueOf(contactsCreateUpdateDto.getMaritalStatus()));
+            st.setString(8, contactsCreateUpdateDto.getWebSite());
+            st.setString(9, contactsCreateUpdateDto.getEmail());
+            st.setString(10, contactsCreateUpdateDto.getPlaceOfWork());
+            st.setString(11, contactsCreateUpdateDto.getPhotoAddress());
+            st.setString(12, contactsCreateUpdateDto.getCountry());
+            st.setString(13, contactsCreateUpdateDto.getCity());
+            st.setString(14, contactsCreateUpdateDto.getStreet());
+            st.setInt(15, contactsCreateUpdateDto.getHouse());
+            st.setInt(16, contactsCreateUpdateDto.getApartment());
+            st.setString(17, contactsCreateUpdateDto.getPostcode());
             st.executeUpdate();
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,35 +65,31 @@ public class DefContactsDao implements ContactsDao {
     }
 
     @Override
-    public void update(ContactEntity contactEntity) {
+    public void update(ContactsCreateUpdateDto contactsCreateUpdateDto) {
 
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+       initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement st = con.prepareStatement(UPDATE)) {
 
-            st.setInt(18, contactEntity.getId());
-            st.setString(1, contactEntity.getName());
-            st.setString(2, contactEntity.getSurname());
-            st.setString(3, contactEntity.getPatronymic());
-            st.setDate(4, Date.valueOf(String.valueOf(contactEntity.getDateOfBirth())));
-            st.setString(5, String.valueOf(contactEntity.getGender()));
-            st.setString(6, contactEntity.getCitizenShip());
-            st.setString(7, String.valueOf(contactEntity.getMaritalStatus()));
-            st.setString(8, contactEntity.getWebSite());
-            st.setString(9, contactEntity.getEmail());
-            st.setString(10, contactEntity.getPlaceOfWork());
-            st.setString(11, contactEntity.getPhotoAddress());
-            st.setString(12, contactEntity.getCountry());
-            st.setString(13, contactEntity.getCity());
-            st.setString(14, contactEntity.getStreet());
-            st.setInt(15, contactEntity.getHouse());
-            st.setInt(16, contactEntity.getApartment());
-            st.setString(17, contactEntity.getPostcode());
+            st.setInt(18, contactsCreateUpdateDto.getId());
+            st.setString(1, contactsCreateUpdateDto.getName());
+            st.setString(2, contactsCreateUpdateDto.getSurname());
+            st.setString(3, contactsCreateUpdateDto.getPatronymic());
+            st.setDate(4, new Date(contactsCreateUpdateDto.getDateOfBirth().getTime()));
+            st.setString(5, String.valueOf(contactsCreateUpdateDto.getGender()));
+            st.setString(6, contactsCreateUpdateDto.getCitizenShip());
+            st.setString(7, String.valueOf(contactsCreateUpdateDto.getMaritalStatus()));
+            st.setString(8, contactsCreateUpdateDto.getWebSite());
+            st.setString(9, contactsCreateUpdateDto.getEmail());
+            st.setString(10, contactsCreateUpdateDto.getPlaceOfWork());
+            st.setString(11, contactsCreateUpdateDto.getPhotoAddress());
+            st.setString(12, contactsCreateUpdateDto.getCountry());
+            st.setString(13, contactsCreateUpdateDto.getCity());
+            st.setString(14, contactsCreateUpdateDto.getStreet());
+            st.setInt(15, contactsCreateUpdateDto.getHouse());
+            st.setInt(16, contactsCreateUpdateDto.getApartment());
+            st.setString(17, contactsCreateUpdateDto.getPostcode());
             st.executeUpdate();
 
         } catch (
@@ -109,11 +102,8 @@ public class DefContactsDao implements ContactsDao {
     @Override
     public List<ContactDto> readId(int id) {
 
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        initDriver();
+
         ArrayList<ContactDto> list = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement st = con.prepareStatement(READ_ID)) {
@@ -138,11 +128,9 @@ public class DefContactsDao implements ContactsDao {
 
     @Override
     public List<ContactDto> read() {
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+
+        initDriver();
+
         ArrayList<ContactDto> list = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement st = con.prepareStatement(READ)) {
@@ -153,7 +141,7 @@ public class DefContactsDao implements ContactsDao {
                 ContactDto contactDto = new ContactDto(rs.getInt("id"), rs.getString("name"), rs.getString("surname"),
                         rs.getString("patronymic"), rs.getString("dateOfBirth"), rs.getString("country"),
                         rs.getString("city"), rs.getString("street"), rs.getInt("house"),
-                        rs.getInt("apartment"),rs.getString("placeOfWork"));
+                        rs.getInt("apartment"), rs.getString("placeOfWork"));
                 list.add(contactDto);
             }
 
@@ -166,11 +154,8 @@ public class DefContactsDao implements ContactsDao {
     @Override
     public void delete(int id) {
 
-        try {
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        initDriver();
+
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement st = con.prepareStatement(DELETE)) {
             st.setInt(1, id);
@@ -181,14 +166,21 @@ public class DefContactsDao implements ContactsDao {
         }
     }
 
-    @Override
-    public void addPhotoAddress(ContactPhotoAddress contactPhotoAddressEntity) {
+    public void initDriver() {
 
         try {
             Class.forName(JDBC_DRIVER);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    public void addPhotoAddress(ContactPhotoAddress contactPhotoAddressEntity) {
+
+       initDriver();
+
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement st = con.prepareStatement("insert into contacts ( photoAddress) values (" +
                      "'" + Arrays.toString(contactPhotoAddressEntity.getPhotoAddress()) + "'," + ")")) {

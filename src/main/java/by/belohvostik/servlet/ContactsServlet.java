@@ -1,15 +1,12 @@
 package by.belohvostik.servlet;
 
-import by.belohvostik.dao.contactsdao.ContactsDao;
-import by.belohvostik.dao.contactsdao.DefContactsDao;
 import by.belohvostik.dto.ContactDto;
 import by.belohvostik.entity.ContactEntity;
-import by.belohvostik.entity.GenderEntity;
-import by.belohvostik.entity.MaritalStatusEntity;
+import by.belohvostik.service.contactservice.ContactService;
+import by.belohvostik.service.contactservice.ContactServiceImpl;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,34 +18,32 @@ import java.util.stream.Collectors;
 @WebServlet(urlPatterns = {"/contacts", "/contacts/*" })
 public class ContactsServlet extends HttpServlet {
 
-    private final ContactsDao contactsDao = new DefContactsDao();
+    private final ContactService contactService = new ContactServiceImpl();
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String test = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String json = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        ContactEntity contact = mapper.readValue(test, ContactEntity.class);
-        ContactEntity contactEntity = new ContactEntity(contact.getId(), contact.getName(), contact.getSurname(), contact.getPatronymic(),
-                contact.getDateOfBirth(), GenderEntity.valueOf(String.valueOf(contact.getGender())), String.valueOf(contact.getCitizenShip()),
-                MaritalStatusEntity.valueOf(String.valueOf(contact.getMaritalStatus())),
-                contact.getWebSite(), contact.getEmail(), contact.getPlaceOfWork(), contact.getPhotoAddress(), contact.getCountry(), contact.getCity(),
-                contact.getStreet(), contact.getHouse(), contact.getApartment(), contact.getPostcode());
-        contactsDao.create(contactEntity);
+        ContactEntity contact = mapper.readValue(json, ContactEntity.class);
+        contactService.mapperCreateEntityToDto(contact);
         resp.setStatus(HttpServletResponse.SC_CREATED);
+        resp.setContentType("application/json;charset=UTF-8");
+        resp.getWriter().println(" Ваш контак создан и ему присвоен номер : " );
+        resp.getWriter().close();
 
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        if (req.getPathInfo() != null){
-            int id = Integer.parseInt(req.getPathInfo().replace("/",""));
-            final List<ContactDto> readId = contactsDao.readId(id);
+        if (req.getPathInfo() != null) {
+            int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
+            final List<ContactDto> readId = contactService.readId(id);
             String jsonReadId = mapper.writeValueAsString(readId);
             resp.getWriter().write(jsonReadId);
-        }else{
-            final List<ContactDto> all = contactsDao.read();
+        } else {
+            final List<ContactDto> all = contactService.read();
             String jsonRead = mapper.writeValueAsString(all);
             resp.getWriter().write(jsonRead);
         }
@@ -59,26 +54,21 @@ public class ContactsServlet extends HttpServlet {
 
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        int id = Integer.parseInt(req.getPathInfo().replace("/",""));
-        String test = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+        int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
+        String json = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        ContactEntity contact = mapper.readValue(test, ContactEntity.class);
-        ContactEntity contactEntity = new ContactEntity(id, contact.getName(), contact.getSurname(), contact.getPatronymic(),
-                contact.getDateOfBirth(), GenderEntity.valueOf(String.valueOf(contact.getGender())), String.valueOf(contact.getCitizenShip()),
-                MaritalStatusEntity.valueOf(String.valueOf(contact.getMaritalStatus())),
-                contact.getWebSite(), contact.getEmail(), contact.getPlaceOfWork(), contact.getPhotoAddress(), contact.getCountry(), contact.getCity(),
-                contact.getStreet(), contact.getHouse(), contact.getApartment(), contact.getPostcode());
-        contactsDao.update(contactEntity);
+        ContactEntity contact = mapper.readValue(json, ContactEntity.class);
+        contactService.mapperUpdateEntityToDto(contact,id);
         resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getPathInfo().replace("/",""));
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
+        int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
 
-        contactsDao.delete(id);
+        contactService.delete(id);
         resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
 
     }
