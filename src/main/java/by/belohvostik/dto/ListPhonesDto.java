@@ -29,48 +29,24 @@ public class ListPhonesDto {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getCodeOfCountry() {
         return codeOfCountry;
-    }
-
-    public void setCodeOfCountry(int codeOfCountry) {
-        this.codeOfCountry = codeOfCountry;
     }
 
     public int getCodeOperation() {
         return codeOperation;
     }
 
-    public void setCodeOperation(int codeOperation) {
-        this.codeOperation = codeOperation;
-    }
-
     public int getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public TypePhone getTypePhone() {
         return typePhone;
     }
 
-    public void setTypePhone(TypePhone typePhone) {
-        this.typePhone = typePhone;
-    }
-
     public String getCommit() {
         return commit;
-    }
-
-    public void setCommit(String commit) {
-        this.commit = commit;
     }
 
     @Override
@@ -88,7 +64,7 @@ public class ListPhonesDto {
 
     @Override
     public String toString() {
-        return "ListPhoneDto{" +
+        return "EditingPhones{" +
                 "id=" + id +
                 ", codeOfCountry=" + codeOfCountry +
                 ", codeOperation=" + codeOperation +

@@ -1,6 +1,6 @@
 package by.belohvostik.servlet;
 
-import by.belohvostik.entity.ListPhonesEntity;
+import by.belohvostik.dto.ListPhonesDto;
 import by.belohvostik.service.listphonesservice.ListPhonesService;
 import by.belohvostik.service.listphonesservice.ListPhonesServiceImpl;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -25,7 +25,7 @@ public class ListPhonesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         req.getPathInfo();
-        final List<ListPhonesEntity> all = listPhonesService.read();
+        final List<ListPhonesDto> all = listPhonesService.read();
         String jsonRead = mapper.writeValueAsString(all);
         resp.setContentType("application/json;charset=UTF-8");
         resp.getWriter().write(jsonRead);
@@ -36,10 +36,10 @@ public class ListPhonesServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        String test = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+        String json = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        ListPhonesEntity listPhonesEntity = mapper.readValue(test, ListPhonesEntity.class);
-        listPhonesService.update(listPhonesEntity);
+        ListPhonesDto listPhonesDto = mapper.readValue(json, ListPhonesDto.class);
+        listPhonesService.update(listPhonesDto);
         resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
 
     }

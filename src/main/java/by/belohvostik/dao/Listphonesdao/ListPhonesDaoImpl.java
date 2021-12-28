@@ -1,6 +1,7 @@
 package by.belohvostik.dao.Listphonesdao;
 
 import by.belohvostik.dto.ListPhonesDto;
+import by.belohvostik.entity.ListPhonesEntity;
 import by.belohvostik.entity.*;
 
 import java.sql.*;
@@ -23,18 +24,18 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
 
 
     @Override
-    public void update(ListPhonesDto listPhonesDto) {
+    public void update(ListPhonesEntity listPhonesEntity) {
 
         initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement st = con.prepareStatement(UPDATE)) {
 
-            st.setInt(1, listPhonesDto.getCodeOfCountry());
-            st.setInt(2, listPhonesDto.getCodeOperation());
-            st.setInt(3, listPhonesDto.getPhoneNumber());
-            st.setString(4, String.valueOf(listPhonesDto.getTypePhone()));
-            st.setString(5, listPhonesDto.getCommit());
+            st.setInt(1, listPhonesEntity.getCodeOfCountry());
+            st.setInt(2, listPhonesEntity.getCodeOperation());
+            st.setInt(3, listPhonesEntity.getPhoneNumber());
+            st.setString(4, String.valueOf(listPhonesEntity.getTypePhone()));
+            st.setString(5, listPhonesEntity.getCommit());
             st.executeUpdate();
 
         } catch (SQLException e) {
@@ -44,18 +45,18 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
     }
 
     @Override
-    public List<ListPhonesEntity> read() {
+    public List<ListPhonesDto> read() {
 
         initDriver();
 
-        ArrayList<ListPhonesEntity> list = new ArrayList<>();
+        ArrayList<ListPhonesDto> list = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement st = con.prepareStatement(READ)) {
 
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-                ListPhonesEntity editingPhonesEntity = new ListPhonesEntity(rs.getInt("id"), rs.getInt("codeOfCountry"), rs.getInt("codeOperation"),
+                ListPhonesDto editingPhonesEntity = new ListPhonesDto(rs.getInt("id"), rs.getInt("codeOfCountry"), rs.getInt("codeOperation"),
                         rs.getInt("phoneNumber"), TypePhone.valueOf(rs.getString("typePhone")), rs.getString("commit"));
                 list.add(editingPhonesEntity);
             }
