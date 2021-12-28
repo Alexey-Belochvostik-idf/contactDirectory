@@ -1,14 +1,14 @@
 package by.belohvostik.service.attachmentsservice;
 
-import by.belohvostik.entity.AttachmentsEntity;
+import by.belohvostik.dto.AttachmentsDto;
 
 import java.util.List;
 
 public interface AttachmentsService {
 
-    void update(AttachmentsEntity attachmentsEntity);
+    void update(AttachmentsDto attachmentsDto);
 
-    List<AttachmentsEntity> read();
+    List<AttachmentsDto> read();
 
     void delete(int id);
 

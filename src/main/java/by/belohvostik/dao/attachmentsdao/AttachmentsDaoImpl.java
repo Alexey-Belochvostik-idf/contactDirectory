@@ -1,7 +1,7 @@
 package by.belohvostik.dao.attachmentsdao;
 
-import by.belohvostik.dto.AttachmentsDto;
 import by.belohvostik.entity.AttachmentsEntity;
+import by.belohvostik.dto.AttachmentsDto;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -23,15 +23,15 @@ public class AttachmentsDaoImpl implements AttachmentsDao {
     static final String DELETE = "delete from attachments where id = ?";
 
     @Override
-    public void update(AttachmentsDto attachmentsDto) {
+    public void update(AttachmentsEntity attachmentsEntity) {
 
         initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement st = con.prepareStatement(UPDATE)) {
 
-            st.setString(1, attachmentsDto.getFileName());
-            st.setString(2, attachmentsDto.getCommit());
+            st.setString(1, attachmentsEntity.getFileName());
+            st.setString(2, attachmentsEntity.getCommit());
             st.executeUpdate();
 
         } catch (SQLException e) {
@@ -41,18 +41,18 @@ public class AttachmentsDaoImpl implements AttachmentsDao {
     }
 
     @Override
-    public List<AttachmentsEntity> read() {
+    public List<AttachmentsDto> read() {
 
         initDriver();
 
-        ArrayList<AttachmentsEntity> list = new ArrayList<>();
+        ArrayList<AttachmentsDto> list = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement st = con.prepareStatement(READ)) {
 
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-                AttachmentsEntity attachmentsEntity = new AttachmentsEntity(rs.getInt("id"), rs.getString("fileName"),
+                AttachmentsDto attachmentsEntity = new AttachmentsDto(rs.getInt("id"), rs.getString("fileName"),
                         LocalDateTime.parse(rs.getString("dateOfDownload")), rs.getString("commit"));
                 list.add(attachmentsEntity);
             }

@@ -1,35 +1,36 @@
 package by.belohvostik.dto;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class AttachmentsDto {
 
-    private String fileName;
+    private  final  int id;
+    private  final  String fileName;
+    private  final LocalDateTime dateOfDownload;
+    private  final  String commit;
 
-    private String commit;
-
-    public AttachmentsDto() {
+    public AttachmentsDto(int id, String fileName, LocalDateTime dateOfDownload, String commit) {
+        this.id = id;
+        this.fileName = fileName;
+        this.dateOfDownload = dateOfDownload;
+        this.commit = commit;
     }
 
-    public AttachmentsDto(String fileName, String commit) {
-        this.fileName = fileName;
-        this.commit = commit;
+    public int getId() {
+        return id;
     }
 
     public String getFileName() {
         return fileName;
     }
 
+    public LocalDateTime getDateOfDownload() {
+        return dateOfDownload;
+    }
+
     public String getCommit() {
         return commit;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public void setCommit(String commit) {
-        this.commit = commit;
     }
 
     @Override
@@ -37,18 +38,20 @@ public class AttachmentsDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AttachmentsDto that = (AttachmentsDto) o;
-        return Objects.equals(fileName, that.fileName) && Objects.equals(commit, that.commit);
+        return id == that.id && Objects.equals(fileName, that.fileName) && Objects.equals(dateOfDownload, that.dateOfDownload) && Objects.equals(commit, that.commit);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fileName, commit);
+        return Objects.hash(id, fileName, dateOfDownload, commit);
     }
 
     @Override
     public String toString() {
-        return "AttachmentsDto{" +
-                "fileName='" + fileName + '\'' +
+        return "Attachments{" +
+                "id=" + id +
+                ", fileName='" + fileName + '\'' +
+                ", dateOfDownload=" + dateOfDownload +
                 ", commit='" + commit + '\'' +
                 '}';
     }

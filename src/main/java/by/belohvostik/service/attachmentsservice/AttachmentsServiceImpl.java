@@ -2,8 +2,8 @@ package by.belohvostik.service.attachmentsservice;
 
 import by.belohvostik.dao.attachmentsdao.AttachmentsDao;
 import by.belohvostik.dao.attachmentsdao.AttachmentsDaoImpl;
-import by.belohvostik.dto.AttachmentsDto;
 import by.belohvostik.entity.AttachmentsEntity;
+import by.belohvostik.dto.AttachmentsDto;
 
 import java.util.List;
 
@@ -12,15 +12,15 @@ public class AttachmentsServiceImpl implements AttachmentsService {
     private final AttachmentsDao attachmentsDao = new AttachmentsDaoImpl();
 
     @Override
-    public void update(AttachmentsEntity attachmentsEntity) {
+    public void update(AttachmentsDto attachmentsDto) {
 
-        AttachmentsDto attachmentsDto = new AttachmentsDto(attachmentsEntity.getFileName(), attachmentsEntity.getCommit());
-        attachmentsDao.update(attachmentsDto);
+        AttachmentsEntity attachmentsEntity = new AttachmentsEntity(attachmentsDto.getFileName(), attachmentsDto.getCommit());
+        attachmentsDao.update(attachmentsEntity);
 
     }
 
     @Override
-    public List<AttachmentsEntity> read() {
+    public List<AttachmentsDto> read() {
 
         return attachmentsDao.read();
     }

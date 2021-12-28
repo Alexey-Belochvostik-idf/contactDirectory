@@ -1,6 +1,7 @@
 package by.belohvostik.servlet;
 
 import by.belohvostik.entity.AttachmentsEntity;
+import by.belohvostik.dto.AttachmentsDto;
 import by.belohvostik.service.attachmentsservice.AttachmentsService;
 import by.belohvostik.service.attachmentsservice.AttachmentsServiceImpl;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -25,7 +26,7 @@ public class AttachmentsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
         req.getPathInfo();
-        final List<AttachmentsEntity> all = attachmentsService.read();
+        final List<AttachmentsDto> all = attachmentsService.read();
         String jsonRead = mapper.writeValueAsString(all);
         resp.setContentType("application/json;charset=UTF-8");
         resp.getWriter().write(jsonRead);
@@ -36,9 +37,9 @@ public class AttachmentsServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
 
-        String test = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+        String json = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        AttachmentsEntity attachments = mapper.readValue(test, AttachmentsEntity.class);
+        AttachmentsDto attachments = mapper.readValue(json, AttachmentsDto.class);
         attachmentsService.update(attachments);
         resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
 

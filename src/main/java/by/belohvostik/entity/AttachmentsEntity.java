@@ -1,36 +1,35 @@
 package by.belohvostik.entity;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class AttachmentsEntity {
 
-    private  final  int id;
-    private  final  String fileName;
-    private  final LocalDateTime dateOfDownload;
-    private  final  String commit;
+    private String fileName;
 
-    public AttachmentsEntity(int id, String fileName, LocalDateTime dateOfDownload, String commit) {
-        this.id = id;
-        this.fileName = fileName;
-        this.dateOfDownload = dateOfDownload;
-        this.commit = commit;
+    private String commit;
+
+    public AttachmentsEntity() {
     }
 
-    public int getId() {
-        return id;
+    public AttachmentsEntity(String fileName, String commit) {
+        this.fileName = fileName;
+        this.commit = commit;
     }
 
     public String getFileName() {
         return fileName;
     }
 
-    public LocalDateTime getDateOfDownload() {
-        return dateOfDownload;
-    }
-
     public String getCommit() {
         return commit;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public void setCommit(String commit) {
+        this.commit = commit;
     }
 
     @Override
@@ -38,20 +37,18 @@ public class AttachmentsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AttachmentsEntity that = (AttachmentsEntity) o;
-        return id == that.id && Objects.equals(fileName, that.fileName) && Objects.equals(dateOfDownload, that.dateOfDownload) && Objects.equals(commit, that.commit);
+        return Objects.equals(fileName, that.fileName) && Objects.equals(commit, that.commit);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fileName, dateOfDownload, commit);
+        return Objects.hash(fileName, commit);
     }
 
     @Override
     public String toString() {
-        return "Attachments{" +
-                "id=" + id +
-                ", fileName='" + fileName + '\'' +
-                ", dateOfDownload=" + dateOfDownload +
+        return "AttachmentsDto{" +
+                "fileName='" + fileName + '\'' +
                 ", commit='" + commit + '\'' +
                 '}';
     }

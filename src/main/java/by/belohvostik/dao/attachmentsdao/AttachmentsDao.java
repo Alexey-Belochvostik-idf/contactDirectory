@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface AttachmentsDao {
 
-    void update(AttachmentsDto attachmentsDto);
+    void update(AttachmentsEntity attachmentsEntity);
 
-    List<AttachmentsEntity> read();
+    List<AttachmentsDto> read();
 
     void delete(int id);
 
