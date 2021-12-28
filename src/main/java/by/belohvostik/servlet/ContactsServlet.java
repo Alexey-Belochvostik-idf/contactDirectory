@@ -19,7 +19,9 @@ import java.util.stream.Collectors;
 public class ContactsServlet extends HttpServlet {
 
     private final ContactService contactService = new ContactServiceImpl();
+
     private final ObjectMapper mapper = new ObjectMapper();
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -58,7 +60,6 @@ public class ContactsServlet extends HttpServlet {
 
         int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
         String json = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         ContactsCreateUpdateDto contact = mapper.readValue(json, ContactsCreateUpdateDto.class);
         contactService.mapperUpdateEntityToDto(contact,id);
         resp.setStatus(HttpServletResponse.SC_NO_CONTENT);

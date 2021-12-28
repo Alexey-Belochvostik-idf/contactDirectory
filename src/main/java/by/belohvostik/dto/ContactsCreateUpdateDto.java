@@ -8,24 +8,27 @@ import java.util.Objects;
 
 public class ContactsCreateUpdateDto {
 
-    private final int id;
-    private final String name;
-    private final String surname;
-    private final String patronymic;
-    private final Date dateOfBirth;
-    private final GenderEntity gender;
-    private final String citizenShip;
-    private final MaritalStatusEntity maritalStatus;
-    private final String webSite;
-    private final String email;
-    private final String placeOfWork;
-    private final String photoAddress;
-    private final String country;
-    private final String city;
-    private final String street;
-    private final int house;
-    private final int apartment;
-    private final String postcode;
+    private int id;
+    private String name;
+    private String surname;
+    private String patronymic;
+    private Date dateOfBirth;
+    private GenderEntity gender;
+    private String citizenShip;
+    private MaritalStatusEntity maritalStatus;
+    private String webSite;
+    private String email;
+    private String placeOfWork;
+    private String photoAddress;
+    private String country;
+    private String city;
+    private String street;
+    private int house;
+    private int apartment;
+    private String postcode;
+
+    public ContactsCreateUpdateDto() {
+    }
 
     public ContactsCreateUpdateDto(int id, String name, String surname, String patronymic, Date dateOfBirth, GenderEntity gender, String citizenShip,
                                    MaritalStatusEntity maritalStatus, String webSite, String email, String placeOfWork, String photoAddress,
