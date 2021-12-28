@@ -5,27 +5,24 @@ import java.util.Objects;
 
 public class ContactEntity {
 
-    private  int id;
-    private  String name;
-    private  String surname;
-    private  String patronymic;
-    private Date dateOfBirth;
-    private  GenderEntity gender;
-    private  String citizenShip;
-    private  MaritalStatusEntity maritalStatus;
-    private  String webSite;
-    private  String email;
-    private  String placeOfWork;
-    private  String photoAddress;
-    private  String country;
-    private  String city;
-    private  String street;
-    private  int house;
-    private  int apartment;
-    private  String postcode;
-
-    public ContactEntity() {
-    }
+    private final int id;
+    private final String name;
+    private final String surname;
+    private final String patronymic;
+    private final Date dateOfBirth;
+    private final GenderEntity gender;
+    private final String citizenShip;
+    private final MaritalStatusEntity maritalStatus;
+    private final String webSite;
+    private final String email;
+    private final String placeOfWork;
+    private final String photoAddress;
+    private final String country;
+    private final String city;
+    private final String street;
+    private final int house;
+    private final int apartment;
+    private final String postcode;
 
     public ContactEntity(int id,
                          String name,
@@ -143,7 +140,7 @@ public class ContactEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactEntity that = (ContactEntity) o;
-        return id == that.id && house == that.house && apartment == that.apartment && postcode == that.postcode && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(patronymic, that.patronymic) && Objects.equals(dateOfBirth, that.dateOfBirth) && gender == that.gender && Objects.equals(citizenShip, that.citizenShip) && Objects.equals(maritalStatus, that.maritalStatus) && Objects.equals(webSite, that.webSite) && Objects.equals(email, that.email) && Objects.equals(placeOfWork, that.placeOfWork) && Objects.equals(photoAddress, that.photoAddress) && Objects.equals(country, that.country) && Objects.equals(city, that.city) && Objects.equals(street, that.street);
+        return id == that.id && house == that.house && apartment == that.apartment && Objects.equals(postcode, that.postcode) && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(patronymic, that.patronymic) && Objects.equals(dateOfBirth, that.dateOfBirth) && gender == that.gender && Objects.equals(citizenShip, that.citizenShip) && Objects.equals(maritalStatus, that.maritalStatus) && Objects.equals(webSite, that.webSite) && Objects.equals(email, that.email) && Objects.equals(placeOfWork, that.placeOfWork) && Objects.equals(photoAddress, that.photoAddress) && Objects.equals(country, that.country) && Objects.equals(city, that.city) && Objects.equals(street, that.street);
     }
 
     @Override

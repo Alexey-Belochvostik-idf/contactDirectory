@@ -1,6 +1,5 @@
 package by.belohvostik.servlet;
 
-import by.belohvostik.entity.AttachmentsEntity;
 import by.belohvostik.dto.AttachmentsDto;
 import by.belohvostik.service.attachmentsservice.AttachmentsService;
 import by.belohvostik.service.attachmentsservice.AttachmentsServiceImpl;

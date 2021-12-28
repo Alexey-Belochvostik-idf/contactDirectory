@@ -6,15 +6,12 @@ import java.util.Objects;
 
 public class ListPhonesDto {
 
-    private int id;
-    private int codeOfCountry;
-    private int codeOperation;
-    private int phoneNumber;
-    private TypePhone typePhone;
-    private String commit;
-
-    public ListPhonesDto() {
-    }
+    private final int id;
+    private final int codeOfCountry;
+    private final int codeOperation;
+    private final int phoneNumber;
+    private final TypePhone typePhone;
+    private final String commit;
 
     public ListPhonesDto(int id, int codeOfCountry, int codeOperation, int phoneNumber, TypePhone typePhone, String commit) {
         this.id = id;

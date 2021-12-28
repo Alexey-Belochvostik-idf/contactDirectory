@@ -2,7 +2,6 @@ package by.belohvostik.service.contactservice;
 
 import by.belohvostik.dto.ContactDto;
 import by.belohvostik.dto.ContactsCreateUpdateDto;
-import by.belohvostik.entity.ContactEntity;
 
 import java.util.List;
 

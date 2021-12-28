@@ -4,12 +4,10 @@ import java.util.Objects;
 
 public class AttachmentsEntity {
 
-    private String fileName;
+    private final String fileName;
 
-    private String commit;
+    private final String commit;
 
-    public AttachmentsEntity() {
-    }
 
     public AttachmentsEntity(String fileName, String commit) {
         this.fileName = fileName;
@@ -22,14 +20,6 @@ public class AttachmentsEntity {
 
     public String getCommit() {
         return commit;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public void setCommit(String commit) {
-        this.commit = commit;
     }
 
     @Override

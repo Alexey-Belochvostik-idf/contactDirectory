@@ -5,14 +5,11 @@ import java.util.Objects;
 public class ListPhonesEntity {
 
     private int id;
-    private int codeOfCountry;
-    private int codeOperation;
-    private int phoneNumber;
-    private TypePhone typePhone;
-    private String commit;
-
-    public ListPhonesEntity() {
-    }
+    private final int codeOfCountry;
+    private final int codeOperation;
+    private final int phoneNumber;
+    private final TypePhone typePhone;
+    private final String commit;
 
     public ListPhonesEntity(int id, int codeOfCountry, int codeOperation, int phoneNumber, TypePhone typePhone, String commit) {
         this.id = id;
@@ -35,40 +32,20 @@ public class ListPhonesEntity {
         return codeOfCountry;
     }
 
-    public void setCodeOfCountry(int codeOfCountry) {
-        this.codeOfCountry = codeOfCountry;
-    }
-
     public int getCodeOperation() {
         return codeOperation;
-    }
-
-    public void setCodeOperation(int codeOperation) {
-        this.codeOperation = codeOperation;
     }
 
     public int getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public TypePhone getTypePhone() {
         return typePhone;
     }
 
-    public void setTypePhone(TypePhone typePhone) {
-        this.typePhone = typePhone;
-    }
-
     public String getCommit() {
         return commit;
-    }
-
-    public void setCommit(String commit) {
-        this.commit = commit;
     }
 
     @Override

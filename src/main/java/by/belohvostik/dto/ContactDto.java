@@ -5,20 +5,17 @@ import java.util.Objects;
 
 public class ContactDto {
 
-    private int id;
-    private String name;
-    private String surname;
-    private String patronymic;
-    private String dateOfBirth;
-    private String country;
-    private String city;
-    private String street;
-    private int house;
-    private int apartment;
-    private String placeOfWork;
-
-    public ContactDto() {
-    }
+    private final int id;
+    private final String name;
+    private final String surname;
+    private final String patronymic;
+    private final String dateOfBirth;
+    private final String country;
+    private final String city;
+    private final String street;
+    private final int house;
+    private final int apartment;
+    private final String placeOfWork;
 
     public ContactDto(int id, String name, String surname, String patronymic, String dateOfBirth, String country, String city, String street, int house, int apartment, String placeOfWork) {
         this.id = id;
