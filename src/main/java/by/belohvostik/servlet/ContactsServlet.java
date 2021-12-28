@@ -28,10 +28,10 @@ public class ContactsServlet extends HttpServlet {
         String json = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         ContactsCreateUpdateDto contact = mapper.readValue(json, ContactsCreateUpdateDto.class);
-        contactService.mapperCreateEntityToDto(contact);
+        int idr = contactService.createDtoToEntity(contact);
         resp.setStatus(HttpServletResponse.SC_CREATED);
         resp.setContentType("application/json;charset=UTF-8");
-        resp.getWriter().println(" Ваш контак создан и ему присвоен номер : " );
+        resp.getWriter().println(idr);
         resp.getWriter().close();
 
     }
@@ -61,7 +61,7 @@ public class ContactsServlet extends HttpServlet {
         int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
         String json = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         ContactsCreateUpdateDto contact = mapper.readValue(json, ContactsCreateUpdateDto.class);
-        contactService.mapperUpdateEntityToDto(contact,id);
+        contactService.updateDtoToEntity(contact,id);
         resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
     }
 

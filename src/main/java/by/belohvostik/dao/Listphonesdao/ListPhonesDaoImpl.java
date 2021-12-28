@@ -29,14 +29,14 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
         initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement st = con.prepareStatement(UPDATE)) {
+             PreparedStatement pst = con.prepareStatement(UPDATE)) {
 
-            st.setInt(1, listPhonesEntity.getCodeOfCountry());
-            st.setInt(2, listPhonesEntity.getCodeOperation());
-            st.setInt(3, listPhonesEntity.getPhoneNumber());
-            st.setString(4, String.valueOf(listPhonesEntity.getTypePhone()));
-            st.setString(5, listPhonesEntity.getCommit());
-            st.executeUpdate();
+            pst.setInt(1, listPhonesEntity.getCodeOfCountry());
+            pst.setInt(2, listPhonesEntity.getCodeOperation());
+            pst.setInt(3, listPhonesEntity.getPhoneNumber());
+            pst.setString(4, String.valueOf(listPhonesEntity.getTypePhone()));
+            pst.setString(5, listPhonesEntity.getCommit());
+            pst.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -51,9 +51,9 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
 
         ArrayList<ListPhonesDto> list = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement st = con.prepareStatement(READ)) {
+             PreparedStatement pst = con.prepareStatement(READ)) {
 
-            ResultSet rs = st.executeQuery();
+            ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
                 ListPhonesDto editingPhonesEntity = new ListPhonesDto(rs.getInt("id"), rs.getInt("codeOfCountry"), rs.getInt("codeOperation"),
@@ -74,9 +74,9 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
         initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement st = con.prepareStatement(DELETE)) {
-            st.setInt(1, id);
-            st.execute();
+             PreparedStatement pst = con.prepareStatement(DELETE)) {
+            pst.setInt(1, id);
+            pst.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();

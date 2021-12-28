@@ -28,11 +28,11 @@ public class AttachmentsDaoImpl implements AttachmentsDao {
         initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement st = con.prepareStatement(UPDATE)) {
+             PreparedStatement pst = con.prepareStatement(UPDATE)) {
 
-            st.setString(1, attachmentsEntity.getFileName());
-            st.setString(2, attachmentsEntity.getCommit());
-            st.executeUpdate();
+            pst.setString(1, attachmentsEntity.getFileName());
+            pst.setString(2, attachmentsEntity.getCommit());
+            pst.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,9 +47,9 @@ public class AttachmentsDaoImpl implements AttachmentsDao {
 
         ArrayList<AttachmentsDto> list = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement st = con.prepareStatement(READ)) {
+             PreparedStatement pst = con.prepareStatement(READ)) {
 
-            ResultSet rs = st.executeQuery();
+            ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
                 AttachmentsDto attachmentsEntity = new AttachmentsDto(rs.getInt("id"), rs.getString("fileName"),
@@ -70,10 +70,10 @@ public class AttachmentsDaoImpl implements AttachmentsDao {
         initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement st = con.prepareStatement(DELETE)) {
+             PreparedStatement pst = con.prepareStatement(DELETE)) {
 
-            st.setInt(1, id);
-            st.execute();
+            pst.setInt(1, id);
+            pst.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();

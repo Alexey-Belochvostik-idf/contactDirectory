@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface ContactService {
 
-    void mapperCreateEntityToDto(ContactsCreateUpdateDto contactsCreateUpdateDto);
+    int createDtoToEntity(ContactsCreateUpdateDto contactsCreateUpdateDto);
 
-    void mapperUpdateEntityToDto(ContactsCreateUpdateDto contactsCreateUpdateDto, int id);
+    void updateDtoToEntity(ContactsCreateUpdateDto contactsCreateUpdateDto, int id);
 
     List<ContactDto> readId(int id);
 

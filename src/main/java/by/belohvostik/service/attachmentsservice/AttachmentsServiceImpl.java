@@ -14,7 +14,7 @@ public class AttachmentsServiceImpl implements AttachmentsService {
     @Override
     public void update(AttachmentsDto attachmentsDto) {
 
-        AttachmentsEntity attachmentsEntity = new AttachmentsEntity(attachmentsDto.getFileName(), attachmentsDto.getCommit());
+        AttachmentsEntity attachmentsEntity = new AttachmentsEntity(attachmentsDto);
         attachmentsDao.update(attachmentsEntity);
 
     }

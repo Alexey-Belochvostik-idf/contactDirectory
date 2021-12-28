@@ -1,5 +1,7 @@
 package by.belohvostik.entity;
 
+import by.belohvostik.dto.AttachmentsDto;
+
 import java.util.Objects;
 
 public class AttachmentsEntity {
@@ -8,10 +10,10 @@ public class AttachmentsEntity {
 
     private final String commit;
 
+    public AttachmentsEntity(AttachmentsDto attachmentsDto) {
+        fileName = attachmentsDto.getFileName();
+        commit = attachmentsDto.getCommit();
 
-    public AttachmentsEntity(String fileName, String commit) {
-        this.fileName = fileName;
-        this.commit = commit;
     }
 
     public String getFileName() {

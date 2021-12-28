@@ -15,8 +15,7 @@ public class ListPhonesServiceImpl implements ListPhonesService {
     @Override
     public void update(ListPhonesDto listPhonesDto) {
 
-        ListPhonesEntity listPhonesEntity = new ListPhonesEntity(listPhonesDto.getId(),listPhonesDto.getCodeOfCountry(),listPhonesDto.getCodeOperation(),
-                listPhonesDto.getPhoneNumber(),listPhonesDto.getTypePhone(),listPhonesDto.getCommit());
+        ListPhonesEntity listPhonesEntity = new ListPhonesEntity(listPhonesDto);
         listPhonesDao.update(listPhonesEntity);
 
     }

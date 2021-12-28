@@ -13,23 +13,17 @@ public class ContactServiceImpl implements ContactService {
     private final ContactsDao contactsDao = new ContactsDaoImpl();
 
     @Override
-    public void mapperCreateEntityToDto(ContactsCreateUpdateDto contactsCreateUpdateDto) {
+    public int createDtoToEntity(ContactsCreateUpdateDto contactsCreateUpdateDto) {
 
-        ContactEntity contactEntity = new ContactEntity(contactsCreateUpdateDto.getId(), contactsCreateUpdateDto.getName(), contactsCreateUpdateDto.getSurname(),
-                contactsCreateUpdateDto.getPatronymic(), contactsCreateUpdateDto.getDateOfBirth(), contactsCreateUpdateDto.getGender(), contactsCreateUpdateDto.getCitizenShip(), contactsCreateUpdateDto.getMaritalStatus(),
-                contactsCreateUpdateDto.getWebSite(), contactsCreateUpdateDto.getEmail(), contactsCreateUpdateDto.getPlaceOfWork(), contactsCreateUpdateDto.getPhotoAddress(), contactsCreateUpdateDto.getCountry(),
-                contactsCreateUpdateDto.getCity(), contactsCreateUpdateDto.getStreet(), contactsCreateUpdateDto.getHouse(), contactsCreateUpdateDto.getApartment(), contactsCreateUpdateDto.getPostcode());
+        ContactEntity contactEntity = new ContactEntity(contactsCreateUpdateDto);
 
-        contactsDao.create(contactEntity);
+        return contactsDao.create(contactEntity);
     }
 
     @Override
-    public void mapperUpdateEntityToDto(ContactsCreateUpdateDto contactsCreateUpdateDto, int id) {
+    public void updateDtoToEntity(ContactsCreateUpdateDto contactsCreateUpdateDto, int id) {
 
-        ContactEntity contactEntity = new ContactEntity(id,contactsCreateUpdateDto.getName(), contactsCreateUpdateDto.getSurname(),
-                contactsCreateUpdateDto.getPatronymic(), contactsCreateUpdateDto.getDateOfBirth(), contactsCreateUpdateDto.getGender(), contactsCreateUpdateDto.getCitizenShip(), contactsCreateUpdateDto.getMaritalStatus(),
-                contactsCreateUpdateDto.getWebSite(), contactsCreateUpdateDto.getEmail(), contactsCreateUpdateDto.getPlaceOfWork(), contactsCreateUpdateDto.getPhotoAddress(), contactsCreateUpdateDto.getCountry(),
-                contactsCreateUpdateDto.getCity(), contactsCreateUpdateDto.getStreet(), contactsCreateUpdateDto.getHouse(), contactsCreateUpdateDto.getApartment(), contactsCreateUpdateDto.getPostcode());
+        ContactEntity contactEntity = new ContactEntity(id, contactsCreateUpdateDto);
 
         contactsDao.update(contactEntity);
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ContactsDao {
 
-    void create(ContactEntity contactEntity);
+    int create(ContactEntity contactEntity);
 
     void update(ContactEntity contactEntity);
 

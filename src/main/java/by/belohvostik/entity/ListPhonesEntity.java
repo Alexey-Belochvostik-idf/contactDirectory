@@ -1,5 +1,7 @@
 package by.belohvostik.entity;
 
+import by.belohvostik.dto.ListPhonesDto;
+
 import java.util.Objects;
 
 public class ListPhonesEntity {
@@ -11,13 +13,13 @@ public class ListPhonesEntity {
     private final TypePhone typePhone;
     private final String commit;
 
-    public ListPhonesEntity(int id, int codeOfCountry, int codeOperation, int phoneNumber, TypePhone typePhone, String commit) {
-        this.id = id;
-        this.codeOfCountry = codeOfCountry;
-        this.codeOperation = codeOperation;
-        this.phoneNumber = phoneNumber;
-        this.typePhone = typePhone;
-        this.commit = commit;
+    public ListPhonesEntity(ListPhonesDto listPhonesDto) {
+        codeOfCountry = listPhonesDto.getCodeOfCountry();
+        codeOperation = listPhonesDto.getCodeOperation();
+        phoneNumber = listPhonesDto.getPhoneNumber();
+        typePhone = listPhonesDto.getTypePhone();
+        commit = listPhonesDto.getCommit();
+
     }
 
     public int getId() {

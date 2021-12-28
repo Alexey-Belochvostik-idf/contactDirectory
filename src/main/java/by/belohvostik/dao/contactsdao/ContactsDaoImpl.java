@@ -31,37 +31,43 @@ public class ContactsDaoImpl implements ContactsDao {
     static final String READ = "select * from contacts ";
 
     @Override
-    public void create(ContactEntity contactEntity) {
+    public int create(ContactEntity contactEntity) {
 
         initDriver();
 
+        int idr = 0;
+
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement st = con.prepareStatement(CREATE,PreparedStatement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement pst = con.prepareStatement(CREATE,PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-            st.setString(1, contactEntity.getName());
-            st.setString(2, contactEntity.getSurname());
-            st.setString(3, contactEntity.getPatronymic());
-            st.setDate(4, new Date(contactEntity.getDateOfBirth().getTime()));
-            st.setString(5, String.valueOf(contactEntity.getGender()));
-            st.setString(6, contactEntity.getCitizenShip());
-            st.setString(7, String.valueOf(contactEntity.getMaritalStatus()));
-            st.setString(8, contactEntity.getWebSite());
-            st.setString(9, contactEntity.getEmail());
-            st.setString(10, contactEntity.getPlaceOfWork());
-            st.setString(11, contactEntity.getPhotoAddress());
-            st.setString(12, contactEntity.getCountry());
-            st.setString(13, contactEntity.getCity());
-            st.setString(14, contactEntity.getStreet());
-            st.setInt(15, contactEntity.getHouse());
-            st.setInt(16, contactEntity.getApartment());
-            st.setString(17, contactEntity.getPostcode());
-            st.executeUpdate();
+            pst.setString(1, contactEntity.getName());
+            pst.setString(2, contactEntity.getSurname());
+            pst.setString(3, contactEntity.getPatronymic());
+            pst.setDate(4, new Date(contactEntity.getDateOfBirth().getTime()));
+            pst.setString(5, String.valueOf(contactEntity.getGender()));
+            pst.setString(6, contactEntity.getCitizenShip());
+            pst.setString(7, String.valueOf(contactEntity.getMaritalStatus()));
+            pst.setString(8, contactEntity.getWebSite());
+            pst.setString(9, contactEntity.getEmail());
+            pst.setString(10, contactEntity.getPlaceOfWork());
+            pst.setString(11, contactEntity.getPhotoAddress());
+            pst.setString(12, contactEntity.getCountry());
+            pst.setString(13, contactEntity.getCity());
+            pst.setString(14, contactEntity.getStreet());
+            pst.setInt(15, contactEntity.getHouse());
+            pst.setInt(16, contactEntity.getApartment());
+            pst.setString(17, contactEntity.getPostcode());
+            pst.executeUpdate();
 
-
+            try(ResultSet generatedKeys = pst.getGeneratedKeys()){
+                if (generatedKeys.next()){
+                  idr =  contactEntity.setId(generatedKeys.getInt(1));
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        return idr;
     }
 
     @Override
@@ -70,27 +76,27 @@ public class ContactsDaoImpl implements ContactsDao {
        initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement st = con.prepareStatement(UPDATE)) {
+             PreparedStatement pst = con.prepareStatement(UPDATE)) {
 
-            st.setInt(18, contactEntity.getId());
-            st.setString(1, contactEntity.getName());
-            st.setString(2, contactEntity.getSurname());
-            st.setString(3, contactEntity.getPatronymic());
-            st.setDate(4, new Date(contactEntity.getDateOfBirth().getTime()));
-            st.setString(5, String.valueOf(contactEntity.getGender()));
-            st.setString(6, contactEntity.getCitizenShip());
-            st.setString(7, String.valueOf(contactEntity.getMaritalStatus()));
-            st.setString(8, contactEntity.getWebSite());
-            st.setString(9, contactEntity.getEmail());
-            st.setString(10, contactEntity.getPlaceOfWork());
-            st.setString(11, contactEntity.getPhotoAddress());
-            st.setString(12, contactEntity.getCountry());
-            st.setString(13, contactEntity.getCity());
-            st.setString(14, contactEntity.getStreet());
-            st.setInt(15, contactEntity.getHouse());
-            st.setInt(16, contactEntity.getApartment());
-            st.setString(17, contactEntity.getPostcode());
-            st.executeUpdate();
+            pst.setInt(18, contactEntity.getId());
+            pst.setString(1, contactEntity.getName());
+            pst.setString(2, contactEntity.getSurname());
+            pst.setString(3, contactEntity.getPatronymic());
+            pst.setDate(4, new Date(contactEntity.getDateOfBirth().getTime()));
+            pst.setString(5, String.valueOf(contactEntity.getGender()));
+            pst.setString(6, contactEntity.getCitizenShip());
+            pst.setString(7, String.valueOf(contactEntity.getMaritalStatus()));
+            pst.setString(8, contactEntity.getWebSite());
+            pst.setString(9, contactEntity.getEmail());
+            pst.setString(10, contactEntity.getPlaceOfWork());
+            pst.setString(11, contactEntity.getPhotoAddress());
+            pst.setString(12, contactEntity.getCountry());
+            pst.setString(13, contactEntity.getCity());
+            pst.setString(14, contactEntity.getStreet());
+            pst.setInt(15, contactEntity.getHouse());
+            pst.setInt(16, contactEntity.getApartment());
+            pst.setString(17, contactEntity.getPostcode());
+            pst.executeUpdate();
 
         } catch (
                 SQLException e) {
@@ -106,10 +112,10 @@ public class ContactsDaoImpl implements ContactsDao {
 
         ArrayList<ContactDto> list = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement st = con.prepareStatement(READ_ID)) {
+             PreparedStatement pst = con.prepareStatement(READ_ID)) {
 
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
                 ContactDto contactDto = new ContactDto(rs.getInt("id"), rs.getString("name"), rs.getString("surname"),
@@ -133,9 +139,9 @@ public class ContactsDaoImpl implements ContactsDao {
 
         ArrayList<ContactDto> list = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement st = con.prepareStatement(READ)) {
+             PreparedStatement pst = con.prepareStatement(READ)) {
 
-            ResultSet rs = st.executeQuery();
+            ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
                 ContactDto contactDto = new ContactDto(rs.getInt("id"), rs.getString("name"), rs.getString("surname"),
@@ -157,9 +163,9 @@ public class ContactsDaoImpl implements ContactsDao {
         initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement st = con.prepareStatement(DELETE)) {
-            st.setInt(1, id);
-            st.execute();
+             PreparedStatement pst = con.prepareStatement(DELETE)) {
+            pst.setInt(1, id);
+            pst.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -182,10 +188,10 @@ public class ContactsDaoImpl implements ContactsDao {
        initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement st = con.prepareStatement("insert into contacts ( photoAddress) values (" +
+             PreparedStatement pst = con.prepareStatement("insert into contacts ( photoAddress) values (" +
                      "'" + Arrays.toString(contactPhotoAddressEntity.getPhotoAddress()) + "'," + ")")) {
 
-            st.executeUpdate();
+            pst.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();

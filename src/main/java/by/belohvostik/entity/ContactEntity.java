@@ -1,11 +1,13 @@
 package by.belohvostik.entity;
 
+import by.belohvostik.dto.ContactsCreateUpdateDto;
+
 import java.sql.Date;
 import java.util.Objects;
 
 public class ContactEntity {
 
-    private final int id;
+    private int id;
     private final String name;
     private final String surname;
     private final String patronymic;
@@ -24,46 +26,55 @@ public class ContactEntity {
     private final int apartment;
     private final String postcode;
 
-    public ContactEntity(int id,
-                         String name,
-                         String surname,
-                         String patronymic,
-                         Date dateOfBirth,
-                         GenderEntity gender,
-                         String citizenShip,
-                         MaritalStatusEntity maritalStatus,
-                         String webSite,
-                         String email,
-                         String placeOfWork,
-                         String photoAddress,
-                         String country,
-                         String city,
-                         String street,
-                         int house,
-                         int apartment,
-                         String postcode) {
+    public ContactEntity(ContactsCreateUpdateDto contactsCreateUpdateDto) {
+        name = contactsCreateUpdateDto.getName();
+        surname = contactsCreateUpdateDto.getSurname();
+        patronymic = contactsCreateUpdateDto.getPatronymic();
+        dateOfBirth = contactsCreateUpdateDto.getDateOfBirth();
+        gender = contactsCreateUpdateDto.getGender();
+        citizenShip = contactsCreateUpdateDto.getCitizenShip();
+        maritalStatus = contactsCreateUpdateDto.getMaritalStatus();
+        webSite = contactsCreateUpdateDto.getWebSite();
+        email = contactsCreateUpdateDto.getEmail();
+        placeOfWork = contactsCreateUpdateDto.getPlaceOfWork();
+        photoAddress = contactsCreateUpdateDto.getPhotoAddress();
+        country = contactsCreateUpdateDto.getCountry();
+        city = contactsCreateUpdateDto.getCity();
+        street = contactsCreateUpdateDto.getStreet();
+        house = contactsCreateUpdateDto.getHouse();
+        apartment = contactsCreateUpdateDto.getApartment();
+        postcode = contactsCreateUpdateDto.getPostcode();
+
+    }
+
+    public ContactEntity(int id, ContactsCreateUpdateDto contactsCreateUpdateDto) {
         this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.patronymic = patronymic;
-        this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
-        this.citizenShip = citizenShip;
-        this.maritalStatus = maritalStatus;
-        this.webSite = webSite;
-        this.email = email;
-        this.placeOfWork = placeOfWork;
-        this.photoAddress = photoAddress;
-        this.country = country;
-        this.city = city;
-        this.street = street;
-        this.house = house;
-        this.apartment = apartment;
-        this.postcode = postcode;
+        name = contactsCreateUpdateDto.getName();
+        surname = contactsCreateUpdateDto.getSurname();
+        patronymic = contactsCreateUpdateDto.getPatronymic();
+        dateOfBirth = contactsCreateUpdateDto.getDateOfBirth();
+        gender = contactsCreateUpdateDto.getGender();
+        citizenShip = contactsCreateUpdateDto.getCitizenShip();
+        maritalStatus = contactsCreateUpdateDto.getMaritalStatus();
+        webSite = contactsCreateUpdateDto.getWebSite();
+        email = contactsCreateUpdateDto.getEmail();
+        placeOfWork = contactsCreateUpdateDto.getPlaceOfWork();
+        photoAddress = contactsCreateUpdateDto.getPhotoAddress();
+        country = contactsCreateUpdateDto.getCountry();
+        city = contactsCreateUpdateDto.getCity();
+        street = contactsCreateUpdateDto.getStreet();
+        house = contactsCreateUpdateDto.getHouse();
+        apartment = contactsCreateUpdateDto.getApartment();
+        postcode = contactsCreateUpdateDto.getPostcode();
     }
 
 
     public int getId() {
+        return id;
+    }
+
+    public int setId(int id) {
+        this.id = id;
         return id;
     }
 
