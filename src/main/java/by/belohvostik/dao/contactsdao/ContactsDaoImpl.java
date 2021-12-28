@@ -2,6 +2,7 @@ package by.belohvostik.dao.contactsdao;
 
 import by.belohvostik.dto.ContactDto;
 import by.belohvostik.dto.ContactsCreateUpdateDto;
+import by.belohvostik.entity.ContactEntity;
 import by.belohvostik.entity.ContactPhotoAddress;
 
 import java.sql.*;
@@ -31,30 +32,30 @@ public class ContactsDaoImpl implements ContactsDao {
     static final String READ = "select * from contacts ";
 
     @Override
-    public void create(ContactsCreateUpdateDto contactsCreateUpdateDto) {
+    public void create(ContactEntity contactEntity) {
 
         initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement st = con.prepareStatement(CREATE,PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-            st.setString(1, contactsCreateUpdateDto.getName());
-            st.setString(2, contactsCreateUpdateDto.getSurname());
-            st.setString(3, contactsCreateUpdateDto.getPatronymic());
-            st.setDate(4, new Date(contactsCreateUpdateDto.getDateOfBirth().getTime()));
-            st.setString(5, String.valueOf(contactsCreateUpdateDto.getGender()));
-            st.setString(6, contactsCreateUpdateDto.getCitizenShip());
-            st.setString(7, String.valueOf(contactsCreateUpdateDto.getMaritalStatus()));
-            st.setString(8, contactsCreateUpdateDto.getWebSite());
-            st.setString(9, contactsCreateUpdateDto.getEmail());
-            st.setString(10, contactsCreateUpdateDto.getPlaceOfWork());
-            st.setString(11, contactsCreateUpdateDto.getPhotoAddress());
-            st.setString(12, contactsCreateUpdateDto.getCountry());
-            st.setString(13, contactsCreateUpdateDto.getCity());
-            st.setString(14, contactsCreateUpdateDto.getStreet());
-            st.setInt(15, contactsCreateUpdateDto.getHouse());
-            st.setInt(16, contactsCreateUpdateDto.getApartment());
-            st.setString(17, contactsCreateUpdateDto.getPostcode());
+            st.setString(1, contactEntity.getName());
+            st.setString(2, contactEntity.getSurname());
+            st.setString(3, contactEntity.getPatronymic());
+            st.setDate(4, new Date(contactEntity.getDateOfBirth().getTime()));
+            st.setString(5, String.valueOf(contactEntity.getGender()));
+            st.setString(6, contactEntity.getCitizenShip());
+            st.setString(7, String.valueOf(contactEntity.getMaritalStatus()));
+            st.setString(8, contactEntity.getWebSite());
+            st.setString(9, contactEntity.getEmail());
+            st.setString(10, contactEntity.getPlaceOfWork());
+            st.setString(11, contactEntity.getPhotoAddress());
+            st.setString(12, contactEntity.getCountry());
+            st.setString(13, contactEntity.getCity());
+            st.setString(14, contactEntity.getStreet());
+            st.setInt(15, contactEntity.getHouse());
+            st.setInt(16, contactEntity.getApartment());
+            st.setString(17, contactEntity.getPostcode());
             st.executeUpdate();
 
 
@@ -65,31 +66,31 @@ public class ContactsDaoImpl implements ContactsDao {
     }
 
     @Override
-    public void update(ContactsCreateUpdateDto contactsCreateUpdateDto) {
+    public void update(ContactEntity contactEntity) {
 
        initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement st = con.prepareStatement(UPDATE)) {
 
-            st.setInt(18, contactsCreateUpdateDto.getId());
-            st.setString(1, contactsCreateUpdateDto.getName());
-            st.setString(2, contactsCreateUpdateDto.getSurname());
-            st.setString(3, contactsCreateUpdateDto.getPatronymic());
-            st.setDate(4, new Date(contactsCreateUpdateDto.getDateOfBirth().getTime()));
-            st.setString(5, String.valueOf(contactsCreateUpdateDto.getGender()));
-            st.setString(6, contactsCreateUpdateDto.getCitizenShip());
-            st.setString(7, String.valueOf(contactsCreateUpdateDto.getMaritalStatus()));
-            st.setString(8, contactsCreateUpdateDto.getWebSite());
-            st.setString(9, contactsCreateUpdateDto.getEmail());
-            st.setString(10, contactsCreateUpdateDto.getPlaceOfWork());
-            st.setString(11, contactsCreateUpdateDto.getPhotoAddress());
-            st.setString(12, contactsCreateUpdateDto.getCountry());
-            st.setString(13, contactsCreateUpdateDto.getCity());
-            st.setString(14, contactsCreateUpdateDto.getStreet());
-            st.setInt(15, contactsCreateUpdateDto.getHouse());
-            st.setInt(16, contactsCreateUpdateDto.getApartment());
-            st.setString(17, contactsCreateUpdateDto.getPostcode());
+            st.setInt(18, contactEntity.getId());
+            st.setString(1, contactEntity.getName());
+            st.setString(2, contactEntity.getSurname());
+            st.setString(3, contactEntity.getPatronymic());
+            st.setDate(4, new Date(contactEntity.getDateOfBirth().getTime()));
+            st.setString(5, String.valueOf(contactEntity.getGender()));
+            st.setString(6, contactEntity.getCitizenShip());
+            st.setString(7, String.valueOf(contactEntity.getMaritalStatus()));
+            st.setString(8, contactEntity.getWebSite());
+            st.setString(9, contactEntity.getEmail());
+            st.setString(10, contactEntity.getPlaceOfWork());
+            st.setString(11, contactEntity.getPhotoAddress());
+            st.setString(12, contactEntity.getCountry());
+            st.setString(13, contactEntity.getCity());
+            st.setString(14, contactEntity.getStreet());
+            st.setInt(15, contactEntity.getHouse());
+            st.setInt(16, contactEntity.getApartment());
+            st.setString(17, contactEntity.getPostcode());
             st.executeUpdate();
 
         } catch (

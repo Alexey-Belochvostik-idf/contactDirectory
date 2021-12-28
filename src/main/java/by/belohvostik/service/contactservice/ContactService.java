@@ -1,6 +1,7 @@
 package by.belohvostik.service.contactservice;
 
 import by.belohvostik.dto.ContactDto;
+import by.belohvostik.dto.ContactsCreateUpdateDto;
 import by.belohvostik.entity.ContactEntity;
 
 import java.util.List;
@@ -8,9 +9,9 @@ import java.util.List;
 
 public interface ContactService {
 
-    void mapperCreateEntityToDto(ContactEntity contactEntity);
+    void mapperCreateEntityToDto(ContactsCreateUpdateDto contactsCreateUpdateDto);
 
-    void mapperUpdateEntityToDto(ContactEntity contactEntity, int id);
+    void mapperUpdateEntityToDto(ContactsCreateUpdateDto contactsCreateUpdateDto, int id);
 
     List<ContactDto> readId(int id);
 

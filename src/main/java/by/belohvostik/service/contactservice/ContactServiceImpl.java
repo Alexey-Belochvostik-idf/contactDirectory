@@ -13,25 +13,25 @@ public class ContactServiceImpl implements ContactService {
     private final ContactsDao contactsDao = new ContactsDaoImpl();
 
     @Override
-    public void mapperCreateEntityToDto(ContactEntity contactEntity) {
+    public void mapperCreateEntityToDto(ContactsCreateUpdateDto contactsCreateUpdateDto) {
 
-        ContactsCreateUpdateDto contactsCreateDto = new ContactsCreateUpdateDto(contactEntity.getId(), contactEntity.getName(), contactEntity.getSurname(),
-                contactEntity.getPatronymic(), contactEntity.getDateOfBirth(), contactEntity.getGender(), contactEntity.getCitizenShip(), contactEntity.getMaritalStatus(),
-                contactEntity.getWebSite(), contactEntity.getEmail(), contactEntity.getPlaceOfWork(), contactEntity.getPhotoAddress(), contactEntity.getCountry(),
-                contactEntity.getCity(), contactEntity.getStreet(), contactEntity.getHouse(), contactEntity.getApartment(), contactEntity.getPostcode());
+        ContactEntity contactEntity = new ContactEntity(contactsCreateUpdateDto.getId(), contactsCreateUpdateDto.getName(), contactsCreateUpdateDto.getSurname(),
+                contactsCreateUpdateDto.getPatronymic(), contactsCreateUpdateDto.getDateOfBirth(), contactsCreateUpdateDto.getGender(), contactsCreateUpdateDto.getCitizenShip(), contactsCreateUpdateDto.getMaritalStatus(),
+                contactsCreateUpdateDto.getWebSite(), contactsCreateUpdateDto.getEmail(), contactsCreateUpdateDto.getPlaceOfWork(), contactsCreateUpdateDto.getPhotoAddress(), contactsCreateUpdateDto.getCountry(),
+                contactsCreateUpdateDto.getCity(), contactsCreateUpdateDto.getStreet(), contactsCreateUpdateDto.getHouse(), contactsCreateUpdateDto.getApartment(), contactsCreateUpdateDto.getPostcode());
 
-        contactsDao.create(contactsCreateDto);
+        contactsDao.create(contactEntity);
     }
 
     @Override
-    public void mapperUpdateEntityToDto(ContactEntity contactEntity, int id) {
+    public void mapperUpdateEntityToDto(ContactsCreateUpdateDto contactsCreateUpdateDto, int id) {
 
-        ContactsCreateUpdateDto contactsUpdateDto = new ContactsCreateUpdateDto(id,contactEntity.getName(), contactEntity.getSurname(),
-                contactEntity.getPatronymic(), contactEntity.getDateOfBirth(), contactEntity.getGender(), contactEntity.getCitizenShip(), contactEntity.getMaritalStatus(),
-                contactEntity.getWebSite(), contactEntity.getEmail(), contactEntity.getPlaceOfWork(), contactEntity.getPhotoAddress(), contactEntity.getCountry(),
-                contactEntity.getCity(), contactEntity.getStreet(), contactEntity.getHouse(), contactEntity.getApartment(), contactEntity.getPostcode());
+        ContactEntity contactEntity = new ContactEntity(id,contactsCreateUpdateDto.getName(), contactsCreateUpdateDto.getSurname(),
+                contactsCreateUpdateDto.getPatronymic(), contactsCreateUpdateDto.getDateOfBirth(), contactsCreateUpdateDto.getGender(), contactsCreateUpdateDto.getCitizenShip(), contactsCreateUpdateDto.getMaritalStatus(),
+                contactsCreateUpdateDto.getWebSite(), contactsCreateUpdateDto.getEmail(), contactsCreateUpdateDto.getPlaceOfWork(), contactsCreateUpdateDto.getPhotoAddress(), contactsCreateUpdateDto.getCountry(),
+                contactsCreateUpdateDto.getCity(), contactsCreateUpdateDto.getStreet(), contactsCreateUpdateDto.getHouse(), contactsCreateUpdateDto.getApartment(), contactsCreateUpdateDto.getPostcode());
 
-        contactsDao.update(contactsUpdateDto);
+        contactsDao.update(contactEntity);
 
     }
 

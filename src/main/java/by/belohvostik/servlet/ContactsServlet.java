@@ -1,7 +1,7 @@
 package by.belohvostik.servlet;
 
 import by.belohvostik.dto.ContactDto;
-import by.belohvostik.entity.ContactEntity;
+import by.belohvostik.dto.ContactsCreateUpdateDto;
 import by.belohvostik.service.contactservice.ContactService;
 import by.belohvostik.service.contactservice.ContactServiceImpl;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -25,7 +25,7 @@ public class ContactsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String json = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        ContactEntity contact = mapper.readValue(json, ContactEntity.class);
+        ContactsCreateUpdateDto contact = mapper.readValue(json, ContactsCreateUpdateDto.class);
         contactService.mapperCreateEntityToDto(contact);
         resp.setStatus(HttpServletResponse.SC_CREATED);
         resp.setContentType("application/json;charset=UTF-8");
@@ -59,7 +59,7 @@ public class ContactsServlet extends HttpServlet {
         int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
         String json = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        ContactEntity contact = mapper.readValue(json, ContactEntity.class);
+        ContactsCreateUpdateDto contact = mapper.readValue(json, ContactsCreateUpdateDto.class);
         contactService.mapperUpdateEntityToDto(contact,id);
         resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
     }
