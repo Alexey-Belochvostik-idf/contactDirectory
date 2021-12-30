@@ -32,8 +32,6 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public List<ContactsReadDto> readId(int id) {
 
-        contactsDao.readId(id);
-
         return contactsDao.readId(id);
     }
 

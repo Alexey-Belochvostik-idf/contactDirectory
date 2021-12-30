@@ -136,7 +136,7 @@ public class ContactsDaoImpl implements ContactsDao {
                 String fullAddress = String.join(" ", country, city, street, house, apartment);
 
 
-                ContactsReadDto contactDto = new ContactsReadDto(id, fullName, dateOfBirth, fullAddress, placeOfWork);
+                ContactsReadDto contactDto = new ContactsReadDto(fullName, dateOfBirth, fullAddress, placeOfWork);
                 list.add(contactDto);
             }
 
@@ -160,7 +160,6 @@ public class ContactsDaoImpl implements ContactsDao {
 
             while (rs.next()) {
                 ContactsReadDto contactDto = new ContactsReadDto(
-                        rs.getInt("id"),
                         String.join(" ", rs.getString("name"), rs.getString("surname"), rs.getString("patronymic")),
                         rs.getString("dateOfBirth"),
                         String.join(" ", rs.getString("country"), rs.getString("city"), rs.getString("street"), String.valueOf(rs.getInt("house")),
