@@ -1,6 +1,6 @@
 package by.belohvostik.entity;
 
-import by.belohvostik.dto.ContactsCreateUpdateDto;
+import by.belohvostik.dto.ContactsDto;
 
 import java.sql.Date;
 import java.util.Objects;
@@ -26,7 +26,7 @@ public class ContactEntity {
     private final int apartment;
     private final String postcode;
 
-    public ContactEntity(ContactsCreateUpdateDto contactsCreateUpdateDto) {
+    public ContactEntity(ContactsDto contactsCreateUpdateDto) {
         name = contactsCreateUpdateDto.getName();
         surname = contactsCreateUpdateDto.getSurname();
         patronymic = contactsCreateUpdateDto.getPatronymic();
@@ -47,7 +47,7 @@ public class ContactEntity {
 
     }
 
-    public ContactEntity(int id, ContactsCreateUpdateDto contactsCreateUpdateDto) {
+    public ContactEntity(int id, ContactsDto contactsCreateUpdateDto) {
         this.id = id;
         name = contactsCreateUpdateDto.getName();
         surname = contactsCreateUpdateDto.getSurname();

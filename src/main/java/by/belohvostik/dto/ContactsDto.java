@@ -6,7 +6,7 @@ import by.belohvostik.entity.MaritalStatusEntity;
 import java.sql.Date;
 import java.util.Objects;
 
-public class ContactsCreateUpdateDto {
+public class ContactsDto {
 
     private int id;
     private String name;
@@ -27,12 +27,12 @@ public class ContactsCreateUpdateDto {
     private int apartment;
     private String postcode;
 
-    public ContactsCreateUpdateDto() {
+    public ContactsDto() {
     }
 
-    public ContactsCreateUpdateDto(int id, String name, String surname, String patronymic, Date dateOfBirth, GenderEntity gender, String citizenShip,
-                                   MaritalStatusEntity maritalStatus, String webSite, String email, String placeOfWork, String photoAddress,
-                                   String country, String city, String street, int house, int apartment, String postcode) {
+    public ContactsDto(int id, String name, String surname, String patronymic, Date dateOfBirth, GenderEntity gender, String citizenShip,
+                       MaritalStatusEntity maritalStatus, String webSite, String email, String placeOfWork, String photoAddress,
+                       String country, String city, String street, int house, int apartment, String postcode) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -129,7 +129,7 @@ public class ContactsCreateUpdateDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ContactsCreateUpdateDto that = (ContactsCreateUpdateDto) o;
+        ContactsDto that = (ContactsDto) o;
         return id == that.id && house == that.house && apartment == that.apartment && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(patronymic, that.patronymic) && Objects.equals(dateOfBirth, that.dateOfBirth) && gender == that.gender && Objects.equals(citizenShip, that.citizenShip) && maritalStatus == that.maritalStatus && Objects.equals(webSite, that.webSite) && Objects.equals(email, that.email) && Objects.equals(placeOfWork, that.placeOfWork) && Objects.equals(photoAddress, that.photoAddress) && Objects.equals(country, that.country) && Objects.equals(city, that.city) && Objects.equals(street, that.street) && Objects.equals(postcode, that.postcode);
     }
 

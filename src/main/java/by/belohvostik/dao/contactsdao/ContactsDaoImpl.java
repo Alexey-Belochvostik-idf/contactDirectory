@@ -1,6 +1,8 @@
 package by.belohvostik.dao.contactsdao;
 
-import by.belohvostik.dto.ContactDto;
+import by.belohvostik.dto.ContactsReadDto;
+import by.belohvostik.dto.FullAddressDto;
+import by.belohvostik.dto.FullNameDto;
 import by.belohvostik.entity.ContactEntity;
 import by.belohvostik.entity.ContactPhotoAddress;
 
@@ -38,7 +40,7 @@ public class ContactsDaoImpl implements ContactsDao {
         int idr = 0;
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement pst = con.prepareStatement(CREATE,PreparedStatement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement pst = con.prepareStatement(CREATE, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             pst.setString(1, contactEntity.getName());
             pst.setString(2, contactEntity.getSurname());
@@ -59,9 +61,9 @@ public class ContactsDaoImpl implements ContactsDao {
             pst.setString(17, contactEntity.getPostcode());
             pst.executeUpdate();
 
-            try(ResultSet generatedKeys = pst.getGeneratedKeys()){
-                if (generatedKeys.next()){
-                  idr =  contactEntity.setId(generatedKeys.getInt(1));
+            try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    idr = contactEntity.setId(generatedKeys.getInt(1));
                 }
             }
         } catch (SQLException e) {
@@ -73,7 +75,7 @@ public class ContactsDaoImpl implements ContactsDao {
     @Override
     public void update(ContactEntity contactEntity) {
 
-       initDriver();
+        initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement pst = con.prepareStatement(UPDATE)) {
@@ -106,11 +108,11 @@ public class ContactsDaoImpl implements ContactsDao {
     }
 
     @Override
-    public List<ContactDto> readId(int id) {
+    public List<ContactsReadDto> readId(int id) {
 
         initDriver();
 
-        ArrayList<ContactDto> list = new ArrayList<>();
+        ArrayList<ContactsReadDto> list = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement pst = con.prepareStatement(READ_ID)) {
 
@@ -118,10 +120,23 @@ public class ContactsDaoImpl implements ContactsDao {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                ContactDto contactDto = new ContactDto(rs.getInt("id"), rs.getString("name"), rs.getString("surname"),
-                        rs.getString("patronymic"), rs.getString("dateOfBirth"), rs.getString("country"),
-                        rs.getString("city"), rs.getString("street"), rs.getInt("house"),
-                        rs.getInt("apartment"), rs.getString("placeOfWork"));
+                String name = rs.getString("name");
+                String surName = rs.getString("surname");
+                String patronymic = rs.getString("patronymic");
+                String dateOfBirth = rs.getString("dateOfBirth");
+                String country = rs.getString("country");
+                String city = rs.getString("city");
+                String street = rs.getString("street");
+                String house = String.valueOf(rs.getInt("house"));
+                String apartment = String.valueOf(rs.getInt("apartment"));
+                String placeOfWork = rs.getString("placeOfWork");
+
+
+                String fullName = String.join(" ", name, surName, patronymic);
+                String fullAddress = String.join(" ", country, city, street, house, apartment);
+
+
+                ContactsReadDto contactDto = new ContactsReadDto(id, fullName, dateOfBirth, fullAddress, placeOfWork);
                 list.add(contactDto);
             }
 
@@ -133,21 +148,24 @@ public class ContactsDaoImpl implements ContactsDao {
     }
 
     @Override
-    public List<ContactDto> read() {
+    public List<ContactsReadDto> read() {
 
         initDriver();
 
-        ArrayList<ContactDto> list = new ArrayList<>();
+        ArrayList<ContactsReadDto> list = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement pst = con.prepareStatement(READ)) {
 
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                ContactDto contactDto = new ContactDto(rs.getInt("id"), rs.getString("name"), rs.getString("surname"),
-                        rs.getString("patronymic"), rs.getString("dateOfBirth"), rs.getString("country"),
-                        rs.getString("city"), rs.getString("street"), rs.getInt("house"),
-                        rs.getInt("apartment"), rs.getString("placeOfWork"));
+                ContactsReadDto contactDto = new ContactsReadDto(
+                        rs.getInt("id"),
+                        String.join(" ", rs.getString("name"), rs.getString("surname"), rs.getString("patronymic")),
+                        rs.getString("dateOfBirth"),
+                        String.join(" ", rs.getString("country"), rs.getString("city"), rs.getString("street"), String.valueOf(rs.getInt("house")),
+                                String.valueOf(rs.getInt("apartment"))),
+                        rs.getString("placeOfWork"));
                 list.add(contactDto);
             }
 
@@ -185,7 +203,7 @@ public class ContactsDaoImpl implements ContactsDao {
     @Override
     public void addPhotoAddress(ContactPhotoAddress contactPhotoAddressEntity) {
 
-       initDriver();
+        initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement pst = con.prepareStatement("insert into contacts ( photoAddress) values (" +

@@ -1,7 +1,7 @@
 package by.belohvostik.servlet;
 
-import by.belohvostik.dto.ContactDto;
-import by.belohvostik.dto.ContactsCreateUpdateDto;
+import by.belohvostik.dto.ContactsReadDto;
+import by.belohvostik.dto.ContactsDto;
 import by.belohvostik.service.contactservice.ContactService;
 import by.belohvostik.service.contactservice.ContactServiceImpl;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -27,8 +27,9 @@ public class ContactsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String json = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        ContactsCreateUpdateDto contact = mapper.readValue(json, ContactsCreateUpdateDto.class);
+        ContactsDto contact = mapper.readValue(json, ContactsDto.class);
         int idr = contactService.createDtoToEntity(contact);
+
         resp.setStatus(HttpServletResponse.SC_CREATED);
         resp.setContentType("application/json;charset=UTF-8");
         resp.getWriter().println(idr);
@@ -41,11 +42,13 @@ public class ContactsServlet extends HttpServlet {
 
         if (req.getPathInfo() != null) {
             int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
-            final List<ContactDto> readId = contactService.readId(id);
+            final List<ContactsReadDto> readId = contactService.readId(id);
+
             String jsonReadId = mapper.writeValueAsString(readId);
             resp.getWriter().write(jsonReadId);
         } else {
-            final List<ContactDto> all = contactService.read();
+            final List<ContactsReadDto> all = contactService.read();
+
             String jsonRead = mapper.writeValueAsString(all);
             resp.getWriter().write(jsonRead);
         }
@@ -60,7 +63,7 @@ public class ContactsServlet extends HttpServlet {
 
         int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
         String json = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        ContactsCreateUpdateDto contact = mapper.readValue(json, ContactsCreateUpdateDto.class);
+        ContactsDto contact = mapper.readValue(json, ContactsDto.class);
         contactService.updateDtoToEntity(contact,id);
         resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
     }

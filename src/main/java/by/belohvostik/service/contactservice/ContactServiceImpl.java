@@ -2,8 +2,8 @@ package by.belohvostik.service.contactservice;
 
 import by.belohvostik.dao.contactsdao.ContactsDao;
 import by.belohvostik.dao.contactsdao.ContactsDaoImpl;
-import by.belohvostik.dto.ContactDto;
-import by.belohvostik.dto.ContactsCreateUpdateDto;
+import by.belohvostik.dto.ContactsReadDto;
+import by.belohvostik.dto.ContactsDto;
 import by.belohvostik.entity.ContactEntity;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public class ContactServiceImpl implements ContactService {
     private final ContactsDao contactsDao = new ContactsDaoImpl();
 
     @Override
-    public int createDtoToEntity(ContactsCreateUpdateDto contactsCreateUpdateDto) {
+    public int createDtoToEntity(ContactsDto contactsCreateUpdateDto) {
 
         ContactEntity contactEntity = new ContactEntity(contactsCreateUpdateDto);
 
@@ -21,7 +21,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public void updateDtoToEntity(ContactsCreateUpdateDto contactsCreateUpdateDto, int id) {
+    public void updateDtoToEntity(ContactsDto contactsCreateUpdateDto, int id) {
 
         ContactEntity contactEntity = new ContactEntity(id, contactsCreateUpdateDto);
 
@@ -30,7 +30,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public List<ContactDto> readId(int id) {
+    public List<ContactsReadDto> readId(int id) {
 
         contactsDao.readId(id);
 
@@ -38,7 +38,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public List<ContactDto> read() {
+    public List<ContactsReadDto> read() {
 
         return contactsDao.read();
     }

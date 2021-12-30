@@ -1,9 +1,0 @@
-PreparedStatement.RETURN_GENERATED_KEYS
-
-            try(ResultSet generatedKeys = st.getGeneratedKeys()){
-                if (generatedKeys.next()){
-                    contactEntity.setId(generatedKeys.getInt(1));
-                }else {
-                    throw new SQLException("Ошибка получения внешнего ключа ");
-                }
-            }
