@@ -16,11 +16,11 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
     static final String USER = "root";
     static final String PASSWORD = "password";
 
-    static final String UPDATE = "update editingPhones set codeOfCountry = ?, codeOperation = ?, phoneNumber = ?, typePhone = ?, commit = ? where id = ?";
+    static final String UPDATE = "update listPhones set codeOfCountry = ?, codeOperation = ?, phoneNumber = ?, typePhone = ?, commit = ? where id = ?";
 
-    static final String READ = "select * from editingPhones ";
+    static final String READ = "select * from listPhones ";
 
-    static final String DELETE = "delete from editingPhones where id = ?";
+    static final String DELETE = "delete from listPhones where id = ?";
 
 
     @Override
