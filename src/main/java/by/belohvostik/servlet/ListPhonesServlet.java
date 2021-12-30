@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = {"/editingphones","/editingphones/*"})
+@WebServlet(urlPatterns = {"/listphones","/listphones/*"})
 public class ListPhonesServlet extends HttpServlet {
 
     private final ListPhonesService listPhonesService = new ListPhonesServiceImpl();

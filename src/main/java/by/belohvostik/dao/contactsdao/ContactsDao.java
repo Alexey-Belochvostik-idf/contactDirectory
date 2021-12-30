@@ -1,6 +1,8 @@
 package by.belohvostik.dao.contactsdao;
 
+import by.belohvostik.dto.ContactsDto;
 import by.belohvostik.dto.ContactsReadDto;
+import by.belohvostik.dto.ContactsReadIdDto;
 import by.belohvostik.entity.ContactEntity;
 import by.belohvostik.entity.ContactPhotoAddress;
 
@@ -12,7 +14,7 @@ public interface ContactsDao {
 
     void update(ContactEntity contactEntity);
 
-    List<ContactsReadDto> readId(int id);
+    List<ContactsReadIdDto> readId(int id);
 
     List<ContactsReadDto> read();
 

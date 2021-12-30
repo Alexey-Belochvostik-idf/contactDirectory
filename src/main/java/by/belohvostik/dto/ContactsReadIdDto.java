@@ -3,34 +3,29 @@ package by.belohvostik.dto;
 import by.belohvostik.entity.GenderEntity;
 import by.belohvostik.entity.MaritalStatusEntity;
 
-import java.sql.Date;
 import java.util.Objects;
 
-public class ContactsDto {
+public class ContactsReadIdDto {
 
-    private  int id;
-    private  String name;
-    private  String surname;
-    private  String patronymic;
-    private  Date dateOfBirth;
-    private  GenderEntity gender;
-    private  String citizenShip;
-    private  MaritalStatusEntity maritalStatus;
-    private  String webSite;
-    private  String email;
-    private  String placeOfWork;
-    private  String photoAddress;
-    private  String country;
-    private  String city;
-    private  String street;
-    private  int house;
-    private  int apartment;
-    private  String postcode;
+    private final String name;
+    private final String surname;
+    private final String patronymic;
+    private final String dateOfBirth;
+    private final GenderEntity gender;
+    private final String citizenShip;
+    private final MaritalStatusEntity maritalStatus;
+    private final String webSite;
+    private final String email;
+    private final String placeOfWork;
+    private final String photoAddress;
+    private final String country;
+    private final String city;
+    private final String street;
+    private final int house;
+    private final int apartment;
+    private final String postcode;
 
-    public ContactsDto(int id, String name, String surname, String patronymic, Date dateOfBirth, GenderEntity gender, String citizenShip,
-                       MaritalStatusEntity maritalStatus, String webSite, String email, String placeOfWork, String photoAddress,
-                       String country, String city, String street, int house, int apartment, String postcode) {
-        this.id = id;
+    public ContactsReadIdDto(String name, String surname, String patronymic, String dateOfBirth, GenderEntity gender, String citizenShip, MaritalStatusEntity maritalStatus, String webSite, String email, String placeOfWork, String photoAddress, String country, String city, String street, int house, int apartment, String postcode) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -50,13 +45,6 @@ public class ContactsDto {
         this.postcode = postcode;
     }
 
-    public ContactsDto() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }
@@ -69,7 +57,7 @@ public class ContactsDto {
         return patronymic;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
@@ -127,25 +115,25 @@ public class ContactsDto {
 
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ContactsDto that = (ContactsDto) o;
-        return id == that.id && house == that.house && apartment == that.apartment && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(patronymic, that.patronymic) && Objects.equals(dateOfBirth, that.dateOfBirth) && gender == that.gender && Objects.equals(citizenShip, that.citizenShip) && maritalStatus == that.maritalStatus && Objects.equals(webSite, that.webSite) && Objects.equals(email, that.email) && Objects.equals(placeOfWork, that.placeOfWork) && Objects.equals(photoAddress, that.photoAddress) && Objects.equals(country, that.country) && Objects.equals(city, that.city) && Objects.equals(street, that.street) && Objects.equals(postcode, that.postcode);
+        ContactsReadIdDto that = (ContactsReadIdDto) o;
+        return house == that.house && apartment == that.apartment && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(patronymic, that.patronymic) && Objects.equals(dateOfBirth, that.dateOfBirth) && gender == that.gender && Objects.equals(citizenShip, that.citizenShip) && maritalStatus == that.maritalStatus && Objects.equals(webSite, that.webSite) && Objects.equals(email, that.email) && Objects.equals(placeOfWork, that.placeOfWork) && Objects.equals(photoAddress, that.photoAddress) && Objects.equals(country, that.country) && Objects.equals(city, that.city) && Objects.equals(street, that.street) && Objects.equals(postcode, that.postcode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, patronymic, dateOfBirth, gender, citizenShip, maritalStatus, webSite, email, placeOfWork, photoAddress, country, city, street, house, apartment, postcode);
+        return Objects.hash(name, surname, patronymic, dateOfBirth, gender, citizenShip, maritalStatus, webSite, email, placeOfWork, photoAddress, country, city, street, house, apartment, postcode);
     }
 
     @Override
     public String toString() {
-        return "ContactsCreateDto{" +
-                "id=" + id +
+        return "ContactsReadIdDto{" +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", patronymic='" + patronymic + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
                 ", gender=" + gender +
                 ", citizenShip='" + citizenShip + '\'' +
                 ", maritalStatus=" + maritalStatus +

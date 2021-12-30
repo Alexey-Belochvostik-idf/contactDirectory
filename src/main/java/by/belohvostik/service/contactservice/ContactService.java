@@ -2,17 +2,18 @@ package by.belohvostik.service.contactservice;
 
 import by.belohvostik.dto.ContactsReadDto;
 import by.belohvostik.dto.ContactsDto;
+import by.belohvostik.dto.ContactsReadIdDto;
 
 import java.util.List;
 
 
 public interface ContactService {
 
-    int createDtoToEntity(ContactsDto contactsCreateUpdateDto);
+    int createDtoToEntity(ContactsDto contactsDto);
 
-    void updateDtoToEntity(ContactsDto contactsCreateUpdateDto, int id);
+    void updateDtoToEntity(ContactsDto contactsDto, int id);
 
-    List<ContactsReadDto> readId(int id);
+    List<ContactsReadIdDto> readId(int id);
 
     List<ContactsReadDto> read();
 

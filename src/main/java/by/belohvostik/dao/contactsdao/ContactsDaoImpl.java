@@ -1,8 +1,12 @@
 package by.belohvostik.dao.contactsdao;
 
+import by.belohvostik.dto.ContactsDto;
 import by.belohvostik.dto.ContactsReadDto;
+import by.belohvostik.dto.ContactsReadIdDto;
 import by.belohvostik.entity.ContactEntity;
 import by.belohvostik.entity.ContactPhotoAddress;
+import by.belohvostik.entity.GenderEntity;
+import by.belohvostik.entity.MaritalStatusEntity;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -106,11 +110,11 @@ public class ContactsDaoImpl implements ContactsDao {
     }
 
     @Override
-    public List<ContactsReadDto> readId(int id) {
+    public List<ContactsReadIdDto> readId(int id) {
 
         initDriver();
 
-        ArrayList<ContactsReadDto> list = new ArrayList<>();
+        ArrayList<ContactsReadIdDto> list = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement pst = con.prepareStatement(READ_ID)) {
 
@@ -118,23 +122,13 @@ public class ContactsDaoImpl implements ContactsDao {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                String name = rs.getString("name");
-                String surName = rs.getString("surname");
-                String patronymic = rs.getString("patronymic");
-                String dateOfBirth = rs.getString("dateOfBirth");
-                String country = rs.getString("country");
-                String city = rs.getString("city");
-                String street = rs.getString("street");
-                String house = String.valueOf(rs.getInt("house"));
-                String apartment = String.valueOf(rs.getInt("apartment"));
-                String placeOfWork = rs.getString("placeOfWork");
 
-
-                String fullName = String.join(" ", name, surName, patronymic);
-                String fullAddress = String.join(" ", country, city, street, house, apartment);
-
-
-                ContactsReadDto contactDto = new ContactsReadDto(fullName, dateOfBirth, fullAddress, placeOfWork);
+                ContactsReadIdDto contactDto = new ContactsReadIdDto(rs.getString("name"),rs.getString("surname"),rs.getString("patronymic"),
+                        String.valueOf(rs.getDate("dateOfBirth")), GenderEntity.valueOf(rs.getString("gender")),rs.getString("citizenShip"),
+                        MaritalStatusEntity.valueOf(rs.getString("maritalStatus")),rs.getString("webSite"),rs.getString("email"),
+                        rs.getString("placeOfWork"),
+                        rs.getString("photoAddress"),rs.getString("country"),rs.getString("city"),rs.getString("street"),
+                        rs.getInt("house"),rs.getInt("apartment"),rs.getString("postcode"));
                 list.add(contactDto);
             }
 
@@ -157,13 +151,13 @@ public class ContactsDaoImpl implements ContactsDao {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                ContactsReadDto contactDto = new ContactsReadDto(
-                        String.join(" ", rs.getString("name"), rs.getString("surname"), rs.getString("patronymic")),
+                ContactsReadDto contactsReadDto = new ContactsReadDto(
+                        String.join(" ", rs.getString("surname"), rs.getString("name"), rs.getString("patronymic")),
                         rs.getString("dateOfBirth"),
                         String.join(" ", rs.getString("country"), rs.getString("city"), rs.getString("street"), String.valueOf(rs.getInt("house")),
                                 String.valueOf(rs.getInt("apartment"))),
                         rs.getString("placeOfWork"));
-                list.add(contactDto);
+                list.add(contactsReadDto);
             }
 
         } catch (SQLException e) {
