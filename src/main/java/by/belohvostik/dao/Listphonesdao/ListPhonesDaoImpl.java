@@ -1,6 +1,6 @@
 package by.belohvostik.dao.Listphonesdao;
 
-import by.belohvostik.dto.ListPhonesDto;
+import by.belohvostik.dto.ListPhonesReadDto;
 import by.belohvostik.entity.ListPhonesEntity;
 import by.belohvostik.entity.*;
 
@@ -45,19 +45,23 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
     }
 
     @Override
-    public List<ListPhonesDto> read() {
+    public List<ListPhonesReadDto> read() {
 
         initDriver();
 
-        ArrayList<ListPhonesDto> list = new ArrayList<>();
+        ArrayList<ListPhonesReadDto> list = new ArrayList<>();
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement pst = con.prepareStatement(READ)) {
 
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                ListPhonesDto editingPhonesEntity = new ListPhonesDto(rs.getInt("id"), rs.getInt("codeOfCountry"), rs.getInt("codeOperation"),
-                        rs.getInt("phoneNumber"), TypePhone.valueOf(rs.getString("typePhone")), rs.getString("commit"));
+                ListPhonesReadDto editingPhonesEntity = new ListPhonesReadDto(
+                        rs.getInt("id"),
+                        String.join("-", String.valueOf(rs.getInt("codeOfCountry")), String.valueOf(rs.getInt("codeOperation")),
+                        String.valueOf(rs.getInt("phoneNumber"))),
+                        TypePhone.valueOf(rs.getString("typePhone")),
+                        rs.getString("commit"));
                 list.add(editingPhonesEntity);
             }
 

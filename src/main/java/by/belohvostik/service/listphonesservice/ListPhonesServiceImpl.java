@@ -2,8 +2,9 @@ package by.belohvostik.service.listphonesservice;
 
 import by.belohvostik.dao.Listphonesdao.ListPhonesDao;
 import by.belohvostik.dao.Listphonesdao.ListPhonesDaoImpl;
+import by.belohvostik.dto.ListPhoneDto;
 import by.belohvostik.entity.ListPhonesEntity;
-import by.belohvostik.dto.ListPhonesDto;
+import by.belohvostik.dto.ListPhonesReadDto;
 
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class ListPhonesServiceImpl implements ListPhonesService {
     private final ListPhonesDao listPhonesDao = new ListPhonesDaoImpl();
 
     @Override
-    public void update(ListPhonesDto listPhonesDto) {
+    public void update(ListPhoneDto listPhonesDto) {
 
         ListPhonesEntity listPhonesEntity = new ListPhonesEntity(listPhonesDto);
         listPhonesDao.update(listPhonesEntity);
@@ -21,7 +22,7 @@ public class ListPhonesServiceImpl implements ListPhonesService {
     }
 
     @Override
-    public List<ListPhonesDto> read() {
+    public List<ListPhonesReadDto> read() {
 
         return listPhonesDao.read();
     }

@@ -1,6 +1,6 @@
 package by.belohvostik.entity;
 
-import by.belohvostik.dto.ListPhonesDto;
+import by.belohvostik.dto.ListPhoneDto;
 
 import java.util.Objects;
 
@@ -13,7 +13,7 @@ public class ListPhonesEntity {
     private final TypePhone typePhone;
     private final String commit;
 
-    public ListPhonesEntity(ListPhonesDto listPhonesDto) {
+    public ListPhonesEntity(ListPhoneDto listPhonesDto) {
         codeOfCountry = listPhonesDto.getCodeOfCountry();
         codeOperation = listPhonesDto.getCodeOperation();
         phoneNumber = listPhonesDto.getPhoneNumber();
