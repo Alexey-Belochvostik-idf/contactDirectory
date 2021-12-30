@@ -1,8 +1,6 @@
 package by.belohvostik.dao.contactsdao;
 
 import by.belohvostik.dto.ContactsReadDto;
-import by.belohvostik.dto.FullAddressDto;
-import by.belohvostik.dto.FullNameDto;
 import by.belohvostik.entity.ContactEntity;
 import by.belohvostik.entity.ContactPhotoAddress;
 
