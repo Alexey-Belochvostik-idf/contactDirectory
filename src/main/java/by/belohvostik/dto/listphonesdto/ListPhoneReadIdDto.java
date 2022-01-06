@@ -4,7 +4,7 @@ import by.belohvostik.entity.TypePhone;
 
 import java.util.Objects;
 
-public class ListPhoneDto {
+public class ListPhoneReadIdDto {
 
     private final int codeOfCountry;
     private final int codeOperation;
@@ -12,7 +12,7 @@ public class ListPhoneDto {
     private final TypePhone typePhone;
     private final String commit;
 
-    public ListPhoneDto(int codeOfCountry, int codeOperation, int phoneNumber, TypePhone typePhone, String commit) {
+    public ListPhoneReadIdDto(int codeOfCountry, int codeOperation, int phoneNumber, TypePhone typePhone, String commit) {
         this.codeOfCountry = codeOfCountry;
         this.codeOperation = codeOperation;
         this.phoneNumber = phoneNumber;
@@ -44,7 +44,7 @@ public class ListPhoneDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ListPhoneDto that = (ListPhoneDto) o;
+        ListPhoneReadIdDto that = (ListPhoneReadIdDto) o;
         return codeOfCountry == that.codeOfCountry && codeOperation == that.codeOperation && phoneNumber == that.phoneNumber && typePhone == that.typePhone && Objects.equals(commit, that.commit);
     }
 

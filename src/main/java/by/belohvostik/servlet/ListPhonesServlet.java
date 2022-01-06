@@ -1,6 +1,6 @@
 package by.belohvostik.servlet;
 
-import by.belohvostik.dto.listphonesdto.ListPhoneDto;
+import by.belohvostik.dto.listphonesdto.ListPhoneReadIdDto;
 import by.belohvostik.dto.listphonesdto.ListPhonesReadDto;
 import by.belohvostik.service.listphonesservice.ListPhonesService;
 import by.belohvostik.service.listphonesservice.ListPhonesServiceImpl;
@@ -25,7 +25,7 @@ public class ListPhonesServlet extends HttpServlet {
 
        if (req.getPathInfo() != null){
            int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
-           final List<ListPhoneDto> readId = listPhonesService.readID(id);
+           final List<ListPhoneReadIdDto> readId = listPhonesService.readID(id);
 
            String jsonReadId = mapper.writeValueAsString(readId);
            resp.getWriter().write(jsonReadId);

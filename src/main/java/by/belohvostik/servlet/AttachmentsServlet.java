@@ -1,6 +1,6 @@
 package by.belohvostik.servlet;
 
-import by.belohvostik.dto.attachmentsdto.AttachmentsDto;
+import by.belohvostik.dto.attachmentsdto.AttachmentsReadIdDto;
 import by.belohvostik.dto.attachmentsdto.AttachmentsReadDto;
 import by.belohvostik.service.attachmentsservice.AttachmentsService;
 import by.belohvostik.service.attachmentsservice.AttachmentsServiceImpl;
@@ -25,7 +25,7 @@ public class AttachmentsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if (req.getPathInfo() != null) {
             int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
-            final List<AttachmentsDto> readId = attachmentsService.readId(id);
+            final List<AttachmentsReadIdDto> readId = attachmentsService.readId(id);
 
             String jsonReadId = mapper.writeValueAsString(readId);
             resp.getWriter().write(jsonReadId);

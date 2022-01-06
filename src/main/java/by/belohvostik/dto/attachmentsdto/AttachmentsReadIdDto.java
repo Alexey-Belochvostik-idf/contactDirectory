@@ -2,12 +2,12 @@ package by.belohvostik.dto.attachmentsdto;
 
 import java.util.Objects;
 
-public class AttachmentsDto {
+public class AttachmentsReadIdDto {
 
     private  final  String fileName;
     private  final  String commit;
 
-    public AttachmentsDto(String fileName, String commit) {
+    public AttachmentsReadIdDto(String fileName, String commit) {
         this.fileName = fileName;
         this.commit = commit;
     }
@@ -24,7 +24,7 @@ public class AttachmentsDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AttachmentsDto that = (AttachmentsDto) o;
+        AttachmentsReadIdDto that = (AttachmentsReadIdDto) o;
         return Objects.equals(fileName, that.fileName) && Objects.equals(commit, that.commit);
     }
 

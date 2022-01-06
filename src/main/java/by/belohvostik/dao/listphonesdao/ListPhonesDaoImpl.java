@@ -1,6 +1,6 @@
 package by.belohvostik.dao.listphonesdao;
 
-import by.belohvostik.dto.listphonesdto.ListPhoneDto;
+import by.belohvostik.dto.listphonesdto.ListPhoneReadIdDto;
 import by.belohvostik.dto.listphonesdto.ListPhonesReadDto;
 import by.belohvostik.entity.*;
 
@@ -24,11 +24,11 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
 
 
     @Override
-    public List<ListPhoneDto> readId(int id) {
+    public List<ListPhoneReadIdDto> readId(int id) {
 
         initDriver();
 
-        ArrayList<ListPhoneDto> list = new ArrayList<>();
+        ArrayList<ListPhoneReadIdDto> list = new ArrayList<>();
         try(Connection con = DriverManager.getConnection(URL,USER,PASSWORD);
         PreparedStatement pst = con.prepareStatement(READ_ID)){
 
@@ -37,7 +37,7 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
 
             while (rs.next()){
 
-                ListPhoneDto listPhoneDto = new ListPhoneDto(
+                ListPhoneReadIdDto listPhoneDto = new ListPhoneReadIdDto(
                         rs.getInt("codeOfCountry"),
                         rs.getInt("codeOperation"),
                         rs.getInt("phoneNumber"),
