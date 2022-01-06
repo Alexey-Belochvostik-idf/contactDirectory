@@ -1,12 +1,11 @@
 package by.belohvostik.entity;
 
-import by.belohvostik.dto.ListPhoneDto;
+import by.belohvostik.dto.listphonesdto.ListPhoneDto;
 
 import java.util.Objects;
 
 public class ListPhonesEntity {
 
-    private int id;
     private final int codeOfCountry;
     private final int codeOperation;
     private final int phoneNumber;
@@ -20,14 +19,6 @@ public class ListPhonesEntity {
         typePhone = listPhonesDto.getTypePhone();
         commit = listPhonesDto.getCommit();
 
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getCodeOfCountry() {
@@ -55,18 +46,17 @@ public class ListPhonesEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ListPhonesEntity that = (ListPhonesEntity) o;
-        return id == that.id && codeOfCountry == that.codeOfCountry && codeOperation == that.codeOperation && phoneNumber == that.phoneNumber && typePhone == that.typePhone && Objects.equals(commit, that.commit);
+        return codeOfCountry == that.codeOfCountry && codeOperation == that.codeOperation && phoneNumber == that.phoneNumber && typePhone == that.typePhone && Objects.equals(commit, that.commit);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, codeOfCountry, codeOperation, phoneNumber, typePhone, commit);
+        return Objects.hash( codeOfCountry, codeOperation, phoneNumber, typePhone, commit);
     }
 
     @Override
     public String toString() {
         return "ListPhoneDto{" +
-                "id=" + id +
                 ", codeOfCountry=" + codeOfCountry +
                 ", codeOperation=" + codeOperation +
                 ", phoneNumber=" + phoneNumber +

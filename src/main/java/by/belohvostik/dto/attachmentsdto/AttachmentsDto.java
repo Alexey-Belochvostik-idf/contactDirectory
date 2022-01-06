@@ -1,19 +1,15 @@
-package by.belohvostik.entity;
-
-import by.belohvostik.dto.attachmentsdto.AttachmentsReadDto;
+package by.belohvostik.dto.attachmentsdto;
 
 import java.util.Objects;
 
-public class AttachmentsEntity {
+public class AttachmentsDto {
 
-    private final String fileName;
+    private  final  String fileName;
+    private  final  String commit;
 
-    private final String commit;
-
-    public AttachmentsEntity(AttachmentsReadDto attachmentsDto) {
-        fileName = attachmentsDto.getFileName();
-        commit = attachmentsDto.getCommit();
-
+    public AttachmentsDto(String fileName, String commit) {
+        this.fileName = fileName;
+        this.commit = commit;
     }
 
     public String getFileName() {
@@ -28,7 +24,7 @@ public class AttachmentsEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AttachmentsEntity that = (AttachmentsEntity) o;
+        AttachmentsDto that = (AttachmentsDto) o;
         return Objects.equals(fileName, that.fileName) && Objects.equals(commit, that.commit);
     }
 

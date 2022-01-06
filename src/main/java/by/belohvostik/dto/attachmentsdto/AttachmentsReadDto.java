@@ -1,25 +1,20 @@
-package by.belohvostik.dto;
+package by.belohvostik.dto.attachmentsdto;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class AttachmentsDto {
+public class AttachmentsReadDto {
 
-    private  final  int id;
     private  final  String fileName;
     private  final LocalDateTime dateOfDownload;
     private  final  String commit;
 
-    public AttachmentsDto(int id, String fileName, LocalDateTime dateOfDownload, String commit) {
-        this.id = id;
+    public AttachmentsReadDto( String fileName, LocalDateTime dateOfDownload, String commit) {
         this.fileName = fileName;
         this.dateOfDownload = dateOfDownload;
         this.commit = commit;
     }
 
-    public int getId() {
-        return id;
-    }
 
     public String getFileName() {
         return fileName;
@@ -37,19 +32,18 @@ public class AttachmentsDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AttachmentsDto that = (AttachmentsDto) o;
-        return id == that.id && Objects.equals(fileName, that.fileName) && Objects.equals(dateOfDownload, that.dateOfDownload) && Objects.equals(commit, that.commit);
+        AttachmentsReadDto that = (AttachmentsReadDto) o;
+        return Objects.equals(fileName, that.fileName) && Objects.equals(dateOfDownload, that.dateOfDownload) && Objects.equals(commit, that.commit);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fileName, dateOfDownload, commit);
+        return Objects.hash( fileName, dateOfDownload, commit);
     }
 
     @Override
     public String toString() {
         return "Attachments{" +
-                "id=" + id +
                 ", fileName='" + fileName + '\'' +
                 ", dateOfDownload=" + dateOfDownload +
                 ", commit='" + commit + '\'' +

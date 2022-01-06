@@ -1,6 +1,6 @@
 package by.belohvostik.entity;
 
-import by.belohvostik.dto.ContactsDto;
+import by.belohvostik.dto.contactsdto.ContactsDto;
 
 import java.sql.Date;
 import java.util.Objects;

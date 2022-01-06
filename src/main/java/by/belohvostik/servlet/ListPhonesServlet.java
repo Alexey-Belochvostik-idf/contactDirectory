@@ -1,10 +1,9 @@
 package by.belohvostik.servlet;
 
-import by.belohvostik.dto.ListPhoneDto;
-import by.belohvostik.dto.ListPhonesReadDto;
+import by.belohvostik.dto.listphonesdto.ListPhoneDto;
+import by.belohvostik.dto.listphonesdto.ListPhonesReadDto;
 import by.belohvostik.service.listphonesservice.ListPhonesService;
 import by.belohvostik.service.listphonesservice.ListPhonesServiceImpl;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.annotation.WebServlet;
@@ -13,9 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = {"/listphones","/listphones/*"})
+@WebServlet(urlPatterns = {"/phones","/phones/*"})
 public class ListPhonesServlet extends HttpServlet {
 
     private final ListPhonesService listPhonesService = new ListPhonesServiceImpl();
@@ -25,25 +23,23 @@ public class ListPhonesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        req.getPathInfo();
-        final List<ListPhonesReadDto> all = listPhonesService.read();
-        String jsonRead = mapper.writeValueAsString(all);
+       if (req.getPathInfo() != null){
+           int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
+           final List<ListPhoneDto> readId = listPhonesService.readID(id);
+
+           String jsonReadId = mapper.writeValueAsString(readId);
+           resp.getWriter().write(jsonReadId);
+       }else {
+           final List<ListPhonesReadDto> all = listPhonesService.read();
+
+           String jsonRead = mapper.writeValueAsString(all);
+           resp.getWriter().write(jsonRead);
+       }
         resp.setContentType("application/json;charset=UTF-8");
-        resp.getWriter().write(jsonRead);
         resp.getWriter().close();
 
     }
 
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        String json = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        ListPhoneDto listPhonesDto = mapper.readValue(json, ListPhoneDto.class);
-        listPhonesService.update(listPhonesDto);
-        resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
-
-    }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp){

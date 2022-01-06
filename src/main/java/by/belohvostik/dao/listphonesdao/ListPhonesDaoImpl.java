@@ -1,7 +1,7 @@
-package by.belohvostik.dao.Listphonesdao;
+package by.belohvostik.dao.listphonesdao;
 
-import by.belohvostik.dto.ListPhonesReadDto;
-import by.belohvostik.entity.ListPhonesEntity;
+import by.belohvostik.dto.listphonesdto.ListPhoneDto;
+import by.belohvostik.dto.listphonesdto.ListPhonesReadDto;
 import by.belohvostik.entity.*;
 
 import java.sql.*;
@@ -16,7 +16,7 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
     static final String USER = "root";
     static final String PASSWORD = "password";
 
-    static final String UPDATE = "update listPhones set codeOfCountry = ?, codeOperation = ?, phoneNumber = ?, typePhone = ?, commit = ? where id = ?";
+    static final String READ_ID = "select * from listPhones where id = ? ";
 
     static final String READ = "select * from listPhones ";
 
@@ -24,24 +24,33 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
 
 
     @Override
-    public void update(ListPhonesEntity listPhonesEntity) {
+    public List<ListPhoneDto> readId(int id) {
 
         initDriver();
 
-        try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement pst = con.prepareStatement(UPDATE)) {
+        ArrayList<ListPhoneDto> list = new ArrayList<>();
+        try(Connection con = DriverManager.getConnection(URL,USER,PASSWORD);
+        PreparedStatement pst = con.prepareStatement(READ_ID)){
 
-            pst.setInt(1, listPhonesEntity.getCodeOfCountry());
-            pst.setInt(2, listPhonesEntity.getCodeOperation());
-            pst.setInt(3, listPhonesEntity.getPhoneNumber());
-            pst.setString(4, String.valueOf(listPhonesEntity.getTypePhone()));
-            pst.setString(5, listPhonesEntity.getCommit());
-            pst.executeUpdate();
+            pst.setInt(1,id);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()){
+
+                ListPhoneDto listPhoneDto = new ListPhoneDto(
+                        rs.getInt("codeOfCountry"),
+                        rs.getInt("codeOperation"),
+                        rs.getInt("phoneNumber"),
+                        TypePhone.valueOf(rs.getString("typePhone")),
+                        rs.getString("commit"));
+                list.add(listPhoneDto);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        return list;
     }
 
     @Override
@@ -57,9 +66,7 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
 
             while (rs.next()) {
                 ListPhonesReadDto editingPhonesEntity = new ListPhonesReadDto(
-                        rs.getInt("id"),
-                        String.join("-", String.valueOf(rs.getInt("codeOfCountry")), String.valueOf(rs.getInt("codeOperation")),
-                        String.valueOf(rs.getInt("phoneNumber"))),
+                        String.join("-", String.valueOf(rs.getInt("codeOfCountry")), String.valueOf(rs.getInt("codeOperation")), String.valueOf(rs.getInt("phoneNumber"))),
                         TypePhone.valueOf(rs.getString("typePhone")),
                         rs.getString("commit"));
                 list.add(editingPhonesEntity);

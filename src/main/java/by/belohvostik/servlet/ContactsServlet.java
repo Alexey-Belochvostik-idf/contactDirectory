@@ -1,8 +1,8 @@
 package by.belohvostik.servlet;
 
-import by.belohvostik.dto.ContactsReadDto;
-import by.belohvostik.dto.ContactsDto;
-import by.belohvostik.dto.ContactsReadIdDto;
+import by.belohvostik.dto.contactsdto.ContactsReadDto;
+import by.belohvostik.dto.contactsdto.ContactsDto;
+import by.belohvostik.dto.contactsdto.ContactsReadIdDto;
 import by.belohvostik.service.contactservice.ContactService;
 import by.belohvostik.service.contactservice.ContactServiceImpl;
 import com.fasterxml.jackson.databind.DeserializationFeature;

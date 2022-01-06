@@ -1,14 +1,15 @@
 package by.belohvostik.service.attachmentsservice;
 
-import by.belohvostik.dto.AttachmentsDto;
+import by.belohvostik.dto.attachmentsdto.AttachmentsDto;
+import by.belohvostik.dto.attachmentsdto.AttachmentsReadDto;
 
 import java.util.List;
 
 public interface AttachmentsService {
 
-    void update(AttachmentsDto attachmentsDto);
+    List<AttachmentsDto> readId(int id);
 
-    List<AttachmentsDto> read();
+    List<AttachmentsReadDto> read();
 
     void delete(int id);
 

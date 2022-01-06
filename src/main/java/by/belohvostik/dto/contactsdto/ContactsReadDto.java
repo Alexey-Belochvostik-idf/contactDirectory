@@ -1,4 +1,4 @@
-package by.belohvostik.dto;
+package by.belohvostik.dto.contactsdto;
 
 
 import java.util.Objects;

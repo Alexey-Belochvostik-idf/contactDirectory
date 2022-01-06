@@ -1,9 +1,9 @@
 package by.belohvostik.servlet;
 
-import by.belohvostik.dto.AttachmentsDto;
+import by.belohvostik.dto.attachmentsdto.AttachmentsDto;
+import by.belohvostik.dto.attachmentsdto.AttachmentsReadDto;
 import by.belohvostik.service.attachmentsservice.AttachmentsService;
 import by.belohvostik.service.attachmentsservice.AttachmentsServiceImpl;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -13,9 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = {"/attachments","/attachments/*"})
+@WebServlet(urlPatterns = {"/attachments", "/attachments/*"})
 public class AttachmentsServlet extends HttpServlet {
 
     private final AttachmentsService attachmentsService = new AttachmentsServiceImpl();
@@ -23,26 +22,24 @@ public class AttachmentsServlet extends HttpServlet {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
-        req.getPathInfo();
-        final List<AttachmentsDto> all = attachmentsService.read();
-        String jsonRead = mapper.writeValueAsString(all);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        if (req.getPathInfo() != null) {
+            int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
+            final List<AttachmentsDto> readId = attachmentsService.readId(id);
+
+            String jsonReadId = mapper.writeValueAsString(readId);
+            resp.getWriter().write(jsonReadId);
+        } else {
+            final List<AttachmentsReadDto> all = attachmentsService.read();
+
+            String jsonRead = mapper.writeValueAsString(all);
+            resp.getWriter().write(jsonRead);
+        }
         resp.setContentType("application/json;charset=UTF-8");
-        resp.getWriter().write(jsonRead);
         resp.getWriter().close();
 
     }
 
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
-
-        String json = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        AttachmentsDto attachments = mapper.readValue(json, AttachmentsDto.class);
-        attachmentsService.update(attachments);
-        resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
-
-    }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
