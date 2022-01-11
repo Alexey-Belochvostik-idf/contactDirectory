@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/phones", "/phones/*"})
+@WebServlet(urlPatterns = {"/list-phones", "/list-phones/*"})
 public class ListPhonesServlet extends HttpServlet {
 
     private final ListPhonesService listPhonesService = new ListPhonesServiceImpl();
