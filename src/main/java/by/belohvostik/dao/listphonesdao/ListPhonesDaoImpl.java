@@ -14,13 +14,13 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
     static final String URL = "jdbc:mysql://localhost:3306/sys?serverTimezone=UTC";
 
     static final String USER = "root";
-    static final String PASSWORD = "password";
+    static final String PASSWORD = "root";
 
-    static final String READ_ID = "select * from listPhones where id = ? ";
+    static final String READ_ID = "select * from listphones where id = ? ";
 
-    static final String READ = "select * from listPhones ";
+    static final String READ = "select * from listphones ";
 
-    static final String DELETE = "delete from listPhones where id = ?";
+    static final String DELETE = "delete from listphones where id = ?";
 
 
     @Override

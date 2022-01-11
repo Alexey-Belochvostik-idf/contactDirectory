@@ -1,15 +1,14 @@
 package by.belohvostik.dto.attachmentsdto;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class AttachmentsReadDto {
 
     private  final  String fileName;
-    private  final LocalDateTime dateOfDownload;
+    private  final String dateOfDownload;
     private  final  String commit;
 
-    public AttachmentsReadDto( String fileName, LocalDateTime dateOfDownload, String commit) {
+    public AttachmentsReadDto( String fileName, String dateOfDownload, String commit) {
         this.fileName = fileName;
         this.dateOfDownload = dateOfDownload;
         this.commit = commit;
@@ -20,7 +19,7 @@ public class AttachmentsReadDto {
         return fileName;
     }
 
-    public LocalDateTime getDateOfDownload() {
+    public String getDateOfDownload() {
         return dateOfDownload;
     }
 

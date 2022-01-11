@@ -22,9 +22,9 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public void updateDtoToEntity(ContactsDto contactsCreateUpdateDto, int id) {
+    public void updateDtoToEntity(ContactsDto contactsDto, int id) {
 
-        ContactEntity contactEntity = new ContactEntity(id, contactsCreateUpdateDto);
+        ContactEntity contactEntity = new ContactEntity(id, contactsDto);
 
         contactsDao.update(contactEntity);
 

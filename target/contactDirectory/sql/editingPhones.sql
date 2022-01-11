@@ -1,4 +1,4 @@
-CREATE TABLE `editingPhones` (
+CREATE TABLE `listphones` (
                                  `id` int NOT NULL AUTO_INCREMENT,
                                  `codeOfCountry` int DEFAULT NULL,
                                  `codeOperation` int DEFAULT NULL,

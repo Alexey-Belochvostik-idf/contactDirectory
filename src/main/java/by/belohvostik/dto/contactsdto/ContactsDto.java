@@ -1,5 +1,7 @@
 package by.belohvostik.dto.contactsdto;
 
+import by.belohvostik.dto.attachmentsdto.AttachmentsDto;
+import by.belohvostik.dto.listphonesdto.ListPhoneDto;
 import by.belohvostik.entity.GenderEntity;
 import by.belohvostik.entity.MaritalStatusEntity;
 
@@ -27,9 +29,12 @@ public class ContactsDto {
     private  int apartment;
     private  String postcode;
 
+    private ListPhoneDto listPhones;
+    private AttachmentsDto attachments;
+
     public ContactsDto(int id, String name, String surname, String patronymic, Date dateOfBirth, GenderEntity gender, String citizenShip,
                        MaritalStatusEntity maritalStatus, String webSite, String email, String placeOfWork, String photoAddress,
-                       String country, String city, String street, int house, int apartment, String postcode) {
+                       String country, String city, String street, int house, int apartment, String postcode, ListPhoneDto listPhones, AttachmentsDto attachments ) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -48,6 +53,8 @@ public class ContactsDto {
         this.house = house;
         this.apartment = apartment;
         this.postcode = postcode;
+        this.listPhones = listPhones;
+        this.attachments = attachments;
     }
 
     public ContactsDto() {
@@ -125,22 +132,30 @@ public class ContactsDto {
         return postcode;
     }
 
+    public ListPhoneDto getListPhones() {
+        return listPhones;
+    }
+
+    public AttachmentsDto getAttachments() {
+        return attachments;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactsDto that = (ContactsDto) o;
-        return id == that.id && house == that.house && apartment == that.apartment && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(patronymic, that.patronymic) && Objects.equals(dateOfBirth, that.dateOfBirth) && gender == that.gender && Objects.equals(citizenShip, that.citizenShip) && maritalStatus == that.maritalStatus && Objects.equals(webSite, that.webSite) && Objects.equals(email, that.email) && Objects.equals(placeOfWork, that.placeOfWork) && Objects.equals(photoAddress, that.photoAddress) && Objects.equals(country, that.country) && Objects.equals(city, that.city) && Objects.equals(street, that.street) && Objects.equals(postcode, that.postcode);
+        return id == that.id && house == that.house && apartment == that.apartment && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(patronymic, that.patronymic) && Objects.equals(dateOfBirth, that.dateOfBirth) && gender == that.gender && Objects.equals(citizenShip, that.citizenShip) && maritalStatus == that.maritalStatus && Objects.equals(webSite, that.webSite) && Objects.equals(email, that.email) && Objects.equals(placeOfWork, that.placeOfWork) && Objects.equals(photoAddress, that.photoAddress) && Objects.equals(country, that.country) && Objects.equals(city, that.city) && Objects.equals(street, that.street) && Objects.equals(postcode, that.postcode) && Objects.equals(listPhones, that.listPhones) && Objects.equals(attachments, that.attachments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, patronymic, dateOfBirth, gender, citizenShip, maritalStatus, webSite, email, placeOfWork, photoAddress, country, city, street, house, apartment, postcode);
+        return Objects.hash(id, name, surname, patronymic, dateOfBirth, gender, citizenShip, maritalStatus, webSite, email, placeOfWork, photoAddress, country, city, street, house, apartment, postcode, listPhones, attachments);
     }
 
     @Override
     public String toString() {
-        return "ContactsCreateDto{" +
+        return "ContactsDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
@@ -159,6 +174,8 @@ public class ContactsDto {
                 ", house=" + house +
                 ", apartment=" + apartment +
                 ", postcode='" + postcode + '\'' +
+                ", listPhones=" + listPhones +
+                ", attachments=" + attachments +
                 '}';
     }
 }

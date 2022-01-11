@@ -18,7 +18,7 @@ public class ContactsDaoImpl implements ContactsDao {
     static final String URL = "jdbc:mysql://localhost:3306/sys?serverTimezone=UTC";
 
     static final String USER = "root";
-    static final String PASSWORD = "password";
+    static final String PASSWORD = "root";
 
     static final String CREATE = "insert into contacts (name, surname, patronymic, dateOfBirth, gender, citizenShip, maritalStatus, webSite, " +
             "email, placeOfWork, photoAddress, country, city, street, house, apartment, postcode) values ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";

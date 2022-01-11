@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/phones","/phones/*"})
+@WebServlet(urlPatterns = {"/phones", "/phones/*"})
 public class ListPhonesServlet extends HttpServlet {
 
     private final ListPhonesService listPhonesService = new ListPhonesServiceImpl();
@@ -23,18 +23,18 @@ public class ListPhonesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-       if (req.getPathInfo() != null){
-           int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
-           final List<ListPhoneReadIdDto> readId = listPhonesService.readID(id);
+        if (req.getPathInfo() != null) {
+            int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
+            final List<ListPhoneReadIdDto> readId = listPhonesService.readID(id);
 
-           String jsonReadId = mapper.writeValueAsString(readId);
-           resp.getWriter().write(jsonReadId);
-       }else {
-           final List<ListPhonesReadDto> all = listPhonesService.read();
+            String jsonReadId = mapper.writeValueAsString(readId);
+            resp.getWriter().write(jsonReadId);
+        } else {
+            final List<ListPhonesReadDto> all = listPhonesService.read();
 
-           String jsonRead = mapper.writeValueAsString(all);
-           resp.getWriter().write(jsonRead);
-       }
+            String jsonRead = mapper.writeValueAsString(all);
+            resp.getWriter().write(jsonRead);
+        }
         resp.setContentType("application/json;charset=UTF-8");
         resp.getWriter().close();
 
@@ -42,7 +42,7 @@ public class ListPhonesServlet extends HttpServlet {
 
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp){
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
 
         int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
 

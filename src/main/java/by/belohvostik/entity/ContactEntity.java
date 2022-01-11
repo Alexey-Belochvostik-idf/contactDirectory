@@ -1,6 +1,8 @@
 package by.belohvostik.entity;
 
+import by.belohvostik.dto.attachmentsdto.AttachmentsDto;
 import by.belohvostik.dto.contactsdto.ContactsDto;
+import by.belohvostik.dto.listphonesdto.ListPhoneDto;
 
 import java.sql.Date;
 import java.util.Objects;
@@ -26,46 +28,52 @@ public class ContactEntity {
     private final int apartment;
     private final String postcode;
 
-    public ContactEntity(ContactsDto contactsCreateUpdateDto) {
-        name = contactsCreateUpdateDto.getName();
-        surname = contactsCreateUpdateDto.getSurname();
-        patronymic = contactsCreateUpdateDto.getPatronymic();
-        dateOfBirth = contactsCreateUpdateDto.getDateOfBirth();
-        gender = contactsCreateUpdateDto.getGender();
-        citizenShip = contactsCreateUpdateDto.getCitizenShip();
-        maritalStatus = contactsCreateUpdateDto.getMaritalStatus();
-        webSite = contactsCreateUpdateDto.getWebSite();
-        email = contactsCreateUpdateDto.getEmail();
-        placeOfWork = contactsCreateUpdateDto.getPlaceOfWork();
-        photoAddress = contactsCreateUpdateDto.getPhotoAddress();
-        country = contactsCreateUpdateDto.getCountry();
-        city = contactsCreateUpdateDto.getCity();
-        street = contactsCreateUpdateDto.getStreet();
-        house = contactsCreateUpdateDto.getHouse();
-        apartment = contactsCreateUpdateDto.getApartment();
-        postcode = contactsCreateUpdateDto.getPostcode();
+    private final ListPhoneDto listPhones;
+    private final AttachmentsDto attachments;
 
+    public ContactEntity(ContactsDto contactsDto) {
+        name = contactsDto.getName();
+        surname = contactsDto.getSurname();
+        patronymic = contactsDto.getPatronymic();
+        dateOfBirth = contactsDto.getDateOfBirth();
+        gender = contactsDto.getGender();
+        citizenShip = contactsDto.getCitizenShip();
+        maritalStatus = contactsDto.getMaritalStatus();
+        webSite = contactsDto.getWebSite();
+        email = contactsDto.getEmail();
+        placeOfWork = contactsDto.getPlaceOfWork();
+        photoAddress = contactsDto.getPhotoAddress();
+        country = contactsDto.getCountry();
+        city = contactsDto.getCity();
+        street = contactsDto.getStreet();
+        house = contactsDto.getHouse();
+        apartment = contactsDto.getApartment();
+        postcode = contactsDto.getPostcode();
+        listPhones = contactsDto.getListPhones();
+        attachments = contactsDto.getAttachments();
     }
 
-    public ContactEntity(int id, ContactsDto contactsCreateUpdateDto) {
+    public ContactEntity(int id, ContactsDto contactsDto) {
         this.id = id;
-        name = contactsCreateUpdateDto.getName();
-        surname = contactsCreateUpdateDto.getSurname();
-        patronymic = contactsCreateUpdateDto.getPatronymic();
-        dateOfBirth = contactsCreateUpdateDto.getDateOfBirth();
-        gender = contactsCreateUpdateDto.getGender();
-        citizenShip = contactsCreateUpdateDto.getCitizenShip();
-        maritalStatus = contactsCreateUpdateDto.getMaritalStatus();
-        webSite = contactsCreateUpdateDto.getWebSite();
-        email = contactsCreateUpdateDto.getEmail();
-        placeOfWork = contactsCreateUpdateDto.getPlaceOfWork();
-        photoAddress = contactsCreateUpdateDto.getPhotoAddress();
-        country = contactsCreateUpdateDto.getCountry();
-        city = contactsCreateUpdateDto.getCity();
-        street = contactsCreateUpdateDto.getStreet();
-        house = contactsCreateUpdateDto.getHouse();
-        apartment = contactsCreateUpdateDto.getApartment();
-        postcode = contactsCreateUpdateDto.getPostcode();
+        name = contactsDto.getName();
+        surname = contactsDto.getSurname();
+        patronymic = contactsDto.getPatronymic();
+        dateOfBirth = contactsDto.getDateOfBirth();
+        gender = contactsDto.getGender();
+        citizenShip = contactsDto.getCitizenShip();
+        maritalStatus = contactsDto.getMaritalStatus();
+        webSite = contactsDto.getWebSite();
+        email = contactsDto.getEmail();
+        placeOfWork = contactsDto.getPlaceOfWork();
+        photoAddress = contactsDto.getPhotoAddress();
+        country = contactsDto.getCountry();
+        city = contactsDto.getCity();
+        street = contactsDto.getStreet();
+        house = contactsDto.getHouse();
+        apartment = contactsDto.getApartment();
+        postcode = contactsDto.getPostcode();
+        listPhones = contactsDto.getListPhones();
+        attachments = contactsDto.getAttachments();
     }
 
 
@@ -146,17 +154,26 @@ public class ContactEntity {
         return postcode;
     }
 
+    public ListPhoneDto getListPhones() {
+        return listPhones;
+    }
+
+    public AttachmentsDto getAttachments() {
+        return attachments;
+    }
+
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactEntity that = (ContactEntity) o;
-        return id == that.id && house == that.house && apartment == that.apartment && Objects.equals(postcode, that.postcode) && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(patronymic, that.patronymic) && Objects.equals(dateOfBirth, that.dateOfBirth) && gender == that.gender && Objects.equals(citizenShip, that.citizenShip) && Objects.equals(maritalStatus, that.maritalStatus) && Objects.equals(webSite, that.webSite) && Objects.equals(email, that.email) && Objects.equals(placeOfWork, that.placeOfWork) && Objects.equals(photoAddress, that.photoAddress) && Objects.equals(country, that.country) && Objects.equals(city, that.city) && Objects.equals(street, that.street);
+        return id == that.id && house == that.house && apartment == that.apartment && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(patronymic, that.patronymic) && Objects.equals(dateOfBirth, that.dateOfBirth) && gender == that.gender && Objects.equals(citizenShip, that.citizenShip) && maritalStatus == that.maritalStatus && Objects.equals(webSite, that.webSite) && Objects.equals(email, that.email) && Objects.equals(placeOfWork, that.placeOfWork) && Objects.equals(photoAddress, that.photoAddress) && Objects.equals(country, that.country) && Objects.equals(city, that.city) && Objects.equals(street, that.street) && Objects.equals(postcode, that.postcode) && Objects.equals(listPhones, that.listPhones) && Objects.equals(attachments, that.attachments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, patronymic, dateOfBirth, gender, citizenShip, maritalStatus, webSite, email, placeOfWork, photoAddress, country, city, street, house, apartment, postcode);
+        return Objects.hash(id, name, surname, patronymic, dateOfBirth, gender, citizenShip, maritalStatus, webSite, email, placeOfWork, photoAddress, country, city, street, house, apartment, postcode, listPhones, attachments);
     }
 
     @Override
@@ -179,7 +196,9 @@ public class ContactEntity {
                 ", street='" + street + '\'' +
                 ", house=" + house +
                 ", apartment=" + apartment +
-                ", postcode=" + postcode +
+                ", postcode='" + postcode + '\'' +
+                ", listPhones=" + listPhones +
+                ", attachments=" + attachments +
                 '}';
     }
 }

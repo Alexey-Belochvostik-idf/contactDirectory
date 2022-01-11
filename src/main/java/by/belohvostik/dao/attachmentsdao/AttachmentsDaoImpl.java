@@ -14,7 +14,7 @@ public class AttachmentsDaoImpl implements AttachmentsDao {
     static final String URL = "jdbc:mysql://localhost:3306/sys?serverTimezone=UTC";
 
     static final String USER = "root";
-    static final String PASSWORD = "password";
+    static final String PASSWORD = "root";
 
     static final String READ_ID = "select * from attachments where id = ? ";
 
@@ -60,8 +60,7 @@ public class AttachmentsDaoImpl implements AttachmentsDao {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                AttachmentsReadDto attachmentsDto = new AttachmentsReadDto( rs.getString("fileName"),
-                        LocalDateTime.parse(rs.getString("dateOfDownload")), rs.getString("commit"));
+                AttachmentsReadDto attachmentsDto = new AttachmentsReadDto( rs.getString("fileName"), rs.getString("dateOfDownload"), rs.getString("commit"));
                 list.add(attachmentsDto);
             }
 
