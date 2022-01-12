@@ -18,7 +18,7 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
 
     static final String READ_ID = "select * from listphones where id = ? ";
 
-    static final String READ = "select * from listphones ";
+    static final String READ = "select * from listphones where contact_id = ? ";
 
     static final String DELETE = "delete from listphones where id = ?";
 
@@ -54,7 +54,7 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
     }
 
     @Override
-    public List<ListPhonesReadDto> read() {
+    public List<ListPhonesReadDto> read(int contact_id) {
 
         initDriver();
 
@@ -62,6 +62,7 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement pst = con.prepareStatement(READ)) {
 
+            pst.setInt(1,contact_id);
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {

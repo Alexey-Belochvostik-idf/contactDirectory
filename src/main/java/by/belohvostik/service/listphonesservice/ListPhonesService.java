@@ -9,7 +9,7 @@ public interface ListPhonesService {
 
     List<ListPhoneReadIdDto> readID(int id);
 
-    List<ListPhonesReadDto> read();
+    List<ListPhonesReadDto> read(int contact_id);
 
     void delete(int id);
 

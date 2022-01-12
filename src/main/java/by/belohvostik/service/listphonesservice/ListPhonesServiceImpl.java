@@ -19,9 +19,9 @@ public class ListPhonesServiceImpl implements ListPhonesService {
 
 
     @Override
-    public List<ListPhonesReadDto> read() {
+    public List<ListPhonesReadDto> read(int contact_id) {
 
-        return listPhonesDao.read();
+        return listPhonesDao.read(contact_id);
     }
 
     @Override

@@ -17,9 +17,9 @@ public class AttachmentsServiceImpl implements AttachmentsService {
     }
 
     @Override
-    public List<AttachmentsReadDto> read() {
+    public List<AttachmentsReadDto> read(int contact_id) {
 
-        return attachmentsDao.read();
+        return attachmentsDao.read(contact_id);
     }
 
     @Override

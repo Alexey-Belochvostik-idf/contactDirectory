@@ -1,6 +1,5 @@
 package by.belohvostik.servlet;
 
-import by.belohvostik.dto.listphonesdto.ListPhoneReadIdDto;
 import by.belohvostik.dto.listphonesdto.ListPhonesReadDto;
 import by.belohvostik.service.listphonesservice.ListPhonesService;
 import by.belohvostik.service.listphonesservice.ListPhonesServiceImpl;
@@ -13,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/phone/*"})
-public class ListPhonesServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/contacts/list-phones/*"})
+public class ContactListPhonesServlet extends HttpServlet {
 
     private final ListPhonesService listPhonesService = new ListPhonesServiceImpl();
 
@@ -23,30 +22,16 @@ public class ListPhonesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        if (req.getPathInfo() == null) {
+        if (req.getPathInfo() != null) {
             int contact_id = Integer.parseInt(req.getPathInfo().replace("/", ""));
             final List<ListPhonesReadDto> readId = listPhonesService.read(contact_id);
 
             String jsonReadId = mapper.writeValueAsString(readId);
             resp.getWriter().write(jsonReadId);
-        } else {
-            int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
-            final List<ListPhoneReadIdDto> all = listPhonesService.readID(id);
-
-            String jsonRead = mapper.writeValueAsString(all);
-            resp.getWriter().write(jsonRead);
         }
         resp.setContentType("application/json;charset=UTF-8");
         resp.getWriter().close();
 
     }
 
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
-
-        int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
-
-        listPhonesService.delete(id);
-    }
 }

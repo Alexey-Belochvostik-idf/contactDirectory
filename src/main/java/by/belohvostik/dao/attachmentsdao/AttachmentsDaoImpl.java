@@ -4,7 +4,6 @@ import by.belohvostik.dto.attachmentsdto.AttachmentsReadIdDto;
 import by.belohvostik.dto.attachmentsdto.AttachmentsReadDto;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class AttachmentsDaoImpl implements AttachmentsDao {
 
     static final String READ_ID = "select * from attachments where id = ? ";
 
-    static final String READ = "select * from attachments ";
+    static final String READ = "select * from attachments where contact_id = ?";
 
     static final String DELETE = "delete from attachments where id = ?";
 
@@ -49,7 +48,7 @@ public class AttachmentsDaoImpl implements AttachmentsDao {
     }
 
     @Override
-    public List<AttachmentsReadDto> read() {
+    public List<AttachmentsReadDto> read( int contact_id) {
 
         initDriver();
 
@@ -57,6 +56,7 @@ public class AttachmentsDaoImpl implements AttachmentsDao {
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement pst = con.prepareStatement(READ)) {
 
+            pst.setInt(1,contact_id);
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {

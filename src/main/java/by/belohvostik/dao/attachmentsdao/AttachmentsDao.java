@@ -9,7 +9,7 @@ public interface AttachmentsDao {
 
     List<AttachmentsReadIdDto> readId(int id);
 
-    List<AttachmentsReadDto> read();
+    List<AttachmentsReadDto> read(int contact_id);
 
     void delete(int id);
 
