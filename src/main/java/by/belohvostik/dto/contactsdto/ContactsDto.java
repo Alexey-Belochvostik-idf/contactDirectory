@@ -1,8 +1,8 @@
 package by.belohvostik.dto.contactsdto;
 
-import by.belohvostik.dto.attachmentsdto.AttachmentsDto;
-import by.belohvostik.dto.listphonesdto.ListPhoneDto;
+import by.belohvostik.entity.AttachmentsEntity;
 import by.belohvostik.entity.GenderEntity;
+import by.belohvostik.entity.ListPhonesEntity;
 import by.belohvostik.entity.MaritalStatusEntity;
 
 import java.sql.Date;
@@ -29,12 +29,12 @@ public class ContactsDto {
     private  int apartment;
     private  String postcode;
 
-    private ListPhoneDto listPhones;
-    private AttachmentsDto attachments;
+    private ListPhonesEntity listPhones;
+    private AttachmentsEntity attachments;
 
     public ContactsDto(int id, String name, String surname, String patronymic, Date dateOfBirth, GenderEntity gender, String citizenShip,
                        MaritalStatusEntity maritalStatus, String webSite, String email, String placeOfWork, String photoAddress,
-                       String country, String city, String street, int house, int apartment, String postcode, ListPhoneDto listPhones, AttachmentsDto attachments ) {
+                       String country, String city, String street, int house, int apartment, String postcode, ListPhonesEntity listPhones, AttachmentsEntity attachments ) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -132,11 +132,11 @@ public class ContactsDto {
         return postcode;
     }
 
-    public ListPhoneDto getListPhones() {
+    public ListPhonesEntity getListPhones() {
         return listPhones;
     }
 
-    public AttachmentsDto getAttachments() {
+    public AttachmentsEntity getAttachments() {
         return attachments;
     }
 

@@ -1,11 +1,9 @@
 package by.belohvostik.servlet;
 
 import by.belohvostik.dto.attachmentsdto.AttachmentsReadIdDto;
-import by.belohvostik.dto.attachmentsdto.AttachmentsReadDto;
 import by.belohvostik.service.attachmentsservice.AttachmentsService;
 import by.belohvostik.service.attachmentsservice.AttachmentsServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,9 +26,9 @@ public class AttachmentsServlet extends HttpServlet {
             final List<AttachmentsReadIdDto> readId = attachmentsService.readId(id);
 
             String jsonReadId = mapper.writeValueAsString(readId);
+            resp.setContentType("application/json;charset=UTF-8");
             resp.getWriter().write(jsonReadId);
         }
-        resp.setContentType("application/json;charset=UTF-8");
         resp.getWriter().close();
 
     }

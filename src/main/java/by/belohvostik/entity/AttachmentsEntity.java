@@ -6,14 +6,16 @@ import java.util.Objects;
 
 public class AttachmentsEntity {
 
-    private final String fileName;
+    private  String fileName;
+    private  String commit;
+    private  int contact_id;
 
-    private final String commit;
-
-    public AttachmentsEntity(AttachmentsReadDto attachmentsDto) {
+    public AttachmentsEntity(AttachmentsReadDto attachmentsDto, int contact_id) {
         fileName = attachmentsDto.getFileName();
         commit = attachmentsDto.getCommit();
+    }
 
+    public AttachmentsEntity() {
     }
 
     public String getFileName() {
@@ -22,6 +24,10 @@ public class AttachmentsEntity {
 
     public String getCommit() {
         return commit;
+    }
+
+    public int getContact_id() {
+        return contact_id;
     }
 
     @Override
@@ -34,14 +40,15 @@ public class AttachmentsEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(fileName, commit);
+        return Objects.hash(fileName, commit, contact_id);
     }
 
     @Override
     public String toString() {
-        return "AttachmentsDto{" +
+        return "AttachmentsEntity{" +
                 "fileName='" + fileName + '\'' +
                 ", commit='" + commit + '\'' +
+                ", contact_id=" + contact_id +
                 '}';
     }
 }

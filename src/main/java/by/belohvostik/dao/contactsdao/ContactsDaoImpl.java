@@ -20,12 +20,21 @@ public class ContactsDaoImpl implements ContactsDao {
     static final String USER = "root";
     static final String PASSWORD = "root";
 
-    static final String CREATE = "insert into contacts (name, surname, patronymic, dateOfBirth, gender, citizenShip, maritalStatus, webSite, " +
+    static final String CREATE_CONTACTS = "insert into contacts (name, surname, patronymic, dateOfBirth, gender, citizenShip, maritalStatus, webSite, " +
             "email, placeOfWork, photoAddress, country, city, street, house, apartment, postcode) values ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-    static final String UPDATE = "update contacts set  name = ? ,surname = ?, patronymic = ?, dateOfBirth = ?, gender = ?, citizenShip = ?, " +
+    static final String CREATE_LIST_PHONES = "insert into listphones (codeOfCountry, codeOperation, phoneNumber, typePhone, commit, contact_id) " +
+            "values ( ?,?,?,?,?,?)";
+
+    static final String CREATE_ATTACHMENTS = "insert into attachments (fileName, commit, contact_id) values ( ?,?,?)";
+
+    static final String UPDATE_CONTACT = "update contacts set  name = ? ,surname = ?, patronymic = ?, dateOfBirth = ?, gender = ?, citizenShip = ?, " +
             "maritalStatus = ?, webSite = ?, email = ?, placeOfWork = ?, photoAddress = ?, country = ?, city = ?, street = ?, " +
             "house = ?, apartment = ?, postcode = ? where id = ?";
+
+    static final String UPDATE_LIST_PHONES = "";
+
+    static final String UPDATE_ATTACHMENTS = "";
 
     static final String DELETE = "delete from contacts where id = ?";
 
@@ -41,7 +50,7 @@ public class ContactsDaoImpl implements ContactsDao {
         int idr = 0;
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement pst = con.prepareStatement(CREATE, PreparedStatement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement pst = con.prepareStatement(CREATE_CONTACTS, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
             pst.setString(1, contactEntity.getName());
             pst.setString(2, contactEntity.getSurname());
@@ -67,6 +76,28 @@ public class ContactsDaoImpl implements ContactsDao {
                     idr = contactEntity.setId(generatedKeys.getInt(1));
                 }
             }
+
+            try (PreparedStatement pst1 = con.prepareStatement(CREATE_LIST_PHONES)) {
+
+                pst1.setInt(1, contactEntity.getListPhones().getCodeOfCountry());
+                pst1.setInt(2, contactEntity.getListPhones().getCodeOperation());
+                pst1.setInt(3, contactEntity.getListPhones().getPhoneNumber());
+                pst1.setString(4, String.valueOf(contactEntity.getListPhones().getTypePhone()));
+                pst1.setString(5, contactEntity.getListPhones().getCommit());
+                pst1.setInt(6, idr);
+                pst1.executeUpdate();
+
+            }
+
+            try (PreparedStatement pst2 = con.prepareStatement(CREATE_ATTACHMENTS)) {
+
+                pst2.setString(1, contactEntity.getAttachments().getFileName());
+                pst2.setString(2, contactEntity.getAttachments().getCommit());
+                pst2.setInt(3, idr);
+                pst2.executeUpdate();
+
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -79,7 +110,7 @@ public class ContactsDaoImpl implements ContactsDao {
         initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement pst = con.prepareStatement(UPDATE)) {
+             PreparedStatement pst = con.prepareStatement(UPDATE_CONTACT)) {
 
             pst.setInt(18, contactEntity.getId());
             pst.setString(1, contactEntity.getName());
@@ -100,6 +131,14 @@ public class ContactsDaoImpl implements ContactsDao {
             pst.setInt(16, contactEntity.getApartment());
             pst.setString(17, contactEntity.getPostcode());
             pst.executeUpdate();
+
+            try(PreparedStatement pst1 = con.prepareStatement(UPDATE_LIST_PHONES)) {
+
+            }
+
+            try(PreparedStatement pst2 = con.prepareStatement(UPDATE_ATTACHMENTS)) {
+
+            }
 
         } catch (
                 SQLException e) {
@@ -122,12 +161,12 @@ public class ContactsDaoImpl implements ContactsDao {
 
             while (rs.next()) {
 
-                ContactsReadIdDto contactDto = new ContactsReadIdDto(rs.getString("name"),rs.getString("surname"),rs.getString("patronymic"),
-                        String.valueOf(rs.getDate("dateOfBirth")), GenderEntity.valueOf(rs.getString("gender")),rs.getString("citizenShip"),
-                        MaritalStatusEntity.valueOf(rs.getString("maritalStatus")),rs.getString("webSite"),rs.getString("email"),
+                ContactsReadIdDto contactDto = new ContactsReadIdDto(rs.getString("name"), rs.getString("surname"), rs.getString("patronymic"),
+                        String.valueOf(rs.getDate("dateOfBirth")), GenderEntity.valueOf(rs.getString("gender")), rs.getString("citizenShip"),
+                        MaritalStatusEntity.valueOf(rs.getString("maritalStatus")), rs.getString("webSite"), rs.getString("email"),
                         rs.getString("placeOfWork"),
-                        rs.getString("photoAddress"),rs.getString("country"),rs.getString("city"),rs.getString("street"),
-                        rs.getInt("house"),rs.getInt("apartment"),rs.getString("postcode"));
+                        rs.getString("photoAddress"), rs.getString("country"), rs.getString("city"), rs.getString("street"),
+                        rs.getInt("house"), rs.getInt("apartment"), rs.getString("postcode"));
                 list.add(contactDto);
             }
 

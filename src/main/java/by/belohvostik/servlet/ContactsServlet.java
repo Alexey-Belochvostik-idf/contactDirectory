@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns = {"/contacts", "/contacts/*" })
+@WebServlet(urlPatterns = {"/contacts", "/contacts/*"})
 public class ContactsServlet extends HttpServlet {
 
     private final ContactService contactService = new ContactServiceImpl();
@@ -26,6 +26,7 @@ public class ContactsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.setCharacterEncoding("UTF-8");
         String json = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         ContactsDto contactsDto = mapper.readValue(json, ContactsDto.class);
@@ -46,14 +47,15 @@ public class ContactsServlet extends HttpServlet {
             final List<ContactsReadIdDto> readId = contactService.readId(id);
 
             String jsonReadId = mapper.writeValueAsString(readId);
+            resp.setContentType("application/json;charset=UTF-8");
             resp.getWriter().write(jsonReadId);
         } else {
             final List<ContactsReadDto> all = contactService.read();
 
             String jsonRead = mapper.writeValueAsString(all);
+            resp.setContentType("application/json;charset=UTF-8");
             resp.getWriter().write(jsonRead);
         }
-        resp.setContentType("application/json");
         resp.getWriter().close();
 
     }
@@ -63,9 +65,10 @@ public class ContactsServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
+        req.setCharacterEncoding("UTF-8");
         String json = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         ContactsDto contact = mapper.readValue(json, ContactsDto.class);
-        contactService.updateDtoToEntity(contact,id);
+        contactService.updateDtoToEntity(contact, id);
         resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
     }
 

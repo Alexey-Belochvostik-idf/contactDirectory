@@ -27,9 +27,9 @@ public class ContactAttachmentsServlet extends HttpServlet {
             final List<AttachmentsReadDto> read = attachmentsService.read(contact_id);
 
             String jsonReadId = mapper.writeValueAsString(read);
+            resp.setContentType("application/json;charset=UTF-8");
             resp.getWriter().write(jsonReadId);
         }
-        resp.setContentType("application/json;charset=UTF-8");
         resp.getWriter().close();
 
     }

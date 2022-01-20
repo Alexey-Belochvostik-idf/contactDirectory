@@ -1,7 +1,6 @@
 package by.belohvostik.servlet;
 
 import by.belohvostik.dto.listphonesdto.ListPhoneReadIdDto;
-import by.belohvostik.dto.listphonesdto.ListPhonesReadDto;
 import by.belohvostik.service.listphonesservice.ListPhonesService;
 import by.belohvostik.service.listphonesservice.ListPhonesServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,20 +22,14 @@ public class ListPhonesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        if (req.getPathInfo() == null) {
-            int contact_id = Integer.parseInt(req.getPathInfo().replace("/", ""));
-            final List<ListPhonesReadDto> readId = listPhonesService.read(contact_id);
-
-            String jsonReadId = mapper.writeValueAsString(readId);
-            resp.getWriter().write(jsonReadId);
-        } else {
+        if (req.getPathInfo() != null) {
             int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
             final List<ListPhoneReadIdDto> all = listPhonesService.readID(id);
 
             String jsonRead = mapper.writeValueAsString(all);
+            resp.setContentType("application/json;charset=UTF-8");
             resp.getWriter().write(jsonRead);
         }
-        resp.setContentType("application/json;charset=UTF-8");
         resp.getWriter().close();
 
     }

@@ -27,9 +27,9 @@ public class ContactListPhonesServlet extends HttpServlet {
             final List<ListPhonesReadDto> readId = listPhonesService.read(contact_id);
 
             String jsonReadId = mapper.writeValueAsString(readId);
+            resp.setContentType("application/json;charset=UTF-8");
             resp.getWriter().write(jsonReadId);
         }
-        resp.setContentType("application/json;charset=UTF-8");
         resp.getWriter().close();
 
     }

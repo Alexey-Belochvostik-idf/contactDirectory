@@ -1,8 +1,6 @@
 package by.belohvostik.entity;
 
-import by.belohvostik.dto.attachmentsdto.AttachmentsDto;
 import by.belohvostik.dto.contactsdto.ContactsDto;
-import by.belohvostik.dto.listphonesdto.ListPhoneDto;
 
 import java.sql.Date;
 import java.util.Objects;
@@ -10,26 +8,26 @@ import java.util.Objects;
 public class ContactEntity {
 
     private int id;
-    private final String name;
-    private final String surname;
-    private final String patronymic;
-    private final Date dateOfBirth;
-    private final GenderEntity gender;
-    private final String citizenShip;
-    private final MaritalStatusEntity maritalStatus;
-    private final String webSite;
-    private final String email;
-    private final String placeOfWork;
-    private final String photoAddress;
-    private final String country;
-    private final String city;
-    private final String street;
-    private final int house;
-    private final int apartment;
-    private final String postcode;
+    private String name;
+    private String surname;
+    private String patronymic;
+    private Date dateOfBirth;
+    private GenderEntity gender;
+    private String citizenShip;
+    private MaritalStatusEntity maritalStatus;
+    private String webSite;
+    private String email;
+    private String placeOfWork;
+    private String photoAddress;
+    private String country;
+    private String city;
+    private String street;
+    private int house;
+    private int apartment;
+    private String postcode;
 
-    private final ListPhoneDto listPhones;
-    private final AttachmentsDto attachments;
+    private ListPhonesEntity listPhones;
+    private AttachmentsEntity attachments;
 
     public ContactEntity(ContactsDto contactsDto) {
         name = contactsDto.getName();
@@ -51,6 +49,7 @@ public class ContactEntity {
         postcode = contactsDto.getPostcode();
         listPhones = contactsDto.getListPhones();
         attachments = contactsDto.getAttachments();
+
     }
 
     public ContactEntity(int id, ContactsDto contactsDto) {
@@ -74,8 +73,11 @@ public class ContactEntity {
         postcode = contactsDto.getPostcode();
         listPhones = contactsDto.getListPhones();
         attachments = contactsDto.getAttachments();
+
     }
 
+    public ContactEntity() {
+    }
 
     public int getId() {
         return id;
@@ -154,17 +156,16 @@ public class ContactEntity {
         return postcode;
     }
 
-    public ListPhoneDto getListPhones() {
+    public ListPhonesEntity getListPhones() {
         return listPhones;
     }
 
-    public AttachmentsDto getAttachments() {
+    public AttachmentsEntity getAttachments() {
         return attachments;
     }
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactEntity that = (ContactEntity) o;
