@@ -1,8 +1,8 @@
 package by.belohvostik.servlet;
 
 import by.belohvostik.dto.attachmentsdto.AttachmentsReadIdDto;
-import by.belohvostik.service.attachmentsservice.AttachmentsService;
-import by.belohvostik.service.attachmentsservice.AttachmentsServiceImpl;
+import by.belohvostik.service.serviceinterface.AttachmentsService;
+import by.belohvostik.service.serviceimpl.AttachmentsServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.annotation.WebServlet;

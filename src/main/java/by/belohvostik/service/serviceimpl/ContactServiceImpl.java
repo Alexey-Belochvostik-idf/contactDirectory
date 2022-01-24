@@ -1,11 +1,12 @@
-package by.belohvostik.service.contactservice;
+package by.belohvostik.service.serviceimpl;
 
 import by.belohvostik.dao.contactsdao.ContactsDao;
 import by.belohvostik.dao.contactsdao.ContactsDaoImpl;
-import by.belohvostik.dto.contactsdto.ContactsReadDto;
 import by.belohvostik.dto.contactsdto.ContactsDto;
+import by.belohvostik.dto.contactsdto.ContactsReadDto;
 import by.belohvostik.dto.contactsdto.ContactsReadIdDto;
 import by.belohvostik.entity.ContactEntity;
+import by.belohvostik.service.serviceinterface.ContactService;
 
 import java.util.List;
 

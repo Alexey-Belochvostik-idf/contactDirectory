@@ -1,8 +1,8 @@
 package by.belohvostik.servlet;
 
 import by.belohvostik.dto.listphonesdto.ListPhoneReadIdDto;
-import by.belohvostik.service.listphonesservice.ListPhonesService;
-import by.belohvostik.service.listphonesservice.ListPhonesServiceImpl;
+import by.belohvostik.service.serviceinterface.ListPhonesService;
+import by.belohvostik.service.serviceimpl.ListPhonesServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.annotation.WebServlet;

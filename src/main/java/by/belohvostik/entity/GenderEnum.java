@@ -1,5 +1,5 @@
 package by.belohvostik.entity;
 
-public enum GenderEntity {
+public enum GenderEnum {
     M, F
 }

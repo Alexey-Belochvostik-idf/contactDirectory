@@ -1,10 +1,10 @@
 package by.belohvostik.servlet;
 
-import by.belohvostik.dto.contactsdto.ContactsReadDto;
 import by.belohvostik.dto.contactsdto.ContactsDto;
+import by.belohvostik.dto.contactsdto.ContactsReadDto;
 import by.belohvostik.dto.contactsdto.ContactsReadIdDto;
-import by.belohvostik.service.contactservice.ContactService;
-import by.belohvostik.service.contactservice.ContactServiceImpl;
+import by.belohvostik.service.serviceimpl.ContactServiceImpl;
+import by.belohvostik.service.serviceinterface.ContactService;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -44,13 +44,13 @@ public class ContactsServlet extends HttpServlet {
 
         if (req.getPathInfo() != null) {
             int id = Integer.parseInt(req.getPathInfo().replace("/", ""));
-            final List<ContactsReadIdDto> readId = contactService.readId(id);
+             List<ContactsReadIdDto> readId = contactService.readId(id);
 
             String jsonReadId = mapper.writeValueAsString(readId);
             resp.setContentType("application/json;charset=UTF-8");
             resp.getWriter().write(jsonReadId);
         } else {
-            final List<ContactsReadDto> all = contactService.read();
+             List<ContactsReadDto> all = contactService.read();
 
             String jsonRead = mapper.writeValueAsString(all);
             resp.setContentType("application/json;charset=UTF-8");

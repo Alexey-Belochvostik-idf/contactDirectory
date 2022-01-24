@@ -1,4 +1,4 @@
-package by.belohvostik.service.attachmentsservice;
+package by.belohvostik.service.serviceinterface;
 
 import by.belohvostik.dto.attachmentsdto.AttachmentsReadIdDto;
 import by.belohvostik.dto.attachmentsdto.AttachmentsReadDto;

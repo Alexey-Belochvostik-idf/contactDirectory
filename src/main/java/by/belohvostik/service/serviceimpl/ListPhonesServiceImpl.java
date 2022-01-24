@@ -1,10 +1,10 @@
-package by.belohvostik.service.listphonesservice;
+package by.belohvostik.service.serviceimpl;
 
 import by.belohvostik.dao.listphonesdao.ListPhonesDao;
 import by.belohvostik.dao.listphonesdao.ListPhonesDaoImpl;
 import by.belohvostik.dto.listphonesdto.ListPhoneReadIdDto;
 import by.belohvostik.dto.listphonesdto.ListPhonesReadDto;
-
+import by.belohvostik.service.serviceinterface.ListPhonesService;
 
 import java.util.List;
 
@@ -30,4 +30,5 @@ public class ListPhonesServiceImpl implements ListPhonesService {
         listPhonesDao.delete(id);
 
     }
+
 }

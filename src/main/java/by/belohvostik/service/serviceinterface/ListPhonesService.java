@@ -1,4 +1,4 @@
-package by.belohvostik.service.listphonesservice;
+package by.belohvostik.service.serviceinterface;
 
 import by.belohvostik.dto.listphonesdto.ListPhoneReadIdDto;
 import by.belohvostik.dto.listphonesdto.ListPhonesReadDto;

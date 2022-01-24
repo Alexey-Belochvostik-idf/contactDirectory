@@ -29,19 +29,19 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
         initDriver();
 
         ArrayList<ListPhoneReadIdDto> list = new ArrayList<>();
-        try(Connection con = DriverManager.getConnection(URL,USER,PASSWORD);
-        PreparedStatement pst = con.prepareStatement(READ_ID)){
+        try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
+             PreparedStatement pst = con.prepareStatement(READ_ID)) {
 
-            pst.setInt(1,id);
+            pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();
 
-            while (rs.next()){
+            while (rs.next()) {
 
                 ListPhoneReadIdDto listPhoneDto = new ListPhoneReadIdDto(
                         rs.getInt("codeOfCountry"),
                         rs.getInt("codeOperation"),
                         rs.getInt("phoneNumber"),
-                        TypePhone.valueOf(rs.getString("typePhone")),
+                        TypePhoneEnum.valueOf(rs.getString("typePhone")),
                         rs.getString("commit"));
                 list.add(listPhoneDto);
             }
@@ -62,13 +62,15 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement pst = con.prepareStatement(READ)) {
 
-            pst.setInt(1,contact_id);
+            pst.setInt(1, contact_id);
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
                 ListPhonesReadDto editingPhonesEntity = new ListPhonesReadDto(
-                        String.join("-", String.valueOf(rs.getInt("codeOfCountry")), String.valueOf(rs.getInt("codeOperation")), String.valueOf(rs.getInt("phoneNumber"))),
-                        TypePhone.valueOf(rs.getString("typePhone")),
+                        String.join("-", String.valueOf(rs.getInt("codeOfCountry")),
+                                String.valueOf(rs.getInt("codeOperation")),
+                                String.valueOf(rs.getInt("phoneNumber"))),
+                        TypePhoneEnum.valueOf(rs.getString("typePhone")),
                         rs.getString("commit"));
                 list.add(editingPhonesEntity);
             }

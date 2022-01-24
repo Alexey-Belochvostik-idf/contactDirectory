@@ -1,9 +1,10 @@
-package by.belohvostik.service.attachmentsservice;
+package by.belohvostik.service.serviceimpl;
 
 import by.belohvostik.dao.attachmentsdao.AttachmentsDao;
 import by.belohvostik.dao.attachmentsdao.AttachmentsDaoImpl;
 import by.belohvostik.dto.attachmentsdto.AttachmentsReadIdDto;
 import by.belohvostik.dto.attachmentsdto.AttachmentsReadDto;
+import by.belohvostik.service.serviceinterface.AttachmentsService;
 
 import java.util.List;
 

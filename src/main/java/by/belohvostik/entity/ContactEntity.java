@@ -12,9 +12,9 @@ public class ContactEntity {
     private String surname;
     private String patronymic;
     private Date dateOfBirth;
-    private GenderEntity gender;
+    private GenderEnum gender;
     private String citizenShip;
-    private MaritalStatusEntity maritalStatus;
+    private MaritalStatusEnum maritalStatus;
     private String webSite;
     private String email;
     private String placeOfWork;
@@ -104,7 +104,7 @@ public class ContactEntity {
         return dateOfBirth;
     }
 
-    public GenderEntity getGender() {
+    public GenderEnum getGender() {
         return gender;
     }
 
@@ -112,7 +112,7 @@ public class ContactEntity {
         return citizenShip;
     }
 
-    public MaritalStatusEntity getMaritalStatus() {
+    public MaritalStatusEnum getMaritalStatus() {
         return maritalStatus;
     }
 

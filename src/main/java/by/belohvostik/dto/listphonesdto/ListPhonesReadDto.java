@@ -1,16 +1,16 @@
 package by.belohvostik.dto.listphonesdto;
 
-import by.belohvostik.entity.TypePhone;
+import by.belohvostik.entity.TypePhoneEnum;
 
 import java.util.Objects;
 
 public class ListPhonesReadDto {
 
     private final String fullPhoneNumber;
-    private final TypePhone typePhone;
+    private final TypePhoneEnum typePhone;
     private final String commit;
 
-    public ListPhonesReadDto(String fullPhoneNumber, TypePhone typePhone, String commit) {
+    public ListPhonesReadDto(String fullPhoneNumber, TypePhoneEnum typePhone, String commit) {
         this.fullPhoneNumber = fullPhoneNumber;
         this.typePhone = typePhone;
         this.commit = commit;
@@ -20,7 +20,7 @@ public class ListPhonesReadDto {
         return fullPhoneNumber;
     }
 
-    public TypePhone getTypePhone() {
+    public TypePhoneEnum getTypePhone() {
         return typePhone;
     }
 

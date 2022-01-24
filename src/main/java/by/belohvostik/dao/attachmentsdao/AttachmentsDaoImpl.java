@@ -60,7 +60,8 @@ public class AttachmentsDaoImpl implements AttachmentsDao {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                AttachmentsReadDto attachmentsDto = new AttachmentsReadDto( rs.getString("fileName"), rs.getString("dateOfDownload"), rs.getString("commit"));
+                AttachmentsReadDto attachmentsDto = new AttachmentsReadDto( rs.getString("fileName"),
+                        rs.getString("dateOfDownload"), rs.getString("commit"));
                 list.add(attachmentsDto);
             }
 

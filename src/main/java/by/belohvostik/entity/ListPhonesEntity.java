@@ -9,7 +9,7 @@ public class ListPhonesEntity {
     private  int codeOfCountry;
     private  int codeOperation;
     private  int phoneNumber;
-    private  TypePhone typePhone;
+    private TypePhoneEnum typePhone;
     private  String commit;
     private int contact_id;
 
@@ -37,7 +37,7 @@ public class ListPhonesEntity {
         return phoneNumber;
     }
 
-    public TypePhone getTypePhone() {
+    public TypePhoneEnum getTypePhone() {
         return typePhone;
     }
 

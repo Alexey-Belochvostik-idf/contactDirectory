@@ -1,7 +1,7 @@
 package by.belohvostik.dto.contactsdto;
 
-import by.belohvostik.entity.GenderEntity;
-import by.belohvostik.entity.MaritalStatusEntity;
+import by.belohvostik.entity.GenderEnum;
+import by.belohvostik.entity.MaritalStatusEnum;
 
 import java.util.Objects;
 
@@ -11,9 +11,9 @@ public class ContactsReadIdDto {
     private final String surname;
     private final String patronymic;
     private final String dateOfBirth;
-    private final GenderEntity gender;
+    private final GenderEnum gender;
     private final String citizenShip;
-    private final MaritalStatusEntity maritalStatus;
+    private final MaritalStatusEnum maritalStatus;
     private final String webSite;
     private final String email;
     private final String placeOfWork;
@@ -25,7 +25,7 @@ public class ContactsReadIdDto {
     private final int apartment;
     private final String postcode;
 
-    public ContactsReadIdDto(String name, String surname, String patronymic, String dateOfBirth, GenderEntity gender, String citizenShip, MaritalStatusEntity maritalStatus, String webSite, String email, String placeOfWork, String photoAddress, String country, String city, String street, int house, int apartment, String postcode) {
+    public ContactsReadIdDto(String name, String surname, String patronymic, String dateOfBirth, GenderEnum gender, String citizenShip, MaritalStatusEnum maritalStatus, String webSite, String email, String placeOfWork, String photoAddress, String country, String city, String street, int house, int apartment, String postcode) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -61,7 +61,7 @@ public class ContactsReadIdDto {
         return dateOfBirth;
     }
 
-    public GenderEntity getGender() {
+    public GenderEnum getGender() {
         return gender;
     }
 
@@ -69,7 +69,7 @@ public class ContactsReadIdDto {
         return citizenShip;
     }
 
-    public MaritalStatusEntity getMaritalStatus() {
+    public MaritalStatusEnum getMaritalStatus() {
         return maritalStatus;
     }
 

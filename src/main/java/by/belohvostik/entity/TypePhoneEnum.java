@@ -1,5 +1,5 @@
 package by.belohvostik.entity;
 
-public enum TypePhone {
+public enum TypePhoneEnum {
     MOBILE, HOME
 }

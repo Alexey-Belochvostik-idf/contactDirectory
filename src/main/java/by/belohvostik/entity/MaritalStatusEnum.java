@@ -1,5 +1,5 @@
 package by.belohvostik.entity;
 
-public enum MaritalStatusEntity {
+public enum MaritalStatusEnum {
     SINGLE, MARRIED
 }

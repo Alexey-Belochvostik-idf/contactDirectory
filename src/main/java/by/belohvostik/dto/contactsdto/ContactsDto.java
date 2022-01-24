@@ -1,9 +1,9 @@
 package by.belohvostik.dto.contactsdto;
 
 import by.belohvostik.entity.AttachmentsEntity;
-import by.belohvostik.entity.GenderEntity;
+import by.belohvostik.entity.GenderEnum;
 import by.belohvostik.entity.ListPhonesEntity;
-import by.belohvostik.entity.MaritalStatusEntity;
+import by.belohvostik.entity.MaritalStatusEnum;
 
 import java.sql.Date;
 import java.util.Objects;
@@ -15,9 +15,9 @@ public class ContactsDto {
     private  String surname;
     private  String patronymic;
     private  Date dateOfBirth;
-    private  GenderEntity gender;
+    private GenderEnum gender;
     private  String citizenShip;
-    private  MaritalStatusEntity maritalStatus;
+    private MaritalStatusEnum maritalStatus;
     private  String webSite;
     private  String email;
     private  String placeOfWork;
@@ -32,8 +32,8 @@ public class ContactsDto {
     private ListPhonesEntity listPhones;
     private AttachmentsEntity attachments;
 
-    public ContactsDto(int id, String name, String surname, String patronymic, Date dateOfBirth, GenderEntity gender, String citizenShip,
-                       MaritalStatusEntity maritalStatus, String webSite, String email, String placeOfWork, String photoAddress,
+    public ContactsDto(int id, String name, String surname, String patronymic, Date dateOfBirth, GenderEnum gender, String citizenShip,
+                       MaritalStatusEnum maritalStatus, String webSite, String email, String placeOfWork, String photoAddress,
                        String country, String city, String street, int house, int apartment, String postcode, ListPhonesEntity listPhones, AttachmentsEntity attachments ) {
         this.id = id;
         this.name = name;
@@ -80,7 +80,7 @@ public class ContactsDto {
         return dateOfBirth;
     }
 
-    public GenderEntity getGender() {
+    public GenderEnum getGender() {
         return gender;
     }
 
@@ -88,7 +88,7 @@ public class ContactsDto {
         return citizenShip;
     }
 
-    public MaritalStatusEntity getMaritalStatus() {
+    public MaritalStatusEnum getMaritalStatus() {
         return maritalStatus;
     }
 

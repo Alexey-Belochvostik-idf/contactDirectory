@@ -4,8 +4,8 @@ import by.belohvostik.dto.contactsdto.ContactsReadDto;
 import by.belohvostik.dto.contactsdto.ContactsReadIdDto;
 import by.belohvostik.entity.ContactEntity;
 import by.belohvostik.entity.ContactPhotoAddress;
-import by.belohvostik.entity.GenderEntity;
-import by.belohvostik.entity.MaritalStatusEntity;
+import by.belohvostik.entity.GenderEnum;
+import by.belohvostik.entity.MaritalStatusEnum;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -32,9 +32,9 @@ public class ContactsDaoImpl implements ContactsDao {
             "maritalStatus = ?, webSite = ?, email = ?, placeOfWork = ?, photoAddress = ?, country = ?, city = ?, street = ?, " +
             "house = ?, apartment = ?, postcode = ? where id = ?";
 
-    static final String UPDATE_LIST_PHONES = "";
+    static final String UPDATE_LIST_PHONES = "update listphones set codeOfCountry = ?, codeOperation = ?, phoneNumber = ?, typePhone = ?, commit = ? where contact_id = ?";
 
-    static final String UPDATE_ATTACHMENTS = "";
+    static final String UPDATE_ATTACHMENTS = "update attachments set fileName = ?, commit = ? where contact_id = ?";
 
     static final String DELETE = "delete from contacts where id = ?";
 
@@ -47,7 +47,7 @@ public class ContactsDaoImpl implements ContactsDao {
 
         initDriver();
 
-        int idr = 0;
+        int returnIdContact = 0;
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement pst = con.prepareStatement(CREATE_CONTACTS, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -73,7 +73,7 @@ public class ContactsDaoImpl implements ContactsDao {
 
             try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    idr = contactEntity.setId(generatedKeys.getInt(1));
+                    returnIdContact = contactEntity.setId(generatedKeys.getInt(1));
                 }
             }
 
@@ -84,7 +84,7 @@ public class ContactsDaoImpl implements ContactsDao {
                 pst1.setInt(3, contactEntity.getListPhones().getPhoneNumber());
                 pst1.setString(4, String.valueOf(contactEntity.getListPhones().getTypePhone()));
                 pst1.setString(5, contactEntity.getListPhones().getCommit());
-                pst1.setInt(6, idr);
+                pst1.setInt(6, returnIdContact);
                 pst1.executeUpdate();
 
             }
@@ -93,7 +93,7 @@ public class ContactsDaoImpl implements ContactsDao {
 
                 pst2.setString(1, contactEntity.getAttachments().getFileName());
                 pst2.setString(2, contactEntity.getAttachments().getCommit());
-                pst2.setInt(3, idr);
+                pst2.setInt(3, returnIdContact);
                 pst2.executeUpdate();
 
             }
@@ -101,7 +101,7 @@ public class ContactsDaoImpl implements ContactsDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return idr;
+        return returnIdContact;
     }
 
     @Override
@@ -132,11 +132,24 @@ public class ContactsDaoImpl implements ContactsDao {
             pst.setString(17, contactEntity.getPostcode());
             pst.executeUpdate();
 
-            try(PreparedStatement pst1 = con.prepareStatement(UPDATE_LIST_PHONES)) {
+            try (PreparedStatement pst1 = con.prepareStatement(UPDATE_LIST_PHONES)) {
+
+                pst1.setInt(1, contactEntity.getListPhones().getCodeOfCountry());
+                pst1.setInt(2, contactEntity.getListPhones().getCodeOperation());
+                pst1.setInt(3, contactEntity.getListPhones().getPhoneNumber());
+                pst1.setString(4, String.valueOf(contactEntity.getListPhones().getTypePhone()));
+                pst1.setString(5, contactEntity.getListPhones().getCommit());
+                pst1.setInt(6, contactEntity.getId());
+                pst1.executeUpdate();
 
             }
 
-            try(PreparedStatement pst2 = con.prepareStatement(UPDATE_ATTACHMENTS)) {
+            try (PreparedStatement pst2 = con.prepareStatement(UPDATE_ATTACHMENTS)) {
+
+                pst2.setString(1, contactEntity.getAttachments().getFileName());
+                pst2.setString(2, contactEntity.getAttachments().getCommit());
+                pst2.setInt(3, contactEntity.getId());
+                pst2.executeUpdate();
 
             }
 
@@ -161,12 +174,19 @@ public class ContactsDaoImpl implements ContactsDao {
 
             while (rs.next()) {
 
-                ContactsReadIdDto contactDto = new ContactsReadIdDto(rs.getString("name"), rs.getString("surname"), rs.getString("patronymic"),
-                        String.valueOf(rs.getDate("dateOfBirth")), GenderEntity.valueOf(rs.getString("gender")), rs.getString("citizenShip"),
-                        MaritalStatusEntity.valueOf(rs.getString("maritalStatus")), rs.getString("webSite"), rs.getString("email"),
+                ContactsReadIdDto contactDto = new ContactsReadIdDto(rs.getString("name"),
+                        rs.getString("surname"),
+                        rs.getString("patronymic"),
+                        String.valueOf(rs.getDate("dateOfBirth")),
+                        GenderEnum.valueOf(rs.getString("gender")),
+                        rs.getString("citizenShip"),
+                        MaritalStatusEnum.valueOf(rs.getString("maritalStatus")),
+                        rs.getString("webSite"), rs.getString("email"),
                         rs.getString("placeOfWork"),
-                        rs.getString("photoAddress"), rs.getString("country"), rs.getString("city"), rs.getString("street"),
-                        rs.getInt("house"), rs.getInt("apartment"), rs.getString("postcode"));
+                        rs.getString("photoAddress"), rs.getString("country"),
+                        rs.getString("city"), rs.getString("street"),
+                        rs.getInt("house"), rs.getInt("apartment"),
+                        rs.getString("postcode"));
                 list.add(contactDto);
             }
 
@@ -190,9 +210,14 @@ public class ContactsDaoImpl implements ContactsDao {
 
             while (rs.next()) {
                 ContactsReadDto contactsReadDto = new ContactsReadDto(
-                        String.join(" ", rs.getString("surname"), rs.getString("name"), rs.getString("patronymic")),
+                        String.join(" ", rs.getString("surname"),
+                                rs.getString("name"),
+                                rs.getString("patronymic")),
                         rs.getString("dateOfBirth"),
-                        String.join(" ", rs.getString("country"), rs.getString("city"), rs.getString("street"), String.valueOf(rs.getInt("house")),
+                        String.join(" ",
+                                rs.getString("country"),
+                                rs.getString("city"), rs.getString("street"),
+                                String.valueOf(rs.getInt("house")),
                                 String.valueOf(rs.getInt("apartment"))),
                         rs.getString("placeOfWork"));
                 list.add(contactsReadDto);
