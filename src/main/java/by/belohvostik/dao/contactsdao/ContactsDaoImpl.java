@@ -38,6 +38,10 @@ public class ContactsDaoImpl implements ContactsDao {
 
     static final String DELETE = "delete from contacts where id = ?";
 
+    static final String DELETE_PHONES = "delete from listphones where contact_id = ?";
+
+    static final String DELETE_ATTACHMENTS = "delete from attachments where contact_id = ?";
+
     static final String READ_ID = "select * from contacts where id = ?";
 
     static final String READ = "select * from contacts ";
@@ -216,7 +220,8 @@ public class ContactsDaoImpl implements ContactsDao {
                         rs.getString("dateOfBirth"),
                         String.join(" ",
                                 rs.getString("country"),
-                                rs.getString("city"), rs.getString("street"),
+                                rs.getString("city"),
+                                rs.getString("street"),
                                 String.valueOf(rs.getInt("house")),
                                 String.valueOf(rs.getInt("apartment"))),
                         rs.getString("placeOfWork"));
@@ -235,9 +240,23 @@ public class ContactsDaoImpl implements ContactsDao {
         initDriver();
 
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement pst = con.prepareStatement(DELETE)) {
+             PreparedStatement pst = con.prepareStatement(DELETE_ATTACHMENTS)) {
+
             pst.setInt(1, id);
             pst.execute();
+
+            try(PreparedStatement pst1 = con.prepareStatement(DELETE_PHONES)) {
+
+                pst1.setInt(1,id);
+                pst1.execute();
+
+            }
+            try(PreparedStatement pst2 = con.prepareStatement(DELETE)) {
+
+                pst2.setInt(1,id);
+                pst2.execute();
+
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
