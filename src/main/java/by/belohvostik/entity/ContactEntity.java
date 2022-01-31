@@ -26,7 +26,7 @@ public class ContactEntity {
     private int apartment;
     private String postcode;
 
-    private ListPhonesEntity listPhones;
+    private ListPhonesEntity[] listPhones;
     private AttachmentsEntity attachments;
 
     public ContactEntity(ContactsDto contactsDto) {
@@ -156,7 +156,7 @@ public class ContactEntity {
         return postcode;
     }
 
-    public ListPhonesEntity getListPhones() {
+    public ListPhonesEntity[] getListPhones() {
         return listPhones;
     }
 

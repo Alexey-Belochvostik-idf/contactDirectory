@@ -37,7 +37,7 @@ public class AttachmentsDaoImpl implements AttachmentsDao {
 
                 AttachmentsReadIdDto attachmentsDto = new AttachmentsReadIdDto(
                         rs.getString("fileName"),
-                        rs.getString("commit"));
+                        rs.getString("comment"));
                 list.add(attachmentsDto);
             }
 
@@ -61,7 +61,7 @@ public class AttachmentsDaoImpl implements AttachmentsDao {
 
             while (rs.next()) {
                 AttachmentsReadDto attachmentsDto = new AttachmentsReadDto( rs.getString("fileName"),
-                        rs.getString("dateOfDownload"), rs.getString("commit"));
+                        rs.getString("dateOfDownload"), rs.getString("comment"));
                 list.add(attachmentsDto);
             }
 

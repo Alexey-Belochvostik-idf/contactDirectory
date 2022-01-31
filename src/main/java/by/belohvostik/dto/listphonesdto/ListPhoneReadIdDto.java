@@ -10,14 +10,14 @@ public class ListPhoneReadIdDto {
     private final int codeOperation;
     private final int phoneNumber;
     private final TypePhoneEnum typePhone;
-    private final String commit;
+    private final String comment;
 
     public ListPhoneReadIdDto(int codeOfCountry, int codeOperation, int phoneNumber, TypePhoneEnum typePhone, String commit) {
         this.codeOfCountry = codeOfCountry;
         this.codeOperation = codeOperation;
         this.phoneNumber = phoneNumber;
         this.typePhone = typePhone;
-        this.commit = commit;
+        this.comment = commit;
     }
 
     public int getCodeOfCountry() {
@@ -36,8 +36,8 @@ public class ListPhoneReadIdDto {
         return typePhone;
     }
 
-    public String getCommit() {
-        return commit;
+    public String getComment() {
+        return comment;
     }
 
     @Override
@@ -45,12 +45,12 @@ public class ListPhoneReadIdDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ListPhoneReadIdDto that = (ListPhoneReadIdDto) o;
-        return codeOfCountry == that.codeOfCountry && codeOperation == that.codeOperation && phoneNumber == that.phoneNumber && typePhone == that.typePhone && Objects.equals(commit, that.commit);
+        return codeOfCountry == that.codeOfCountry && codeOperation == that.codeOperation && phoneNumber == that.phoneNumber && typePhone == that.typePhone && Objects.equals(comment, that.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash( codeOfCountry, codeOperation, phoneNumber, typePhone, commit);
+        return Objects.hash( codeOfCountry, codeOperation, phoneNumber, typePhone, comment);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ListPhoneReadIdDto {
                 ", codeOperation=" + codeOperation +
                 ", phoneNumber=" + phoneNumber +
                 ", typePhone=" + typePhone +
-                ", commit='" + commit + '\'' +
+                ", commit='" + comment + '\'' +
                 '}';
     }
 }

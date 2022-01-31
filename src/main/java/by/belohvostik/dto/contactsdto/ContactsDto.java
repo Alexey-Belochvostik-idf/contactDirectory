@@ -29,12 +29,12 @@ public class ContactsDto {
     private  int apartment;
     private  String postcode;
 
-    private ListPhonesEntity listPhones;
+    private ListPhonesEntity[] listPhones;
     private AttachmentsEntity attachments;
 
     public ContactsDto(int id, String name, String surname, String patronymic, Date dateOfBirth, GenderEnum gender, String citizenShip,
                        MaritalStatusEnum maritalStatus, String webSite, String email, String placeOfWork, String photoAddress,
-                       String country, String city, String street, int house, int apartment, String postcode, ListPhonesEntity listPhones, AttachmentsEntity attachments ) {
+                       String country, String city, String street, int house, int apartment, String postcode, ListPhonesEntity[] listPhones, AttachmentsEntity attachments ) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -132,7 +132,7 @@ public class ContactsDto {
         return postcode;
     }
 
-    public ListPhonesEntity getListPhones() {
+    public ListPhonesEntity[] getListPhones() {
         return listPhones;
     }
 

@@ -10,7 +10,7 @@ public class ListPhonesEntity {
     private  int codeOperation;
     private  int phoneNumber;
     private TypePhoneEnum typePhone;
-    private  String commit;
+    private  String comment;
     private int contact_id;
 
     public ListPhonesEntity(ListPhoneReadIdDto listPhonesDto) {
@@ -18,7 +18,7 @@ public class ListPhonesEntity {
         codeOperation = listPhonesDto.getCodeOperation();
         phoneNumber = listPhonesDto.getPhoneNumber();
         typePhone = listPhonesDto.getTypePhone();
-        commit = listPhonesDto.getCommit();
+        comment = listPhonesDto.getComment();
 
     }
 
@@ -41,8 +41,8 @@ public class ListPhonesEntity {
         return typePhone;
     }
 
-    public String getCommit() {
-        return commit;
+    public String getComment() {
+        return comment;
     }
 
     public int getContact_id() {
@@ -54,12 +54,12 @@ public class ListPhonesEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ListPhonesEntity that = (ListPhonesEntity) o;
-        return codeOfCountry == that.codeOfCountry && codeOperation == that.codeOperation && phoneNumber == that.phoneNumber && contact_id == that.contact_id && typePhone == that.typePhone && Objects.equals(commit, that.commit);
+        return codeOfCountry == that.codeOfCountry && codeOperation == that.codeOperation && phoneNumber == that.phoneNumber && contact_id == that.contact_id && typePhone == that.typePhone && Objects.equals(comment, that.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codeOfCountry, codeOperation, phoneNumber, typePhone, commit, contact_id);
+        return Objects.hash(codeOfCountry, codeOperation, phoneNumber, typePhone, comment, contact_id);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class ListPhonesEntity {
                 ", codeOperation=" + codeOperation +
                 ", phoneNumber=" + phoneNumber +
                 ", typePhone=" + typePhone +
-                ", commit='" + commit + '\'' +
+                ", commit='" + comment + '\'' +
                 ", contact_id=" + contact_id +
                 '}';
     }

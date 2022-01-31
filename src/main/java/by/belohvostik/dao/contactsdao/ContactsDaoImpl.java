@@ -2,10 +2,7 @@ package by.belohvostik.dao.contactsdao;
 
 import by.belohvostik.dto.contactsdto.ContactsReadDto;
 import by.belohvostik.dto.contactsdto.ContactsReadIdDto;
-import by.belohvostik.entity.ContactEntity;
-import by.belohvostik.entity.ContactPhotoAddress;
-import by.belohvostik.entity.GenderEnum;
-import by.belohvostik.entity.MaritalStatusEnum;
+import by.belohvostik.entity.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,18 +20,18 @@ public class ContactsDaoImpl implements ContactsDao {
     static final String CREATE_CONTACTS = "insert into contacts (name, surname, patronymic, dateOfBirth, gender, citizenShip, maritalStatus, webSite, " +
             "email, placeOfWork, photoAddress, country, city, street, house, apartment, postcode) values ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-    static final String CREATE_LIST_PHONES = "insert into listphones (codeOfCountry, codeOperation, phoneNumber, typePhone, commit, contact_id) " +
+    static final String CREATE_LIST_PHONES = "insert into listphones (codeOfCountry, codeOperation, phoneNumber, typePhone, comment, contact_id) " +
             "values ( ?,?,?,?,?,?)";
 
-    static final String CREATE_ATTACHMENTS = "insert into attachments (fileName, commit, contact_id) values ( ?,?,?)";
+    static final String CREATE_ATTACHMENTS = "insert into attachments (fileName, comment, contact_id) values ( ?,?,?)";
 
     static final String UPDATE_CONTACT = "update contacts set  name = ? ,surname = ?, patronymic = ?, dateOfBirth = ?, gender = ?, citizenShip = ?, " +
             "maritalStatus = ?, webSite = ?, email = ?, placeOfWork = ?, photoAddress = ?, country = ?, city = ?, street = ?, " +
             "house = ?, apartment = ?, postcode = ? where id = ?";
 
-    static final String UPDATE_LIST_PHONES = "update listphones set codeOfCountry = ?, codeOperation = ?, phoneNumber = ?, typePhone = ?, commit = ? where contact_id = ?";
+    static final String UPDATE_LIST_PHONES = "update listphones set codeOfCountry = ?, codeOperation = ?, phoneNumber = ?, typePhone = ?, comment = ? where contact_id = ?";
 
-    static final String UPDATE_ATTACHMENTS = "update attachments set fileName = ?, commit = ? where contact_id = ?";
+    static final String UPDATE_ATTACHMENTS = "update attachments set fileName = ?, comment = ? where contact_id = ?";
 
     static final String DELETE = "delete from contacts where id = ?";
 
@@ -83,20 +80,22 @@ public class ContactsDaoImpl implements ContactsDao {
 
             try (PreparedStatement pst1 = con.prepareStatement(CREATE_LIST_PHONES)) {
 
-                pst1.setInt(1, contactEntity.getListPhones().getCodeOfCountry());
-                pst1.setInt(2, contactEntity.getListPhones().getCodeOperation());
-                pst1.setInt(3, contactEntity.getListPhones().getPhoneNumber());
-                pst1.setString(4, String.valueOf(contactEntity.getListPhones().getTypePhone()));
-                pst1.setString(5, contactEntity.getListPhones().getCommit());
-                pst1.setInt(6, returnIdContact);
-                pst1.executeUpdate();
+                for (ListPhonesEntity listPhones:contactEntity.getListPhones()) {
 
+                    pst1.setInt(1, listPhones.getCodeOfCountry());
+                    pst1.setInt(2, listPhones.getCodeOperation());
+                    pst1.setInt(3, listPhones.getPhoneNumber());
+                    pst1.setString(4, String.valueOf(listPhones.getTypePhone()));
+                    pst1.setString(5, listPhones.getComment());
+                    pst1.setInt(6, returnIdContact);
+                    pst1.executeUpdate();
+                }
             }
 
             try (PreparedStatement pst2 = con.prepareStatement(CREATE_ATTACHMENTS)) {
 
                 pst2.setString(1, contactEntity.getAttachments().getFileName());
-                pst2.setString(2, contactEntity.getAttachments().getCommit());
+                pst2.setString(2, contactEntity.getAttachments().getComment());
                 pst2.setInt(3, returnIdContact);
                 pst2.executeUpdate();
 
@@ -138,20 +137,22 @@ public class ContactsDaoImpl implements ContactsDao {
 
             try (PreparedStatement pst1 = con.prepareStatement(UPDATE_LIST_PHONES)) {
 
-                pst1.setInt(1, contactEntity.getListPhones().getCodeOfCountry());
-                pst1.setInt(2, contactEntity.getListPhones().getCodeOperation());
-                pst1.setInt(3, contactEntity.getListPhones().getPhoneNumber());
-                pst1.setString(4, String.valueOf(contactEntity.getListPhones().getTypePhone()));
-                pst1.setString(5, contactEntity.getListPhones().getCommit());
-                pst1.setInt(6, contactEntity.getId());
-                pst1.executeUpdate();
+                for (ListPhonesEntity listPhones:contactEntity.getListPhones()) {
 
+                    pst1.setInt(1, listPhones.getCodeOfCountry());
+                    pst1.setInt(2, listPhones.getCodeOperation());
+                    pst1.setInt(3, listPhones.getPhoneNumber());
+                    pst1.setString(4, String.valueOf(listPhones.getTypePhone()));
+                    pst1.setString(5, listPhones.getComment());
+                    pst1.setInt(6, contactEntity.getId());
+                    pst1.executeUpdate();
+                }
             }
 
             try (PreparedStatement pst2 = con.prepareStatement(UPDATE_ATTACHMENTS)) {
 
                 pst2.setString(1, contactEntity.getAttachments().getFileName());
-                pst2.setString(2, contactEntity.getAttachments().getCommit());
+                pst2.setString(2, contactEntity.getAttachments().getComment());
                 pst2.setInt(3, contactEntity.getId());
                 pst2.executeUpdate();
 
@@ -245,15 +246,15 @@ public class ContactsDaoImpl implements ContactsDao {
             pst.setInt(1, id);
             pst.execute();
 
-            try(PreparedStatement pst1 = con.prepareStatement(DELETE_PHONES)) {
+            try (PreparedStatement pst1 = con.prepareStatement(DELETE_PHONES)) {
 
-                pst1.setInt(1,id);
+                pst1.setInt(1, id);
                 pst1.execute();
 
             }
-            try(PreparedStatement pst2 = con.prepareStatement(DELETE)) {
+            try (PreparedStatement pst2 = con.prepareStatement(DELETE)) {
 
-                pst2.setInt(1,id);
+                pst2.setInt(1, id);
                 pst2.execute();
 
             }

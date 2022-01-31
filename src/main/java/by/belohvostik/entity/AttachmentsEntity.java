@@ -7,12 +7,12 @@ import java.util.Objects;
 public class AttachmentsEntity {
 
     private  String fileName;
-    private  String commit;
+    private  String comment;
     private  int contact_id;
 
     public AttachmentsEntity(AttachmentsReadDto attachmentsDto, int contact_id) {
         fileName = attachmentsDto.getFileName();
-        commit = attachmentsDto.getCommit();
+        comment = attachmentsDto.getComment();
     }
 
     public AttachmentsEntity() {
@@ -22,8 +22,8 @@ public class AttachmentsEntity {
         return fileName;
     }
 
-    public String getCommit() {
-        return commit;
+    public String getComment() {
+        return comment;
     }
 
     public int getContact_id() {
@@ -35,19 +35,19 @@ public class AttachmentsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AttachmentsEntity that = (AttachmentsEntity) o;
-        return Objects.equals(fileName, that.fileName) && Objects.equals(commit, that.commit);
+        return Objects.equals(fileName, that.fileName) && Objects.equals(comment, that.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fileName, commit, contact_id);
+        return Objects.hash(fileName, comment, contact_id);
     }
 
     @Override
     public String toString() {
         return "AttachmentsEntity{" +
                 "fileName='" + fileName + '\'' +
-                ", commit='" + commit + '\'' +
+                ", commit='" + comment + '\'' +
                 ", contact_id=" + contact_id +
                 '}';
     }

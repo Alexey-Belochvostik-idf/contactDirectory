@@ -42,7 +42,7 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
                         rs.getInt("codeOperation"),
                         rs.getInt("phoneNumber"),
                         TypePhoneEnum.valueOf(rs.getString("typePhone")),
-                        rs.getString("commit"));
+                        rs.getString("comment"));
                 list.add(listPhoneDto);
             }
 
@@ -71,7 +71,7 @@ public class ListPhonesDaoImpl implements ListPhonesDao {
                                 String.valueOf(rs.getInt("codeOperation")),
                                 String.valueOf(rs.getInt("phoneNumber"))),
                         TypePhoneEnum.valueOf(rs.getString("typePhone")),
-                        rs.getString("commit"));
+                        rs.getString("comment"));
                 list.add(editingPhonesEntity);
             }
 

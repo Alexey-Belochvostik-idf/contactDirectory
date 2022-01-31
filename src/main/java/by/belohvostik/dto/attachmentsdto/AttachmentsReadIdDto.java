@@ -5,19 +5,19 @@ import java.util.Objects;
 public class AttachmentsReadIdDto {
 
     private  final  String fileName;
-    private  final  String commit;
+    private  final  String comment;
 
     public AttachmentsReadIdDto(String fileName, String commit) {
         this.fileName = fileName;
-        this.commit = commit;
+        this.comment = commit;
     }
 
     public String getFileName() {
         return fileName;
     }
 
-    public String getCommit() {
-        return commit;
+    public String getComment() {
+        return comment;
     }
 
     @Override
@@ -25,19 +25,19 @@ public class AttachmentsReadIdDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AttachmentsReadIdDto that = (AttachmentsReadIdDto) o;
-        return Objects.equals(fileName, that.fileName) && Objects.equals(commit, that.commit);
+        return Objects.equals(fileName, that.fileName) && Objects.equals(comment, that.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fileName, commit);
+        return Objects.hash(fileName, comment);
     }
 
     @Override
     public String toString() {
         return "AttachmentsDto{" +
                 "fileName='" + fileName + '\'' +
-                ", commit='" + commit + '\'' +
+                ", commit='" + comment + '\'' +
                 '}';
     }
 }

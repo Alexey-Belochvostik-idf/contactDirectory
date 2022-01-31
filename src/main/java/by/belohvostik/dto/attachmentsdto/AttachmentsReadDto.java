@@ -6,12 +6,12 @@ public class AttachmentsReadDto {
 
     private  final  String fileName;
     private  final String dateOfDownload;
-    private  final  String commit;
+    private  final  String comment;
 
     public AttachmentsReadDto( String fileName, String dateOfDownload, String commit) {
         this.fileName = fileName;
         this.dateOfDownload = dateOfDownload;
-        this.commit = commit;
+        this.comment = commit;
     }
 
 
@@ -23,8 +23,8 @@ public class AttachmentsReadDto {
         return dateOfDownload;
     }
 
-    public String getCommit() {
-        return commit;
+    public String getComment() {
+        return comment;
     }
 
     @Override
@@ -32,12 +32,12 @@ public class AttachmentsReadDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AttachmentsReadDto that = (AttachmentsReadDto) o;
-        return Objects.equals(fileName, that.fileName) && Objects.equals(dateOfDownload, that.dateOfDownload) && Objects.equals(commit, that.commit);
+        return Objects.equals(fileName, that.fileName) && Objects.equals(dateOfDownload, that.dateOfDownload) && Objects.equals(comment, that.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash( fileName, dateOfDownload, commit);
+        return Objects.hash( fileName, dateOfDownload, comment);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class AttachmentsReadDto {
         return "Attachments{" +
                 ", fileName='" + fileName + '\'' +
                 ", dateOfDownload=" + dateOfDownload +
-                ", commit='" + commit + '\'' +
+                ", commit='" + comment + '\'' +
                 '}';
     }
 }
