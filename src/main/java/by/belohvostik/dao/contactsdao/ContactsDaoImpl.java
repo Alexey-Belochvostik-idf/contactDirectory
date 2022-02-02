@@ -2,11 +2,13 @@ package by.belohvostik.dao.contactsdao;
 
 import by.belohvostik.dto.contactsdto.ContactsReadDto;
 import by.belohvostik.dto.contactsdto.ContactsReadIdDto;
-import by.belohvostik.entity.*;
+import by.belohvostik.entity.ContactEntity;
+import by.belohvostik.entity.GenderEnum;
+import by.belohvostik.entity.ListPhonesEntity;
+import by.belohvostik.entity.MaritalStatusEnum;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ContactsDaoImpl implements ContactsDao {
@@ -17,21 +19,24 @@ public class ContactsDaoImpl implements ContactsDao {
     static final String USER = "root";
     static final String PASSWORD = "root";
 
-    static final String CREATE_CONTACTS = "insert into contacts (name, surname, patronymic, dateOfBirth, gender, citizenShip, maritalStatus, webSite, " +
-            "email, placeOfWork, photoAddress, country, city, street, house, apartment, postcode) values ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    static final String CREATE_CONTACTS = "insert into contacts (name, surname, patronymic, dateOfBirth, gender, " +
+            "citizenShip, maritalStatus, webSite, email, placeOfWork, country, city, street, house, apartment, " +
+            "postcode) values ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-    static final String CREATE_LIST_PHONES = "insert into listphones (codeOfCountry, codeOperation, phoneNumber, typePhone, comment, contact_id) " +
-            "values ( ?,?,?,?,?,?)";
+    static final String CREATE_LIST_PHONES = "insert into listphones (codeOfCountry, codeOperation, phoneNumber, " +
+            "typePhone, comment, contact_id) values ( ?,?,?,?,?,?)";
 
-    static final String CREATE_ATTACHMENTS = "insert into attachments (fileName, comment, contact_id) values ( ?,?,?)";
+    static final String CREATE_ATTACHMENTS = "insert into attachments (fileName, data, comment, contact_id) values (?,?,?,?)";
 
-    static final String UPDATE_CONTACT = "update contacts set  name = ? ,surname = ?, patronymic = ?, dateOfBirth = ?, gender = ?, citizenShip = ?, " +
-            "maritalStatus = ?, webSite = ?, email = ?, placeOfWork = ?, photoAddress = ?, country = ?, city = ?, street = ?, " +
+    static final String UPDATE_CONTACT = "update contacts set  name = ? ,surname = ?, patronymic = ?, dateOfBirth = ?," +
+            " gender = ?, citizenShip = ?, " +
+            "maritalStatus = ?, webSite = ?, email = ?, placeOfWork = ?,country = ?, city = ?, street = ?, " +
             "house = ?, apartment = ?, postcode = ? where id = ?";
 
-    static final String UPDATE_LIST_PHONES = "update listphones set codeOfCountry = ?, codeOperation = ?, phoneNumber = ?, typePhone = ?, comment = ? where contact_id = ?";
+    static final String UPDATE_LIST_PHONES = "update listphones set codeOfCountry = ?, codeOperation = ?, phoneNumber = ?," +
+            " typePhone = ?, comment = ? where contact_id = ?";
 
-    static final String UPDATE_ATTACHMENTS = "update attachments set fileName = ?, comment = ? where contact_id = ?";
+    static final String UPDATE_ATTACHMENTS = "update attachments set fileName = ?, data = ?, comment = ? where contact_id = ?";
 
     static final String DELETE = "delete from contacts where id = ?";
 
@@ -63,13 +68,12 @@ public class ContactsDaoImpl implements ContactsDao {
             pst.setString(8, contactEntity.getWebSite());
             pst.setString(9, contactEntity.getEmail());
             pst.setString(10, contactEntity.getPlaceOfWork());
-            pst.setString(11, contactEntity.getPhotoAddress());
-            pst.setString(12, contactEntity.getCountry());
-            pst.setString(13, contactEntity.getCity());
-            pst.setString(14, contactEntity.getStreet());
-            pst.setInt(15, contactEntity.getHouse());
-            pst.setInt(16, contactEntity.getApartment());
-            pst.setString(17, contactEntity.getPostcode());
+            pst.setString(11, contactEntity.getCountry());
+            pst.setString(12, contactEntity.getCity());
+            pst.setString(13, contactEntity.getStreet());
+            pst.setInt(14, contactEntity.getHouse());
+            pst.setInt(15, contactEntity.getApartment());
+            pst.setString(16, contactEntity.getPostcode());
             pst.executeUpdate();
 
             try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
@@ -95,8 +99,9 @@ public class ContactsDaoImpl implements ContactsDao {
             try (PreparedStatement pst2 = con.prepareStatement(CREATE_ATTACHMENTS)) {
 
                 pst2.setString(1, contactEntity.getAttachments().getFileName());
-                pst2.setString(2, contactEntity.getAttachments().getComment());
-                pst2.setInt(3, returnIdContact);
+                pst2.setString(2, contactEntity.getAttachments().getData());
+                pst2.setString(3, contactEntity.getAttachments().getComment());
+                pst2.setInt(4, returnIdContact);
                 pst2.executeUpdate();
 
             }
@@ -115,7 +120,7 @@ public class ContactsDaoImpl implements ContactsDao {
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement pst = con.prepareStatement(UPDATE_CONTACT)) {
 
-            pst.setInt(18, contactEntity.getId());
+            pst.setInt(17, contactEntity.getId());
             pst.setString(1, contactEntity.getName());
             pst.setString(2, contactEntity.getSurname());
             pst.setString(3, contactEntity.getPatronymic());
@@ -126,13 +131,12 @@ public class ContactsDaoImpl implements ContactsDao {
             pst.setString(8, contactEntity.getWebSite());
             pst.setString(9, contactEntity.getEmail());
             pst.setString(10, contactEntity.getPlaceOfWork());
-            pst.setString(11, contactEntity.getPhotoAddress());
-            pst.setString(12, contactEntity.getCountry());
-            pst.setString(13, contactEntity.getCity());
-            pst.setString(14, contactEntity.getStreet());
-            pst.setInt(15, contactEntity.getHouse());
-            pst.setInt(16, contactEntity.getApartment());
-            pst.setString(17, contactEntity.getPostcode());
+            pst.setString(11, contactEntity.getCountry());
+            pst.setString(12, contactEntity.getCity());
+            pst.setString(13, contactEntity.getStreet());
+            pst.setInt(14, contactEntity.getHouse());
+            pst.setInt(15, contactEntity.getApartment());
+            pst.setString(16, contactEntity.getPostcode());
             pst.executeUpdate();
 
             try (PreparedStatement pst1 = con.prepareStatement(UPDATE_LIST_PHONES)) {
@@ -152,8 +156,9 @@ public class ContactsDaoImpl implements ContactsDao {
             try (PreparedStatement pst2 = con.prepareStatement(UPDATE_ATTACHMENTS)) {
 
                 pst2.setString(1, contactEntity.getAttachments().getFileName());
-                pst2.setString(2, contactEntity.getAttachments().getComment());
-                pst2.setInt(3, contactEntity.getId());
+                pst2.setString(2,contactEntity.getAttachments().getData());
+                pst2.setString(3, contactEntity.getAttachments().getComment());
+                pst2.setInt(4, contactEntity.getId());
                 pst2.executeUpdate();
 
             }
@@ -186,11 +191,15 @@ public class ContactsDaoImpl implements ContactsDao {
                         GenderEnum.valueOf(rs.getString("gender")),
                         rs.getString("citizenShip"),
                         MaritalStatusEnum.valueOf(rs.getString("maritalStatus")),
-                        rs.getString("webSite"), rs.getString("email"),
+                        rs.getString("webSite"),
+                        rs.getString("email"),
                         rs.getString("placeOfWork"),
-                        rs.getString("photoAddress"), rs.getString("country"),
-                        rs.getString("city"), rs.getString("street"),
-                        rs.getInt("house"), rs.getInt("apartment"),
+                        rs.getString("photoAddress"),
+                        rs.getString("country"),
+                        rs.getString("city"),
+                        rs.getString("street"),
+                        rs.getInt("house"),
+                        rs.getInt("apartment"),
                         rs.getString("postcode"));
                 list.add(contactDto);
             }
@@ -274,19 +283,4 @@ public class ContactsDaoImpl implements ContactsDao {
 
     }
 
-    @Override
-    public void addPhotoAddress(ContactPhotoAddress contactPhotoAddressEntity) {
-
-        initDriver();
-
-        try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement pst = con.prepareStatement("insert into contacts ( photoAddress) values (" +
-                     "'" + Arrays.toString(contactPhotoAddressEntity.getPhotoAddress()) + "'," + ")")) {
-
-            pst.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

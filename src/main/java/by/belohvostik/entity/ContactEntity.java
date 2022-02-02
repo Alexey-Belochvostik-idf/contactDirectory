@@ -3,6 +3,7 @@ package by.belohvostik.entity;
 import by.belohvostik.dto.contactsdto.ContactsDto;
 
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class ContactEntity {
@@ -18,7 +19,6 @@ public class ContactEntity {
     private String webSite;
     private String email;
     private String placeOfWork;
-    private String photoAddress;
     private String country;
     private String city;
     private String street;
@@ -40,7 +40,6 @@ public class ContactEntity {
         webSite = contactsDto.getWebSite();
         email = contactsDto.getEmail();
         placeOfWork = contactsDto.getPlaceOfWork();
-        photoAddress = contactsDto.getPhotoAddress();
         country = contactsDto.getCountry();
         city = contactsDto.getCity();
         street = contactsDto.getStreet();
@@ -64,7 +63,6 @@ public class ContactEntity {
         webSite = contactsDto.getWebSite();
         email = contactsDto.getEmail();
         placeOfWork = contactsDto.getPlaceOfWork();
-        photoAddress = contactsDto.getPhotoAddress();
         country = contactsDto.getCountry();
         city = contactsDto.getCity();
         street = contactsDto.getStreet();
@@ -128,10 +126,6 @@ public class ContactEntity {
         return placeOfWork;
     }
 
-    public String getPhotoAddress() {
-        return photoAddress;
-    }
-
     public String getCountry() {
         return country;
     }
@@ -169,12 +163,21 @@ public class ContactEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactEntity that = (ContactEntity) o;
-        return id == that.id && house == that.house && apartment == that.apartment && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(patronymic, that.patronymic) && Objects.equals(dateOfBirth, that.dateOfBirth) && gender == that.gender && Objects.equals(citizenShip, that.citizenShip) && maritalStatus == that.maritalStatus && Objects.equals(webSite, that.webSite) && Objects.equals(email, that.email) && Objects.equals(placeOfWork, that.placeOfWork) && Objects.equals(photoAddress, that.photoAddress) && Objects.equals(country, that.country) && Objects.equals(city, that.city) && Objects.equals(street, that.street) && Objects.equals(postcode, that.postcode) && Objects.equals(listPhones, that.listPhones) && Objects.equals(attachments, that.attachments);
+        return id == that.id && house == that.house && apartment == that.apartment && Objects.equals(name, that.name) &&
+                Objects.equals(surname, that.surname) && Objects.equals(patronymic, that.patronymic) &&
+                Objects.equals(dateOfBirth, that.dateOfBirth) && gender == that.gender &&
+                Objects.equals(citizenShip, that.citizenShip) && maritalStatus == that.maritalStatus &&
+                Objects.equals(webSite, that.webSite) && Objects.equals(email, that.email) &&
+                Objects.equals(placeOfWork, that.placeOfWork) &&
+                Objects.equals(country, that.country) && Objects.equals(city, that.city) &&
+                Objects.equals(street, that.street) && Objects.equals(postcode, that.postcode) &&
+                Arrays.equals(listPhones, that.listPhones) && Objects.equals(attachments, that.attachments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, patronymic, dateOfBirth, gender, citizenShip, maritalStatus, webSite, email, placeOfWork, photoAddress, country, city, street, house, apartment, postcode, listPhones, attachments);
+        return Objects.hash(id, name, surname, patronymic, dateOfBirth, gender, citizenShip, maritalStatus, webSite,
+                email, placeOfWork, country, city, street, house, apartment, postcode, Arrays.hashCode(listPhones), attachments);
     }
 
     @Override
@@ -191,7 +194,6 @@ public class ContactEntity {
                 ", webSite='" + webSite + '\'' +
                 ", email='" + email + '\'' +
                 ", placeOfWork='" + placeOfWork + '\'' +
-                ", photoAddress='" + photoAddress + '\'' +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
