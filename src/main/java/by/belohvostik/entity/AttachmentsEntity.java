@@ -27,6 +27,11 @@ public class AttachmentsEntity {
         return data;
     }
 
+    public ContactEntity setData(String data) {
+        this.data = data;
+        return null;
+    }
+
     public String getComment() {
         return comment;
     }

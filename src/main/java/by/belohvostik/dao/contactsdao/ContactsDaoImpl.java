@@ -26,7 +26,8 @@ public class ContactsDaoImpl implements ContactsDao {
     static final String CREATE_LIST_PHONES = "insert into listphones (codeOfCountry, codeOperation, phoneNumber, " +
             "typePhone, comment, contact_id) values ( ?,?,?,?,?,?)";
 
-    static final String CREATE_ATTACHMENTS = "insert into attachments (fileName, data, comment, contact_id) values (?,?,?,?)";
+    static final String CREATE_ATTACHMENTS = "insert into attachments (fileName, data, comment, contact_id)" +
+            " values (?,?,?,?)";
 
     static final String UPDATE_CONTACT = "update contacts set  name = ? ,surname = ?, patronymic = ?, dateOfBirth = ?," +
             " gender = ?, citizenShip = ?, " +
@@ -36,7 +37,8 @@ public class ContactsDaoImpl implements ContactsDao {
     static final String UPDATE_LIST_PHONES = "update listphones set codeOfCountry = ?, codeOperation = ?, phoneNumber = ?," +
             " typePhone = ?, comment = ? where contact_id = ?";
 
-    static final String UPDATE_ATTACHMENTS = "update attachments set fileName = ?, data = ?, comment = ? where contact_id = ?";
+    static final String UPDATE_ATTACHMENTS = "update attachments set fileName = ?, data = ?, comment = ? " +
+            "where contact_id = ?";
 
     static final String DELETE = "delete from contacts where id = ?";
 
