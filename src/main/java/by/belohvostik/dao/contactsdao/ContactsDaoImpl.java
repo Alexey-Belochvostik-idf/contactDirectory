@@ -86,7 +86,7 @@ public class ContactsDaoImpl implements ContactsDao {
 
             try (PreparedStatement pst1 = con.prepareStatement(CREATE_LIST_PHONES)) {
 
-                for (ListPhonesEntity listPhones:contactEntity.getListPhones()) {
+                for (ListPhonesEntity listPhones : contactEntity.getListPhones()) {
 
                     pst1.setInt(1, listPhones.getCodeOfCountry());
                     pst1.setInt(2, listPhones.getCodeOperation());
@@ -143,7 +143,7 @@ public class ContactsDaoImpl implements ContactsDao {
 
             try (PreparedStatement pst1 = con.prepareStatement(UPDATE_LIST_PHONES)) {
 
-                for (ListPhonesEntity listPhones:contactEntity.getListPhones()) {
+                for (ListPhonesEntity listPhones : contactEntity.getListPhones()) {
 
                     pst1.setInt(1, listPhones.getCodeOfCountry());
                     pst1.setInt(2, listPhones.getCodeOperation());
@@ -158,7 +158,7 @@ public class ContactsDaoImpl implements ContactsDao {
             try (PreparedStatement pst2 = con.prepareStatement(UPDATE_ATTACHMENTS)) {
 
                 pst2.setString(1, contactEntity.getAttachments().getFileName());
-                pst2.setString(2,contactEntity.getAttachments().getData());
+                pst2.setString(2, contactEntity.getAttachments().getData());
                 pst2.setString(3, contactEntity.getAttachments().getComment());
                 pst2.setInt(4, contactEntity.getId());
                 pst2.executeUpdate();
@@ -186,7 +186,8 @@ public class ContactsDaoImpl implements ContactsDao {
 
             while (rs.next()) {
 
-                ContactsReadIdDto contactDto = new ContactsReadIdDto(rs.getString("name"),
+                ContactsReadIdDto contactDto = new ContactsReadIdDto(
+                        rs.getString("name"),
                         rs.getString("surname"),
                         rs.getString("patronymic"),
                         String.valueOf(rs.getDate("dateOfBirth")),
